@@ -1,0 +1,724 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Family Farmhouse: a family boutique hotel vision for an existing private farm estate in Al Hudaiba, Ras Al Khaimah.">
+  <meta name="theme-color" content="#f6f8f6">
+  <title>Family Farmhouse | A Namou Properties Vision</title>
+  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.25/dist/lenis.css">
+  <style>
+    @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-300.woff2") format("woff2"); font-style: normal; font-weight: 300; font-display: swap; }
+    @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-400.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-500.woff2") format("woff2"); font-style: normal; font-weight: 500; font-display: swap; }
+    @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-700.woff2") format("woff2"); font-style: normal; font-weight: 700; font-display: swap; }
+
+    :root {
+      --forest: oklch(0.34 0.065 158);
+      --forest-deep: oklch(0.24 0.045 158);
+      --palm: oklch(0.50 0.11 158);
+      --sage: oklch(0.86 0.025 155);
+      --sand: oklch(0.92 0.012 155);
+      --sand-light: oklch(0.965 0.008 155);
+      --dusk: oklch(0.50 0.025 240);
+      --paper: oklch(0.985 0.004 155);
+      --ink: oklch(0.205 0.018 155);
+      --muted: oklch(0.38 0.018 155);
+      --line: oklch(0.69 0.015 155 / 0.35);
+      --white: oklch(0.995 0.001 155);
+      --glass-dark: oklch(0.20 0.035 158 / 0.78);
+      --glass-light: oklch(0.985 0.004 155 / 0.78);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --shell: min(1280px, calc(100vw - 64px));
+      --radius: 24px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html { background: var(--paper); }
+    body { margin: 0; overflow-x: hidden; color: var(--ink); background: var(--paper); font-family: "Satoshi", "Segoe UI", sans-serif; font-weight: 400; line-height: 1.55; }
+    body.is-locked { overflow: hidden; }
+    body::before { content: ""; position: fixed; inset: 0; z-index: 80; pointer-events: none; opacity: 0.12; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E"); }
+    img, video { display: block; width: 100%; }
+    img { height: 100%; object-fit: cover; }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: inherit; }
+    h1, h2, h3, p, figure { margin: 0; }
+    button:focus-visible, a:focus-visible { outline: 3px solid var(--palm); outline-offset: 4px; }
+    .shell { width: var(--shell); margin-inline: auto; }
+    .section { padding: clamp(96px, 12vw, 176px) 0; }
+    .section--compact { padding: clamp(72px, 8vw, 112px) 0; }
+    .skip-link { position: fixed; left: 18px; top: -80px; z-index: 120; padding: 12px 18px; border-radius: 999px; color: var(--white); background: var(--forest-deep); text-decoration: none; }
+    .skip-link:focus { top: 18px; }
+
+    .eyebrow { color: var(--forest); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+    .title { max-width: 1050px; margin-top: 18px; font-size: clamp(3rem, 7vw, 7.2rem); font-weight: 500; letter-spacing: -0.065em; line-height: 0.92; text-wrap: balance; }
+    .title--medium { font-size: clamp(2.7rem, 5.5vw, 5.8rem); }
+    .title em { color: var(--forest); font-style: normal; font-weight: 300; }
+    .lede { max-width: 650px; margin-top: 24px; color: var(--muted); font-size: clamp(1rem, 1.4vw, 1.2rem); line-height: 1.7; }
+    .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 10px; padding: 0 21px; border: 1px solid transparent; border-radius: 999px; font-size: 0.9rem; font-weight: 700; text-decoration: none; white-space: nowrap; transition: transform 0.3s var(--ease), background 0.3s var(--ease); }
+    .button:hover { transform: translateY(-2px); }
+    .button:active { transform: translateY(1px); }
+    .button--primary { color: var(--white); background: var(--forest); }
+    .button--primary:hover { background: var(--forest-deep); }
+
+    .nav { position: fixed; z-index: 60; inset: 18px 0 auto; pointer-events: none; }
+    .nav__inner { width: min(1080px, calc(100vw - 30px)); min-height: 62px; margin-inline: auto; padding: 9px 10px 9px 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid oklch(1 0 0 / 0.24); border-radius: 999px; color: var(--white); background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.18), 0 18px 48px oklch(0.18 0.03 158 / 0.18); backdrop-filter: blur(18px) saturate(135%); pointer-events: auto; }
+    .nav__brand img { width: auto; height: 25px; filter: brightness(0) invert(1); }
+    .nav__links { display: flex; align-items: center; gap: 26px; }
+    .nav__links a { color: oklch(0.96 0.01 155); font-size: 0.82rem; text-decoration: none; }
+    .nav__links a:hover { color: var(--white); }
+    .nav__cta { padding: 10px 16px; border-radius: 999px; color: var(--forest-deep) !important; background: var(--white); font-weight: 700; }
+
+    .hero { min-height: 100dvh; padding: 104px 24px 28px; display: grid; align-items: stretch; background: linear-gradient(135deg, var(--paper), var(--sand-light)); }
+    .hero__grid { width: min(1500px, 100%); margin-inline: auto; display: grid; grid-template-columns: minmax(360px, 0.82fr) minmax(520px, 1.18fr); gap: clamp(32px, 5vw, 76px); align-items: center; }
+    .hero__copy { min-width: 0; padding-left: max(0px, calc((100vw - 1500px) / 2)); }
+    .hero h1 { max-width: 720px; margin-top: 22px; font-size: clamp(4rem, 7.4vw, 8rem); font-weight: 500; letter-spacing: -0.075em; line-height: 0.86; text-wrap: balance; }
+    .hero h1 .hero-line { display: block; color: inherit; font-weight: inherit; }
+    .hero h1 .hero-line--accent { color: var(--forest); font-weight: 300; }
+    .hero__sub { max-width: 540px; margin-top: 28px; color: var(--muted); font-size: clamp(1rem, 1.35vw, 1.16rem); }
+    .hero__actions { margin-top: 30px; }
+    .hero__media { position: relative; min-height: calc(100dvh - 132px); overflow: hidden; border-radius: var(--radius); background: var(--forest-deep); box-shadow: 0 32px 90px oklch(0.26 0.035 158 / 0.19); }
+    .hero__media video, .hero__media > img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center; }
+    .hero__media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, oklch(0.16 0.03 158 / 0.62)); pointer-events: none; }
+    .media-caption { position: absolute; z-index: 3; left: 18px; right: 18px; bottom: 18px; width: fit-content; max-width: calc(100% - 36px); padding: 10px 14px; border: 1px solid oklch(1 0 0 / 0.24); border-radius: 14px; color: var(--white); background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.16); backdrop-filter: blur(14px) saturate(130%); font-size: 0.78rem; }
+    .media-caption strong { font-weight: 700; }
+
+    .facts { border-block: 1px solid var(--line); background: var(--sand-light); }
+    .facts__grid { width: var(--shell); margin-inline: auto; display: grid; grid-template-columns: repeat(4, 1fr); }
+    .fact { min-height: 112px; padding: 24px 28px; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
+    .fact:last-child { border-right: 1px solid var(--line); }
+    .fact:nth-child(1) { background: oklch(0.9 0.065 230); }
+    .fact:nth-child(2) { background: oklch(0.9 0.06 305); }
+    .fact:nth-child(3) { background: oklch(0.92 0.085 90); }
+    .fact:nth-child(4) { background: oklch(0.9 0.06 25); }
+    .fact strong { color: var(--forest); font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 500; letter-spacing: -0.035em; }
+    .fact span { margin-top: 5px; color: var(--muted); font-size: 0.78rem; }
+
+    .opening { background: var(--paper); }
+    .opening__statement { max-width: 1080px; font-size: clamp(2.8rem, 6vw, 6.6rem); font-weight: 300; letter-spacing: -0.06em; line-height: 0.98; }
+    .opening__statement strong { color: var(--forest); font-weight: 500; }
+    .opening__media { margin-top: clamp(54px, 8vw, 100px); display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 14px; }
+    .opening__photo { position: relative; min-height: 650px; overflow: hidden; border-radius: var(--radius); }
+    .opening__photo--small { min-height: 470px; align-self: end; }
+    .current-label { position: absolute; z-index: 4; left: 14px; top: 14px; padding: 8px 11px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .zoomable { position: absolute; inset: 0; width: 100%; padding: 0; overflow: hidden; border: 0; background: none; cursor: zoom-in; }
+    .zoomable img { transition: transform 0.8s var(--ease); }
+    .zoomable:hover img { transform: scale(1.025); }
+
+    .vision { background: var(--sand-light); }
+    .vision__head { max-width: 880px; }
+    .vision__list { margin-top: 72px; border-top: 1px solid var(--line); }
+    .vision__row { padding: 34px 0; display: grid; grid-template-columns: 0.68fr 1fr; gap: 36px; align-items: start; border-bottom: 1px solid var(--line); }
+    .vision__row h3 { color: var(--forest); font-size: clamp(1.8rem, 3vw, 3.3rem); font-weight: 500; letter-spacing: -0.045em; }
+    .vision__row p { max-width: 580px; color: var(--muted); font-size: clamp(1rem, 1.3vw, 1.13rem); }
+
+    .gallery-section { background: var(--paper); }
+    .gallery-section--mineral { background: var(--sand-light); }
+    .horizontal-scroll { position: relative; overflow: hidden; }
+    .gallery-head { display: flex; align-items: end; justify-content: space-between; gap: 28px; }
+    .gallery-head__copy { max-width: 880px; }
+    .gallery-controls { display: flex; align-items: center; gap: 8px; }
+    .gallery-count { min-width: 64px; color: var(--muted); font-size: 0.82rem; text-align: center; }
+    .gallery-control { width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 999px; color: var(--forest); background: var(--glass-light); cursor: pointer; backdrop-filter: blur(12px); transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
+    .gallery-control:hover { color: var(--white); background: var(--forest); }
+    .gallery-control:active { transform: scale(0.96); }
+    .gallery-track { width: min(1500px, calc(100vw - 24px)); margin: 58px auto 0; padding: 0 max(12px, calc((100vw - 1280px) / 2)); display: grid; grid-auto-flow: column; grid-auto-columns: minmax(420px, 58vw); gap: 14px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-x pan-y; }
+    .gallery-track::-webkit-scrollbar { display: none; }
+    .gallery-slide { position: relative; min-height: min(720px, 72dvh); overflow: hidden; border-radius: var(--radius); scroll-snap-align: center; background: var(--sage); }
+    .gallery-slide:nth-child(3n + 2) { grid-auto-columns: minmax(360px, 46vw); }
+    .gallery-slide figcaption { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 9px 12px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.78rem; }
+
+    .rooftop { position: relative; min-height: 88dvh; overflow: hidden; display: grid; align-items: end; color: var(--white); background: var(--forest-deep); }
+    .rooftop::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.18 0.03 158 / 0.05), oklch(0.16 0.03 158 / 0.76)); pointer-events: none; }
+    .rooftop__copy { position: relative; z-index: 3; padding-bottom: clamp(58px, 9vw, 118px); }
+    .rooftop h2 { max-width: 900px; font-size: clamp(3.4rem, 7vw, 7.5rem); font-weight: 400; letter-spacing: -0.065em; line-height: 0.9; }
+    .rooftop h2 span { font-weight: 300; }
+    .rooftop p { max-width: 520px; margin-top: 20px; color: oklch(0.94 0.01 155); }
+
+    .cabins-bridge { padding: 76px 0; background: var(--paper); }
+    .cabins-bridge__inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; }
+    .cabins-bridge h2 { font-size: clamp(2.3rem, 4.5vw, 4.8rem); font-weight: 400; letter-spacing: -0.055em; line-height: 0.95; }
+    .cabins-bridge p { max-width: 520px; color: var(--muted); }
+
+    .kids { background: var(--sand-light); }
+    .kids__hero { margin-top: 58px; display: grid; grid-template-columns: 1.32fr 0.68fr; gap: 14px; }
+    .kids__video { position: relative; min-height: 680px; overflow: hidden; border-radius: var(--radius); background: var(--forest-deep); }
+    .kids__video video, .kids__video > img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+    .kids__pillars { display: grid; gap: 12px; }
+    .kids__pillar { min-height: 0; padding: clamp(26px, 4vw, 44px); display: flex; flex-direction: column; justify-content: space-between; border-radius: var(--radius); border: 1px solid oklch(0.24 0.045 158 / 0.14); }
+    .kids__pillar:nth-child(1) { background: oklch(0.91 0.085 88); }
+    .kids__pillar:nth-child(2) { background: oklch(0.84 0.09 154); }
+    .kids__pillar:nth-child(3) { background: oklch(0.86 0.075 225); }
+    .kids__pillar-number { color: oklch(0.28 0.055 158 / 0.45); font-size: clamp(2.6rem, 5vw, 5.2rem); font-weight: 300; letter-spacing: -0.07em; line-height: 0.8; }
+    .kids__pillar h3 { color: var(--forest); font-size: clamp(1.65rem, 2.8vw, 2.8rem); font-weight: 500; letter-spacing: -0.04em; }
+    .kids__pillar p { margin-top: 10px; color: var(--muted); }
+
+    .programme { background: var(--paper); }
+    .programme-grid { margin-top: 66px; display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .programme-card { min-height: 300px; padding: clamp(26px, 4vw, 44px); display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 1px solid oklch(0.24 0.045 158 / 0.14); border-radius: var(--radius); background: var(--sand-light); }
+    .programme-card__number { color: oklch(0.28 0.055 158 / 0.42); font-size: clamp(3.2rem, 6vw, 6.4rem); font-weight: 300; letter-spacing: -0.08em; line-height: 0.8; }
+    .programme-card h3 { max-width: 520px; color: var(--forest); font-size: clamp(1.7rem, 3.1vw, 3.5rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.98; }
+    .programme-card p { max-width: 420px; margin-top: 14px; color: var(--muted); }
+    .programme-card--farmer { grid-column: span 7; min-height: 540px; position: relative; justify-content: end; color: var(--white); border: 0; padding: 0; }
+    .programme-card--farmer::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 35%, oklch(0.15 0.03 158 / 0.76)); pointer-events: none; }
+    .programme-card--farmer .programme-card__copy { position: relative; z-index: 4; padding: 38px; }
+    .programme-card--farmer .programme-card__number { position: absolute; z-index: 5; top: 28px; right: 30px; color: oklch(1 0 0 / 0.68); }
+    .programme-card--farmer h3, .programme-card--farmer p { color: var(--white); }
+    .programme-card--farmer p { color: oklch(0.94 0.01 155); }
+    .programme-card--honey { grid-column: span 5; background: oklch(0.90 0.095 88); }
+    .programme-card--tree { grid-column: span 4; background: oklch(0.82 0.10 165); }
+    .programme-card--arts { grid-column: span 8; background: oklch(0.86 0.09 35); }
+    .programme-card--small { grid-column: span 4; min-height: 260px; }
+    .programme-card--gardening { background: oklch(0.87 0.09 125); }
+    .programme-card--animals { background: oklch(0.85 0.075 225); }
+    .programme-card--harvest { background: oklch(0.86 0.065 300); }
+
+    .day { background: var(--sand-light); }
+    .day-track { margin-top: 60px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(300px, 31vw); gap: 12px; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-inline: contain; scrollbar-width: none; touch-action: pan-x pan-y; }
+    .day-track::-webkit-scrollbar { display: none; }
+    .day-card { position: relative; min-height: 420px; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 0; border-radius: var(--radius); scroll-snap-align: start; color: var(--white); background-image: linear-gradient(180deg, oklch(0.14 0.025 158 / 0.18), oklch(0.12 0.025 158 / 0.82)), var(--day-image); background-position: var(--day-position, center); background-size: cover; box-shadow: inset 0 0 0 1px oklch(1 0 0 / 0.16); }
+    .day-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+    .day-card time { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+    .day-card__source { padding: 6px 8px; border: 1px solid oklch(1 0 0 / 0.25); border-radius: 9px; background: oklch(0.16 0.025 158 / 0.58); font-size: 0.62rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; backdrop-filter: blur(10px); }
+    .day-card h3 { font-size: clamp(2rem, 3.5vw, 3.7rem); font-weight: 500; letter-spacing: -0.05em; line-height: 0.96; }
+    .day-card p { margin-top: 12px; color: oklch(0.96 0.006 155); opacity: 0.94; }
+
+    .growth { background: var(--paper); }
+    .growth__grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
+    .plan { position: relative; min-height: 680px; overflow: hidden; border-radius: var(--radius); background: var(--sage); }
+    .plan .zoomable img { object-fit: contain; background: oklch(0.88 0.02 155); }
+    .plan-hotspot { position: absolute; z-index: 6; width: 34px; height: 34px; padding: 0; border: 1px solid oklch(1 0 0 / 0.5); border-radius: 999px; color: var(--white); background: var(--glass-dark); box-shadow: 0 8px 24px oklch(0.15 0.03 158 / 0.28), inset 0 1px 0 oklch(1 0 0 / 0.18); backdrop-filter: blur(12px); cursor: pointer; }
+    .plan-hotspot[aria-pressed="true"] { color: var(--forest-deep); background: var(--white); }
+    .plan-hotspot--mansion { left: 73%; top: 63%; }
+    .plan-hotspot--farm { left: 43%; top: 43%; }
+    .plan-hotspot--future { left: 82%; top: 43%; }
+    .plan-info { margin-top: 26px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass-light); backdrop-filter: blur(12px); }
+    .plan-info strong { color: var(--forest); font-size: 1.1rem; }
+    .plan-info p { margin-top: 6px; color: var(--muted); }
+
+    .why { background: var(--sand-light); }
+    .why__grid { margin-top: 62px; display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); }
+    .why__item { min-height: 240px; padding: 38px 0; border-bottom: 1px solid var(--line); }
+    .why__item:nth-child(odd) { padding-right: 48px; border-right: 1px solid var(--line); }
+    .why__item:nth-child(even) { padding-left: 48px; }
+    .why__item h3 { color: var(--forest); font-size: clamp(2rem, 3.3vw, 3.6rem); font-weight: 500; letter-spacing: -0.05em; }
+    .why__item p { max-width: 430px; margin-top: 12px; color: var(--muted); }
+
+    .invitation { min-height: 100dvh; padding: clamp(110px, 12vw, 170px) 24px 38px; display: flex; flex-direction: column; justify-content: space-between; color: var(--white); background: var(--forest-deep); text-align: center; }
+    .invitation__inner { width: min(1060px, 100%); margin-inline: auto; }
+    .invitation .eyebrow { margin-bottom: 24px; color: oklch(0.82 0.05 95); }
+    .invitation h2 { max-width: 920px; margin: 0 auto; font-size: clamp(4rem, 9vw, 9rem); font-weight: 400; letter-spacing: -0.075em; line-height: 0.86; text-wrap: balance; }
+    .invitation h2 span { font-weight: 300; }
+    .invitation p { max-width: 540px; margin: 26px auto 0; color: oklch(0.92 0.01 155); font-size: 1.08rem; }
+    .investment-paths { margin-top: 46px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; text-align: left; }
+    .investment-path { min-height: 190px; padding: clamp(26px, 3vw, 38px); border: 1px solid oklch(1 0 0 / 0.16); border-radius: var(--radius); background: oklch(1 0 0 / 0.07); backdrop-filter: blur(14px); }
+    .investment-path__number { color: oklch(0.82 0.05 95); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; }
+    .investment-path h3 { margin-top: 34px; font-size: clamp(2rem, 3.5vw, 3.6rem); font-weight: 400; letter-spacing: -0.05em; line-height: 0.95; }
+    .investment-path p { margin: 13px 0 0; color: oklch(0.84 0.012 155); font-size: 0.96rem; }
+    .invitation .button { margin-top: 32px; color: var(--forest-deep); background: var(--white); }
+    .footer { width: min(1220px, 100%); margin: 86px auto 0; padding-top: 28px; display: flex; align-items: end; justify-content: space-between; gap: 24px; border-top: 1px solid oklch(1 0 0 / 0.18); text-align: left; }
+    .footer img { width: auto; height: 32px; filter: brightness(0) invert(1); }
+    .footer__meta { color: oklch(0.82 0.01 155); font-size: 0.78rem; text-align: right; }
+    .footer__meta a { text-decoration: none; }
+
+    .lightbox { width: 100vw; max-width: none; height: 100dvh; max-height: none; margin: 0; padding: 0; border: 0; color: var(--white); background: oklch(0.12 0.02 158 / 0.96); }
+    .lightbox::backdrop { background: oklch(0.12 0.02 158 / 0.8); }
+    .lightbox__inner { height: 100%; padding: 76px 90px 82px; display: grid; place-items: center; }
+    .lightbox__stage { width: 100%; height: 100%; display: grid; place-items: center; touch-action: none; }
+    .lightbox__image { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; user-select: none; }
+    .lightbox__close, .lightbox__nav { position: fixed; z-index: 3; display: grid; place-items: center; border: 1px solid oklch(1 0 0 / 0.28); border-radius: 999px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(14px); cursor: pointer; }
+    .lightbox__close { right: 22px; top: 20px; width: 48px; height: 48px; }
+    .lightbox__nav { top: 50%; width: 52px; height: 52px; transform: translateY(-50%); }
+    .lightbox__prev { left: 22px; }
+    .lightbox__next { right: 22px; }
+    .lightbox__meta { position: fixed; left: 50%; bottom: 20px; width: min(760px, calc(100vw - 40px)); padding: 11px 15px; display: flex; justify-content: space-between; gap: 18px; border: 1px solid oklch(1 0 0 / 0.2); border-radius: 14px; background: var(--glass-dark); backdrop-filter: blur(14px); transform: translateX(-50%); font-size: 0.78rem; }
+    .lightbox__counter { white-space: nowrap; }
+
+    @media (max-width: 980px) {
+      :root { --shell: min(760px, calc(100vw - 34px)); }
+      .nav__links a:not(.nav__cta) { display: none; }
+      .hero { padding-inline: 16px; }
+      .hero__grid { grid-template-columns: 1fr; }
+      .hero__copy { padding: 38px 8px 8px; }
+      .hero h1 { max-width: 780px; }
+      .hero__media { min-height: 68dvh; }
+      .facts__grid { grid-template-columns: repeat(2, 1fr); }
+      .fact:nth-child(3) { border-top: 1px solid var(--line); }
+      .fact:nth-child(4) { border-top: 1px solid var(--line); }
+      .opening__media, .kids__hero, .growth__grid { grid-template-columns: 1fr; }
+      .opening__photo--small { min-height: 520px; }
+      .gallery-track { grid-auto-columns: minmax(360px, 78vw); }
+      .cabins-bridge__inner { grid-template-columns: 1fr; gap: 22px; }
+      .kids__video { min-height: 68dvh; }
+      .kids__pillars { grid-template-columns: repeat(3, 1fr); }
+      .kids__pillar { min-height: 260px; }
+      .programme-card--farmer, .programme-card--honey, .programme-card--tree, .programme-card--arts { grid-column: span 12; }
+      .programme-card--small { grid-column: span 4; }
+      .day-track { grid-auto-columns: minmax(280px, 72vw); }
+      .plan { min-height: 62dvh; }
+    }
+
+    @media (min-width: 981px) {
+      .horizontal-scroll { min-height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
+      .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; }
+      .horizontal-scroll .gallery-slide { min-height: min(590px, 58dvh); }
+      .horizontal-scroll .day-card { min-height: min(440px, 52dvh); }
+    }
+
+    @media (max-width: 640px) {
+      :root { --shell: calc(100vw - 24px); --radius: 18px; }
+      .section { padding-block: 88px; }
+      .nav { top: 9px; }
+      .nav__inner { width: calc(100vw - 16px); min-height: 54px; padding-left: 14px; }
+      .nav__brand img { height: 21px; }
+      .nav__inner { justify-content: center; }
+      .nav__cta { display: none; }
+      .hero { padding-top: 78px; }
+      .hero h1 { width: 100%; max-width: 100%; font-size: clamp(3rem, 13vw, 3.7rem); line-height: 0.92; text-wrap: auto; overflow-wrap: normal; }
+      .hero__sub { margin-top: 22px; }
+      .hero__media { min-height: 58dvh; }
+      .facts__grid { width: 100%; }
+      .fact { min-height: 105px; padding: 18px 14px; }
+      .title { font-size: clamp(2.8rem, 14vw, 4.7rem); }
+      .opening__photo { min-height: 65dvh; }
+      .opening__photo--small { min-height: 48dvh; }
+      .vision__row { grid-template-columns: 1fr; gap: 12px; }
+      .gallery-head { align-items: start; flex-direction: column; }
+      .gallery-track { margin-top: 40px; grid-auto-columns: 88vw; padding-inline: 12px; }
+      .gallery-slide { min-height: 58dvh; }
+      .rooftop { min-height: 78dvh; }
+      .kids__video { min-height: 60dvh; }
+      .kids__pillars { grid-template-columns: 1fr; }
+      .kids__pillar { min-height: 220px; }
+      .programme-card--small { grid-column: span 12; }
+      .programme-card--farmer { min-height: 62dvh; }
+      .day-track { grid-auto-columns: 86vw; }
+      .plan { min-height: 52dvh; }
+      .why__grid { grid-template-columns: 1fr; }
+      .why__item:nth-child(n) { min-height: 0; padding: 32px 0; border-right: 0; }
+      .investment-paths { grid-template-columns: 1fr; }
+      .footer { align-items: start; flex-direction: column; }
+      .footer__meta { text-align: left; }
+      .lightbox__inner { padding: 78px 12px 92px; }
+      .lightbox__nav { top: auto; bottom: 76px; }
+      .lightbox__prev { left: 16px; }
+      .lightbox__next { right: 16px; }
+      .lightbox__meta { bottom: 14px; }
+    }
+
+    @media (prefers-reduced-transparency: reduce) {
+      .nav__inner, .media-caption, .current-label, .gallery-control, .plan-info, .plan-hotspot, .lightbox__close, .lightbox__nav, .lightbox__meta { backdrop-filter: none; }
+      .nav__inner, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta { background: var(--forest-deep); }
+      .gallery-control, .plan-info { background: var(--paper); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#content">Skip to content</a>
+
+  <header class="nav" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a class="nav__brand" href="#top" aria-label="Back to top"><img src="assets/namou-logo.png" alt="Namou Properties"></a>
+      <nav class="nav__links" aria-label="Page sections">
+        <a href="#estate">The estate</a>
+        <a href="#little-palms">Little Palms</a>
+        <a href="#plan">Site plan</a>
+        <a class="nav__cta" href="#visit">Visit the farm</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="content">
+    <section class="hero" id="top">
+      <div class="hero__grid">
+        <div class="hero__copy">
+          <p class="eyebrow">Family Farmhouse / Al Hudaiba, RAK</p>
+          <h1><span class="hero-line">A family</span><span class="hero-line">boutique hotel</span><span class="hero-line hero-line--accent">built around childhood.</span></h1>
+          <p class="hero__sub">Children roam, learn and belong here, while parents stay close and genuinely unwind.</p>
+          <div class="hero__actions"><a class="button button--primary" href="#estate">Explore the estate <span aria-hidden="true">&#8595;</span></a></div>
+        </div>
+        <figure class="hero__media" data-reveal>
+          <video data-autoplay-video autoplay muted loop playsinline preload="auto" poster="assets/concepts/concept-family-arrival-expat-v2.png" aria-label="Concept video of an expatriate family arriving through the estate's palm garden">
+            <source src="assets/concepts/concept-family-arrival-expat-v2-kling-6s.mp4" type="video/mp4">
+          </video>
+          <figcaption class="media-caption"><strong>Concept atmosphere.</strong> Temporary visual grounded in the real estate.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="facts" aria-label="Estate facts">
+      <div class="facts__grid">
+        <div class="fact"><strong>335,000 sq ft</strong><span>Private farm estate</span></div>
+        <div class="fact"><strong>Around 200</strong><span>Mature date palms</span></div>
+        <div class="fact"><strong>10 bedrooms</strong><span>Existing mansion</span></div>
+        <div class="fact"><strong>Around one hour</strong><span>From Dubai</span></div>
+      </div>
+    </section>
+
+    <section class="section opening" id="estate">
+      <div class="shell">
+        <p class="opening__statement" data-reveal>UAE families should not have to choose between a basic farm stay and a formal resort. <strong>This estate creates the space between.</strong></p>
+        <div class="opening__media">
+          <figure class="opening__photo" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/hero-entry.jpg" data-lightbox-caption="The palm-lined entrance to the existing estate" data-lightbox-group="estate" aria-label="Open entrance photo">
+              <img src="assets/hero-entry.jpg" alt="Palm-lined entrance to the existing private farm estate" fetchpriority="high">
+            </button>
+            <span class="current-label">The estate today</span>
+          </figure>
+          <figure class="opening__photo opening__photo--small" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/green-field.jpg" data-lightbox-caption="Open land within the existing estate" data-lightbox-group="estate" aria-label="Open land photo">
+              <img src="assets/green-field.jpg" alt="Open green land among mature palms within the estate" loading="lazy">
+            </button>
+            <span class="current-label">The estate today</span>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section vision" id="vision">
+      <div class="shell">
+        <div class="vision__head">
+          <p class="eyebrow">A clear family-hospitality plan</p>
+          <h2 class="title title--medium" data-reveal>The estate becomes <em>three clear parts.</em></h2>
+        </div>
+        <div class="vision__list">
+          <article class="vision__row" data-reveal><h3>Mansion and Dome</h3><p>Family rooms, shared living spaces and the existing pool pavilion form the hotel heart.</p></article>
+          <article class="vision__row" data-reveal><h3>Farm and Little Palms</h3><p>Animals, growing, making and open-air play give children a world of their own.</p></article>
+          <article class="vision__row" data-reveal><h3>Quiet Cabins</h3><p>Future rooms sit lightly among the palms, close to family life but private when needed.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section horizontal-scroll" id="mansion">
+      <div class="shell gallery-head">
+        <div class="gallery-head__copy">
+          <p class="eyebrow">The mansion</p>
+          <h2 class="title title--medium" data-reveal>A home first. <em>A hotel second.</em></h2>
+          <p class="lede">The existing ten-bedroom house becomes the warm, communal base for rooms, breakfast and family living.</p>
+        </div>
+        <div class="gallery-controls" aria-label="Mansion gallery controls">
+          <button class="gallery-control" type="button" data-gallery-prev="mansion-gallery" aria-label="Previous mansion photo">&#8592;</button>
+          <span class="gallery-count" data-gallery-count="mansion-gallery">1 / 7</span>
+          <button class="gallery-control" type="button" data-gallery-next="mansion-gallery" aria-label="Next mansion photo">&#8594;</button>
+        </div>
+      </div>
+      <div class="gallery-track" id="mansion-gallery" tabindex="0" aria-label="Swipe through mansion photos">
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-main.jpg" data-lightbox-caption="The mansion among mature palms" data-lightbox-group="mansion" aria-label="Open mansion exterior photo"><img src="assets/mansion-main.jpg" alt="Existing mansion among mature palms" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Mansion exterior</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-detail.jpg" data-lightbox-caption="Arched entrance and garden frontage" data-lightbox-group="mansion" aria-label="Open mansion entrance photo"><img src="assets/mansion-detail.jpg" alt="Arched mansion entrance and garden frontage" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Garden entrance</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/verandah.jpg" data-lightbox-caption="The existing shaded verandah" data-lightbox-group="mansion" aria-label="Open verandah photo"><img src="assets/verandah.jpg" alt="Long shaded verandah at the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Shaded verandah</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/living-room.jpg" data-lightbox-caption="The main family living room" data-lightbox-group="mansion" aria-label="Open living room photo"><img src="assets/living-room.jpg" alt="Large main living room in the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Family living room</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-dining.jpg" data-lightbox-caption="Dining and gathering space" data-lightbox-group="mansion" aria-label="Open dining room photo"><img src="assets/mansion-dining.jpg" alt="Existing dining and gathering room" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Dining and gathering</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/bedroom.jpg" data-lightbox-caption="One of the existing bedrooms" data-lightbox-group="mansion" aria-label="Open bedroom photo"><img src="assets/bedroom.jpg" alt="Existing bedroom in the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Existing bedroom</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-kitchen.jpg" data-lightbox-caption="The existing family kitchen" data-lightbox-group="mansion" aria-label="Open kitchen photo"><img src="assets/mansion-kitchen.jpg" alt="Existing family kitchen in the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Family kitchen</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section gallery-section gallery-section--mineral horizontal-scroll" id="dome">
+      <div class="shell gallery-head">
+        <div class="gallery-head__copy">
+          <p class="eyebrow">Pool and Dome</p>
+          <h2 class="title title--medium" data-reveal>The estate's <em>natural signature.</em></h2>
+          <p class="lede">A photo-led view of the existing pool pavilion, high arches and shaded terrace.</p>
+        </div>
+        <div class="gallery-controls" aria-label="Pool and dome gallery controls">
+          <button class="gallery-control" type="button" data-gallery-prev="dome-gallery" aria-label="Previous pool and dome photo">&#8592;</button>
+          <span class="gallery-count" data-gallery-count="dome-gallery">1 / 4</span>
+          <button class="gallery-control" type="button" data-gallery-next="dome-gallery" aria-label="Next pool and dome photo">&#8594;</button>
+        </div>
+      </div>
+      <div class="gallery-track" id="dome-gallery" tabindex="0" aria-label="Swipe through pool and dome photos">
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/dome-pool.jpg" data-lightbox-caption="The pool below the Dome's high arches" data-lightbox-group="dome" aria-label="Open pool photo"><img src="assets/dome-pool.jpg" alt="Existing pool inside the tall domed pavilion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Pool under the arches</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/dome-courtyard.jpg" data-lightbox-caption="The double-height pool pavilion" data-lightbox-group="dome" aria-label="Open dome courtyard photo"><img src="assets/dome-courtyard.jpg" alt="Double-height pool pavilion with arched openings" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Double-height pavilion</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/dome-wide.jpg" data-lightbox-caption="A framed view into the existing Dome" data-lightbox-group="dome" aria-label="Open dome wide photo"><img src="assets/dome-wide.jpg" alt="Framed view into the existing pool pavilion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>View into the Dome</figcaption></figure>
+        <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/dome-terrace.jpg" data-lightbox-caption="The shaded terrace beside the Dome" data-lightbox-group="dome" aria-label="Open dome terrace photo"><img src="assets/dome-terrace.jpg" alt="Existing shaded arched terrace beside the Dome" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Shaded terrace</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="rooftop">
+      <button class="zoomable" type="button" data-lightbox-src="assets/rooftop-view.jpg" data-lightbox-caption="The estate at dusk from the rooftop" data-lightbox-group="rooftop" aria-label="Open rooftop view"><img src="assets/rooftop-view.jpg" alt="View across the palms from the existing rooftop" loading="lazy"></button>
+      <span class="current-label">The estate today</span>
+      <div class="shell rooftop__copy"><h2 data-reveal>Upstairs, the day <span>ends slowly.</span></h2><p>A rooftop for sunset, shared plates and the soft close of a full family day.</p></div>
+    </section>
+
+    <section class="cabins-bridge">
+      <div class="shell cabins-bridge__inner"><h2 data-reveal>Cabins sit lightly among the palms.</h2><p>They add privacy without taking over the story. From here, the proposal moves straight back to children.</p></div>
+    </section>
+
+    <section class="section kids" id="little-palms">
+      <div class="shell">
+        <p class="eyebrow">Little Palms</p>
+        <h2 class="title title--medium" data-reveal>A children's world <em>with dirt under its nails.</em></h2>
+        <p class="lede">A farm programme built around care, curiosity and the freedom to stay outdoors.</p>
+        <div class="kids__hero">
+          <figure class="kids__video" data-reveal>
+            <video data-autoplay-video autoplay muted loop playsinline preload="metadata" poster="assets/concepts/concept-egg-collecting-expat-v2.png" aria-label="Concept video of an expatriate family collecting eggs beside the estate pond">
+              <source src="assets/concepts/concept-egg-collecting-expat-v2-kling-6s.mp4" type="video/mp4">
+            </video>
+            <figcaption class="media-caption"><strong>Concept atmosphere.</strong> Temporary activity visual grounded in the real estate.</figcaption>
+          </figure>
+          <div class="kids__pillars">
+            <article class="kids__pillar" data-reveal><span class="kids__pillar-number">01</span><div><h3>Morning feeds</h3><p>Care for animals with the farm team.</p></div></article>
+            <article class="kids__pillar" data-reveal><span class="kids__pillar-number">02</span><div><h3>Follow the seasons</h3><p>Learn through soil, palms and harvests.</p></div></article>
+            <article class="kids__pillar" data-reveal><span class="kids__pillar-number">03</span><div><h3>Own the outdoors</h3><p>Climb, roam and make space for real play.</p></div></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section programme">
+      <div class="shell">
+        <h2 class="title title--medium" data-reveal>The farm sets <em>the programme.</em></h2>
+        <div class="programme-grid">
+          <article class="programme-card programme-card--farmer" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-cattle-care-expat-v2.png" data-lightbox-caption="Concept for A Day in a Farmer's Life" data-lightbox-group="concepts" aria-label="Open farmer activity concept"><img src="assets/concepts/concept-cattle-care-expat-v2.png" alt="Concept image of an expatriate family caring for cattle on the estate" loading="lazy"></button>
+            <span class="programme-card__number">01</span>
+            <div class="programme-card__copy"><h3>A Day in a Farmer's Life</h3><p>Join the real rhythm of feeding, checking and caring.</p></div>
+            <span class="current-label">Concept imagery</span>
+          </article>
+          <article class="programme-card programme-card--honey" data-reveal><span class="programme-card__number">02</span><div><h3>honey &amp; hives</h3><p>Discover pollination, patient observation and how honey begins.</p></div></article>
+          <article class="programme-card programme-card--tree" data-reveal><span class="programme-card__number">03</span><div><h3>tree climbing</h3><p>Supervised outdoor challenge among the palms.</p></div></article>
+          <article class="programme-card programme-card--arts" data-reveal><span class="programme-card__number">04</span><div><h3>arts &amp; crafts</h3><p>Make with leaves, clay, colour and materials gathered from the farm.</p></div></article>
+          <article class="programme-card programme-card--small programme-card--gardening" data-reveal><span class="programme-card__number">05</span><div><h3>gardening</h3><p>Plant, water and return to see what changed.</p></div></article>
+          <article class="programme-card programme-card--small programme-card--animals" data-reveal><span class="programme-card__number">06</span><div><h3>animal care</h3><p>Learn calm handling, feeding and daily responsibility.</p></div></article>
+          <article class="programme-card programme-card--small programme-card--harvest" data-reveal><span class="programme-card__number">07</span><div><h3>date harvest</h3><p>Follow the palms from fruit to table.</p></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section day horizontal-scroll" id="day">
+      <div class="shell gallery-head">
+        <div class="gallery-head__copy"><p class="eyebrow">A family's day</p><h2 class="title title--medium" data-reveal>Nothing rushed. <em>Plenty remembered.</em></h2></div>
+        <div class="gallery-controls" aria-label="Family day controls"><button class="gallery-control" type="button" data-gallery-prev="day-gallery" aria-label="Previous moment">&#8592;</button><span class="gallery-count" data-gallery-count="day-gallery">1 / 7</span><button class="gallery-control" type="button" data-gallery-next="day-gallery" aria-label="Next moment">&#8594;</button></div>
+      </div>
+      <div class="shell day-track" id="day-gallery" tabindex="0" aria-label="Swipe through a family's day">
+        <article class="day-card" style="--day-image: url('assets/verandah.jpg'); --day-position: center;"><div class="day-card__top"><time>7:30 am</time><span class="day-card__source">Current estate</span></div><div><h3>Barefoot breakfast</h3><p>Fresh fruit, warm bread and the first animal calls.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/concepts/concept-cattle-care-expat-v2.png'); --day-position: 58% center;"><div class="day-card__top"><time>9:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>Morning feeds</h3><p>Join the farm team and care for the animals.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/concepts/concept-garden-planting-expat-v2.png'); --day-position: 62% center;"><div class="day-card__top"><time>11:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>Little Palms</h3><p>Plant, make, climb and forget about screens.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/mansion-dining.jpg'); --day-position: center;"><div class="day-card__top"><time>1:00 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Long lunch</h3><p>Parents linger while children stay close and occupied.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/dome-pool.jpg'); --day-position: center;"><div class="day-card__top"><time>4:00 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Pool hour</h3><p>Cool down below the Dome's high arches.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/rooftop-view.jpg'); --day-position: center;"><div class="day-card__top"><time>6:15 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Rooftop dusk</h3><p>The whole estate turns gold before dinner.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/bedroom.jpg'); --day-position: center;"><div class="day-card__top"><time>8:30 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Story, then stillness</h3><p>Children sleep. The farm goes quiet.</p></div></article>
+      </div>
+    </section>
+
+    <section class="section growth" id="plan">
+      <div class="shell growth__grid">
+        <div>
+          <p class="eyebrow">Room to grow</p>
+          <h2 class="title title--medium" data-reveal>Keep the first chapter <em>intimate.</em></h2>
+          <p class="lede">The annotated plan shows the existing estate and the zones that can support future family experiences.</p>
+          <div class="plan-info" aria-live="polite"><strong id="plan-info-title">Mansion</strong><p id="plan-info-copy">The existing ten-bedroom house anchors rooms and family living.</p></div>
+        </div>
+        <figure class="plan" data-reveal>
+          <button class="zoomable" type="button" data-lightbox-src="IMG_3838.PNG" data-lightbox-caption="Concept site plan showing the estate zones" data-lightbox-group="site-plan" aria-label="Open concept site plan"><img src="IMG_3838.PNG" alt="Annotated concept site plan showing the mansion, animal areas, greenhouses, playground and palm zones" loading="lazy"></button>
+          <span class="current-label">Concept site plan</span>
+          <button class="plan-hotspot plan-hotspot--mansion" type="button" aria-label="Show mansion information" aria-pressed="true" data-plan-title="Mansion" data-plan-copy="The existing ten-bedroom house anchors rooms and family living.">1</button>
+          <button class="plan-hotspot plan-hotspot--farm" type="button" aria-label="Show farm and Little Palms information" aria-pressed="false" data-plan-title="Farm and Little Palms" data-plan-copy="Animals, greenhouses and the playground create the active children's heart.">2</button>
+          <button class="plan-hotspot plan-hotspot--future" type="button" aria-label="Show future growth information" aria-pressed="false" data-plan-title="Future growth" data-plan-copy="Palm areas and adjacent land leave room for a careful second chapter.">3</button>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section why">
+      <div class="shell">
+        <h2 class="title title--medium" data-reveal>The difficult part <em>already exists.</em></h2>
+        <div class="why__grid">
+          <article class="why__item" data-reveal><h3>A real place</h3><p>Built character, mature planting and a working farm from day one.</p></article>
+          <article class="why__item" data-reveal><h3>A clear gap</h3><p>A relaxed family stay between a simple rental and a formal resort.</p></article>
+          <article class="why__item" data-reveal><h3>A licensed base</h3><p>An existing hotel licence turns the idea into an actionable hospitality story.</p></article>
+          <article class="why__item" data-reveal><h3>A reason to return</h3><p>Animals, harvests and seasons make every family visit different.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="invitation" id="visit">
+      <div class="invitation__inner">
+        <p class="eyebrow">Two ways forward</p>
+        <h2>Invest. <span>Or invest and operate.</span></h2>
+        <p>Two routes into the same family-hospitality vision.</p>
+        <div class="investment-paths">
+          <article class="investment-path"><span class="investment-path__number">01</span><h3>Invest</h3><p>Help bring the concept to life as an investment partner.</p></article>
+          <article class="investment-path"><span class="investment-path__number">02</span><h3>Invest &amp; operate</h3><p>Take an active role in shaping and running the family farm hotel.</p></article>
+        </div>
+        <a class="button" href="https://wa.me/971569636360?text=Hi%20Namou%2C%20I%20would%20like%20to%20discuss%20the%20Family%20Farmhouse%20opportunity." target="_blank" rel="noopener noreferrer">Discuss the opportunity <span aria-hidden="true">&#8599;</span></a>
+      </div>
+      <footer class="footer"><img src="assets/namou-logo.png" alt="Namou Properties"><div class="footer__meta"><a href="mailto:reachus@namou.ae">reachus@namou.ae</a><br>Ras Al Khaimah, United Arab Emirates</div></footer>
+    </section>
+  </main>
+
+  <dialog class="lightbox" id="lightbox" aria-label="Image preview">
+    <button class="lightbox__close" type="button" aria-label="Close image preview">&#10005;</button>
+    <button class="lightbox__nav lightbox__prev" type="button" aria-label="Previous image">&#8592;</button>
+    <div class="lightbox__inner" data-lenis-prevent>
+      <div class="lightbox__stage"><img class="lightbox__image" src="" alt=""></div>
+    </div>
+    <button class="lightbox__nav lightbox__next" type="button" aria-label="Next image">&#8594;</button>
+    <div class="lightbox__meta"><span class="lightbox__caption"></span><span class="lightbox__counter"></span></div>
+  </dialog>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/lenis@1.3.25/dist/lenis.min.js"></script>
+  <script>
+    (() => {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let lenis = null;
+
+      if (!reduceMotion && window.Lenis && window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        lenis = new Lenis({ anchors: true, smoothWheel: true, lerp: 0.085, orientation: 'vertical', gestureOrientation: 'vertical' });
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        gsap.from('.hero__copy > *', { y: 30, opacity: 0, duration: 0.95, stagger: 0.09, ease: 'power3.out' });
+        gsap.from('.hero__media', { scale: 0.96, opacity: 0, duration: 1.2, ease: 'power3.out' });
+        document.querySelectorAll('[data-reveal]').forEach((element) => {
+          gsap.from(element, { y: 42, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 87%', once: true } });
+        });
+        gsap.utils.toArray('.rooftop > .zoomable img').forEach((image) => {
+          gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.rooftop', start: 'top bottom', end: 'bottom top', scrub: true } });
+        });
+
+        gsap.matchMedia().add('(min-width: 981px)', () => {
+          document.querySelectorAll('.horizontal-scroll').forEach((section) => {
+            const track = section.querySelector('.gallery-track, .day-track');
+            if (!track) return;
+
+            const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
+            track.scrollLeft = 0;
+
+            gsap.to(track, {
+              scrollLeft: () => distance(),
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => `+=${distance()}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+              }
+            });
+          });
+        });
+      }
+
+      const setupScroller = (id) => {
+        const track = document.getElementById(id);
+        if (!track) return;
+        const items = Array.from(track.children);
+        const count = document.querySelector(`[data-gallery-count="${id}"]`);
+        const move = (direction) => {
+          const current = nearestIndex();
+          const next = Math.max(0, Math.min(items.length - 1, current + direction));
+          items[next].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'nearest', inline: 'center' });
+        };
+        const nearestIndex = () => {
+          const center = track.scrollLeft + track.clientWidth / 2;
+          let result = 0;
+          let distance = Infinity;
+          items.forEach((item, index) => {
+            const itemCenter = item.offsetLeft + item.offsetWidth / 2;
+            const delta = Math.abs(itemCenter - center);
+            if (delta < distance) { distance = delta; result = index; }
+          });
+          return result;
+        };
+        const update = () => { if (count) count.textContent = `${nearestIndex() + 1} / ${items.length}`; };
+        document.querySelector(`[data-gallery-prev="${id}"]`)?.addEventListener('click', () => move(-1));
+        document.querySelector(`[data-gallery-next="${id}"]`)?.addEventListener('click', () => move(1));
+        let ticking = false;
+        track.addEventListener('scroll', () => { if (!ticking) requestAnimationFrame(() => { update(); ticking = false; }); ticking = true; }, { passive: true });
+        update();
+      };
+
+      ['mansion-gallery', 'dome-gallery', 'day-gallery'].forEach(setupScroller);
+
+      document.querySelectorAll('.plan-hotspot').forEach((hotspot) => {
+        hotspot.addEventListener('click', () => {
+          document.querySelectorAll('.plan-hotspot').forEach((item) => item.setAttribute('aria-pressed', String(item === hotspot)));
+          document.getElementById('plan-info-title').textContent = hotspot.dataset.planTitle;
+          document.getElementById('plan-info-copy').textContent = hotspot.dataset.planCopy;
+        });
+      });
+
+      const videos = document.querySelectorAll('[data-autoplay-video]');
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !reduceMotion) entry.target.play().catch(() => {});
+          else entry.target.pause();
+        });
+      }, { threshold: 0.32 });
+      videos.forEach((video) => videoObserver.observe(video));
+
+      const dialog = document.getElementById('lightbox');
+      const lightboxImage = dialog.querySelector('.lightbox__image');
+      const lightboxCaption = dialog.querySelector('.lightbox__caption');
+      const lightboxCounter = dialog.querySelector('.lightbox__counter');
+      const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+      let activeItems = [];
+      let activeIndex = 0;
+      let returnFocus = null;
+
+      const renderLightbox = () => {
+        const item = activeItems[activeIndex];
+        lightboxImage.src = item.dataset.lightboxSrc;
+        lightboxImage.alt = item.dataset.lightboxCaption || 'Expanded image';
+        lightboxCaption.textContent = item.dataset.lightboxCaption || '';
+        lightboxCounter.textContent = `${activeIndex + 1} / ${activeItems.length}`;
+        const hasMultiple = activeItems.length > 1;
+        dialog.querySelector('.lightbox__prev').hidden = !hasMultiple;
+        dialog.querySelector('.lightbox__next').hidden = !hasMultiple;
+      };
+      const openLightbox = (trigger) => {
+        const group = trigger.dataset.lightboxGroup;
+        activeItems = triggers.filter((item) => item.dataset.lightboxGroup === group);
+        activeIndex = activeItems.indexOf(trigger);
+        returnFocus = trigger;
+        renderLightbox();
+        dialog.showModal();
+        document.body.classList.add('is-locked');
+        lenis?.stop();
+        dialog.querySelector('.lightbox__close').focus();
+      };
+      const closeLightbox = () => {
+        if (dialog.open) dialog.close();
+        document.body.classList.remove('is-locked');
+        lenis?.start();
+        returnFocus?.focus();
+      };
+      const stepLightbox = (direction) => { activeIndex = (activeIndex + direction + activeItems.length) % activeItems.length; renderLightbox(); };
+
+      triggers.forEach((trigger) => trigger.addEventListener('click', () => openLightbox(trigger)));
+      dialog.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+      dialog.querySelector('.lightbox__prev').addEventListener('click', () => stepLightbox(-1));
+      dialog.querySelector('.lightbox__next').addEventListener('click', () => stepLightbox(1));
+      dialog.addEventListener('cancel', (event) => { event.preventDefault(); closeLightbox(); });
+      dialog.addEventListener('click', (event) => { if (event.target === dialog) closeLightbox(); });
+      document.addEventListener('keydown', (event) => {
+        if (!dialog.open) return;
+        if (event.key === 'ArrowLeft') stepLightbox(-1);
+        if (event.key === 'ArrowRight') stepLightbox(1);
+        if (event.key === 'Escape') closeLightbox();
+      });
+
+      let swipeStart = 0;
+      const stage = dialog.querySelector('.lightbox__stage');
+      stage.addEventListener('pointerdown', (event) => { swipeStart = event.clientX; stage.setPointerCapture(event.pointerId); });
+      stage.addEventListener('pointerup', (event) => {
+        const delta = event.clientX - swipeStart;
+        if (Math.abs(delta) > 55 && activeItems.length > 1) stepLightbox(delta > 0 ? -1 : 1);
+      });
+
+      window.addEventListener('load', () => { if (window.ScrollTrigger) ScrollTrigger.refresh(); }, { once: true });
+    })();
+  </script>
+</body>
+</html>
