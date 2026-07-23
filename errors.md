@@ -1,5 +1,11 @@
 # Errors and fixes
 
+## Lenis or GSAP motion is missing
+
+Do not depend on unpkg or jsDelivr at runtime for core presentation behavior. Keep pinned copies of Lenis, GSAP, ScrollTrigger, and required styles inside the proposal's `assets/vendor/` folder.
+
+For the Family Farm proposal, confirm the page adds the `lenis` class to `<html>`, GSAP applies inline animation styles, and vertical scrolling advances a pinned gallery's `scrollLeft`.
+
 ## Proposal returns 404
 
 Confirm the page exists at `proposals/<slug>/index.html` and that the Vercel project's root directory is exactly `proposals`.
