@@ -103,7 +103,8 @@
     .fact strong { color: var(--forest); font-size: clamp(1.25rem, 2vw, 1.8rem); font-weight: 500; letter-spacing: -0.035em; }
     .fact span { margin-top: 5px; color: var(--muted); font-size: 0.78rem; }
 
-    .opening { background: var(--paper); }
+    /* ponytail: tinted band = visible divider after the white location section; tighter padding kills the dead gap */
+    .opening { background: var(--sand-light); border-top: 1px solid var(--line); padding-block: clamp(80px, 9vw, 128px); }
     .opening__statement { max-width: 1080px; font-size: clamp(2.8rem, 6vw, 6.6rem); font-weight: 300; letter-spacing: -0.06em; line-height: 0.98; }
     .opening__statement strong { color: var(--forest); font-weight: 500; }
     .opening__media { margin-top: clamp(54px, 8vw, 100px); display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 14px; }
@@ -133,7 +134,8 @@
     .gallery-control { width: 48px; height: 48px; border: 1px solid var(--line); border-radius: 999px; color: var(--forest); background: var(--glass-light); cursor: pointer; backdrop-filter: blur(12px); transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
     .gallery-control:hover { color: var(--white); background: var(--forest); }
     .gallery-control:active { transform: scale(0.96); }
-    .gallery-track { width: min(1500px, calc(100vw - 24px)); margin: 58px auto 0; padding: 0 max(12px, calc((100vw - 1280px) / 2)); display: grid; grid-auto-flow: column; grid-auto-columns: minmax(420px, 58vw); gap: 14px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-x pan-y; }
+    /* ponytail: same shell-based scroller pattern as .day-track so both sections match */
+    .gallery-track { margin-top: 58px; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(420px, 58vw); gap: 12px; overflow-x: auto; overscroll-behavior-inline: contain; scroll-snap-type: x mandatory; scrollbar-width: none; touch-action: pan-x pan-y; }
     .gallery-track::-webkit-scrollbar { display: none; }
     .gallery-slide { position: relative; min-height: min(720px, 72dvh); overflow: hidden; border-radius: var(--radius); scroll-snap-align: center; background: var(--sage); }
     .gallery-slide figcaption { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 9px 12px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.78rem; }
@@ -207,7 +209,7 @@
     .why__item h3 { color: var(--forest); font-size: clamp(2rem, 3.3vw, 3.6rem); font-weight: 500; letter-spacing: -0.05em; }
     .why__item p { max-width: 430px; margin-top: 12px; color: var(--muted); }
 
-    .location { background: var(--paper); }
+    .location { background: var(--paper); padding-bottom: clamp(72px, 8vw, 120px); }
     .location__grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
     .location__map { position: relative; min-height: 620px; overflow: hidden; border-radius: var(--radius); background: var(--sage); box-shadow: 0 32px 90px oklch(0.26 0.035 158 / 0.12); }
     #map { position: absolute; inset: 0; z-index: 1; }
@@ -329,7 +331,7 @@
       .opening__photo--small { min-height: 48dvh; }
       .vision__row { grid-template-columns: 1fr; gap: 12px; }
       .gallery-head { align-items: start; flex-direction: column; }
-      .gallery-track { margin-top: 40px; grid-auto-columns: 88vw; padding-inline: 12px; }
+      .gallery-track { margin-top: 40px; grid-auto-columns: 88vw; }
       .gallery-slide { min-height: 58dvh; }
       .rooftop { min-height: 78dvh; }
       .kids__video { min-height: 60dvh; }
@@ -473,7 +475,7 @@
           <button class="gallery-control" type="button" data-gallery-next="mansion-gallery" aria-label="Next mansion photo">&#8594;</button>
         </div>
       </div>
-      <div class="gallery-track" id="mansion-gallery" tabindex="0" aria-label="Swipe through mansion photos">
+      <div class="shell gallery-track" id="mansion-gallery" tabindex="0" aria-label="Swipe through mansion photos">
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-main.jpg" data-lightbox-caption="The mansion among mature palms" data-lightbox-group="mansion" aria-label="Open mansion exterior photo"><img src="assets/mansion-main.jpg" alt="Existing mansion among mature palms" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Mansion exterior</figcaption></figure>
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-detail.jpg" data-lightbox-caption="Arched entrance and garden frontage" data-lightbox-group="mansion" aria-label="Open mansion entrance photo"><img src="assets/mansion-detail.jpg" alt="Arched mansion entrance and garden frontage" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Garden entrance</figcaption></figure>
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/verandah.jpg" data-lightbox-caption="The existing shaded verandah" data-lightbox-group="mansion" aria-label="Open verandah photo"><img src="assets/verandah.jpg" alt="Long shaded verandah at the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Shaded verandah</figcaption></figure>
