@@ -585,6 +585,7 @@
         gsap.utils.toArray('.rooftop > .zoomable img').forEach((image) => {
           gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.rooftop', start: 'top bottom', end: 'bottom top', scrub: true } });
         });
+        gsap.fromTo('.rooftop__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.rooftop', start: 'top bottom', end: 'bottom top', scrub: true } });
 
         gsap.matchMedia().add('(min-width: 981px)', () => {
           document.querySelectorAll('.horizontal-scroll').forEach((section) => {
