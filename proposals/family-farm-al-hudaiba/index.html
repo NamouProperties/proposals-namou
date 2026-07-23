@@ -812,17 +812,18 @@
         L.marker(wynn, { icon: pin('Wynn Al Marjan Island') }).addTo(map);
         L.marker(farm, { icon: pin('Family Farmhouse', true), zIndexOffset: 500 }).addTo(map);
         const routes = window.FARM_ROUTES || {};
-        const drawRoute = (route, colour, labelClass) => {
+        const drawRoute = (route, colour, labelClass, from, to) => {
           if (!route) return;
-          L.polyline(route.coords, { color: 'oklch(0.995 0 0)', weight: 7, opacity: 0.9 }).addTo(map);
-          const line = L.polyline(route.coords, { color: colour, weight: 4, opacity: 0.95 }).addTo(map);
-          const mid = route.coords[Math.floor(route.coords.length / 2)];
+          const path = [from, ...route.coords, to];
+          L.polyline(path, { color: 'oklch(0.995 0 0)', weight: 7, opacity: 0.9 }).addTo(map);
+          const line = L.polyline(path, { color: colour, weight: 4, opacity: 0.95 }).addTo(map);
+          const mid = path[Math.floor(path.length / 2)];
           L.tooltip({ permanent: true, direction: 'center', className: `route-label ${labelClass}` }).setLatLng(mid).setContent(route.label).addTo(map);
           return line;
         };
-        drawRoute(routes.airport, '#c0392b', 'route-label--airport');
-        drawRoute(routes.wynn, '#2457a8', 'route-label--wynn');
-        map.fitBounds(L.latLngBounds([farm, airport, wynn]), { padding: [56, 56] });
+        drawRoute(routes.airport, '#c0392b', 'route-label--airport', farm, airport);
+        drawRoute(routes.wynn, '#2457a8', 'route-label--wynn', farm, wynn);
+        map.fitBounds(L.latLngBounds([farm, airport, wynn]), { padding: [130, 70] });
       }
 
       document.querySelectorAll('.plan-hotspot').forEach((hotspot) => {
