@@ -1,5 +1,17 @@
 # Errors and fixes
 
+## curl fails with SSL error (exit 35) behind the proxy
+
+Both Git Bash curl and Windows curl.exe fail TLS to external upload hosts. Use PowerShell `Invoke-WebRequest` / `Invoke-RestMethod` or Python `urllib` instead - both trust the proxy certificate here.
+
+## Local python http.server drops image connections
+
+`python -m http.server` intermittently resets connections when a page loads many images at once (ERR_CONNECTION_RESET on random assets). Not a page bug - reload, or verify the specific file with a direct fetch before debugging the HTML.
+
+## Vercel MCP cannot access namou-workspace
+
+The claude.ai Vercel connector token is not scoped to the `namou-workspace` team (403). Verify deployments by polling the public URL for new content instead, or use the Vercel CLI with the token from `14_Proposals/.env-proposals.txt`.
+
 ## Lenis or GSAP motion is missing
 
 Do not depend on unpkg or jsDelivr at runtime for core presentation behavior. Keep pinned copies of Lenis, GSAP, ScrollTrigger, and required styles inside the proposal's `assets/vendor/` folder.
