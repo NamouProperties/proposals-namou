@@ -1,5 +1,13 @@
 # Errors and fixes
 
+## Invoke-WebRequest fails with 308 on Vercel URLs
+
+Windows PowerShell 5.1 does not follow Vercel's 308 redirects (trailing-slash normalization). Use Python `urllib` for deploy checks instead.
+
+## Hero type renders huge in a fallback font
+
+If Satoshi fails to load, keep the fix in place: preload links for weights 300/400/500 plus the `"Satoshi Fallback"` `size-adjust` @font-face. Do not remove them when refactoring the head.
+
 ## curl fails with SSL error (exit 35) behind the proxy
 
 Both Git Bash curl and Windows curl.exe fail TLS to external upload hosts. Use PowerShell `Invoke-WebRequest` / `Invoke-RestMethod` or Python `urllib` instead - both trust the proxy certificate here.

@@ -23,7 +23,7 @@ proposals/
 
 1. Create `proposals/<slug>/`.
 2. Add its `index.html` and local assets.
-3. Keep all asset paths relative to that folder.
+3. Keep all asset paths relative to that folder. Compress media before committing (videos to roughly 5 MB or less via ffmpeg; heavy originals go to `_tmp-renders/`), and give changed assets new filenames.
 4. Commit and push to `main`.
 5. Confirm the matching Vercel deployment is READY.
 6. Verify `https://proposal-namou.vercel.app/<slug>/`.
