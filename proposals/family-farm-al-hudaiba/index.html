@@ -109,6 +109,8 @@
     .opening__media { margin-top: clamp(54px, 8vw, 100px); display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 14px; }
     .opening__photo { position: relative; min-height: 650px; overflow: hidden; border-radius: var(--radius); }
     .opening__photo--small { min-height: 470px; align-self: end; }
+    .dome-stack { display: grid; grid-template-rows: 1fr 1fr; gap: 14px; }
+    .dome-stack .opening__photo { min-height: 0; }
     .current-label { position: absolute; z-index: 4; left: 14px; top: 14px; padding: 8px 11px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .zoomable { position: absolute; inset: 0; width: 100%; padding: 0; overflow: hidden; border: 0; background: none; cursor: zoom-in; }
     .zoomable img { transition: transform 0.8s var(--ease); }
@@ -193,16 +195,9 @@
 
     .growth { background: var(--paper); }
     .growth__grid { display: grid; grid-template-columns: 0.72fr 1.28fr; gap: clamp(36px, 6vw, 90px); align-items: center; }
-    .plan { position: relative; min-height: 680px; overflow: hidden; border-radius: var(--radius); background: var(--sage); }
-    .plan .zoomable img { object-fit: contain; background: oklch(0.88 0.02 155); }
-    .plan-hotspot { position: absolute; z-index: 6; width: 34px; height: 34px; padding: 0; border: 1px solid oklch(1 0 0 / 0.5); border-radius: 999px; color: var(--white); background: var(--glass-dark); box-shadow: 0 8px 24px oklch(0.15 0.03 158 / 0.28), inset 0 1px 0 oklch(1 0 0 / 0.18); backdrop-filter: blur(12px); cursor: pointer; }
-    .plan-hotspot[aria-pressed="true"] { color: var(--forest-deep); background: var(--white); }
-    .plan-hotspot--mansion { left: 73%; top: 63%; }
-    .plan-hotspot--farm { left: 43%; top: 43%; }
-    .plan-hotspot--future { left: 82%; top: 43%; }
-    .plan-info { margin-top: 26px; padding: 20px 22px; border: 1px solid var(--line); border-radius: 18px; background: var(--glass-light); backdrop-filter: blur(12px); }
-    .plan-info strong { color: var(--forest); font-size: 1.1rem; }
-    .plan-info p { margin-top: 6px; color: var(--muted); }
+    /* ponytail: box matches the 3:2 plan image exactly, so no empty space */
+    .plan { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius); background: var(--sage); }
+    .plan .zoomable img { width: 100%; object-fit: cover; }
 
     .why { background: var(--sand-light); }
     .why__grid { margin-top: 62px; display: grid; grid-template-columns: repeat(2, 1fr); border-top: 1px solid var(--line); }
@@ -302,7 +297,6 @@
       .programme-card--farmer, .programme-card--honey, .programme-card--tree, .programme-card--arts { grid-column: span 12; }
       .programme-card--small { grid-column: span 4; }
       .day-track { grid-auto-columns: minmax(280px, 72vw); }
-      .plan { min-height: 62dvh; }
       .location__grid, .clientele__grid { grid-template-columns: 1fr; }
       .location__map { min-height: 58dvh; }
     }
@@ -310,7 +304,9 @@
     @media (min-width: 981px) {
       .horizontal-scroll { min-height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
       .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; }
-      .horizontal-scroll .gallery-slide { min-height: min(590px, 58dvh); }
+      /* ponytail: slides keep the photos' native 16:9 so nothing crops; width capped so full height fits the pinned viewport */
+      .horizontal-scroll .gallery-track { grid-auto-columns: min(58vw, calc(58dvh * 1.7778)); }
+      .horizontal-scroll .gallery-slide { min-height: 0; aspect-ratio: 16 / 9; }
       .horizontal-scroll .day-card { min-height: min(440px, 52dvh); }
     }
 
@@ -342,7 +338,6 @@
       .programme-card--small { grid-column: span 12; }
       .programme-card--farmer { min-height: 62dvh; }
       .day-track { grid-auto-columns: 86vw; }
-      .plan { min-height: 52dvh; }
       .location__map { min-height: 52dvh; }
       .clientele__photo { min-height: 56dvh; }
       .programme-card--photo { min-height: 54dvh; }
@@ -360,9 +355,9 @@
     }
 
     @media (prefers-reduced-transparency: reduce) {
-      .nav__inner, .media-caption, .current-label, .gallery-control, .plan-info, .plan-hotspot, .lightbox__close, .lightbox__nav, .lightbox__meta { backdrop-filter: none; }
+      .nav__inner, .media-caption, .current-label, .gallery-control, .lightbox__close, .lightbox__nav, .lightbox__meta { backdrop-filter: none; }
       .nav__inner, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta { background: var(--forest-deep); }
-      .gallery-control, .plan-info { background: var(--paper); }
+      .gallery-control { background: var(--paper); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -379,7 +374,7 @@
       <nav class="nav__links" aria-label="Page sections">
         <a href="#location">Location</a>
         <a href="#estate">The estate</a>
-        <a href="#little-palms">Little Palms</a>
+        <a href="#little-palms">The Barn</a>
         <a href="#plan">Site plan</a>
         <a class="nav__cta" href="#visit">Visit the farm</a>
       </nav>
@@ -433,7 +428,7 @@
 
     <section class="section opening" id="estate">
       <div class="shell">
-        <p class="opening__statement" data-reveal>UAE families should not have to choose between a basic farm stay and a formal resort. <strong>This estate creates the space between.</strong></p>
+        <p class="opening__statement" data-reveal>UAE residents should not have to choose between a basic farm stay and a formal resort. <strong>This estate creates the space between.</strong></p>
         <div class="opening__media">
           <figure class="opening__photo" data-reveal>
             <button class="zoomable" type="button" data-lightbox-src="assets/hero-entry.jpg" data-lightbox-caption="The palm-lined entrance to the existing estate" data-lightbox-group="estate" aria-label="Open entrance photo">
@@ -459,7 +454,7 @@
         </div>
         <div class="vision__list">
           <article class="vision__row" data-reveal><h3>Mansion and Dome</h3><p>Family rooms and shared living spaces in the mansion, with the arched pavilion becoming the estate's dining heart.</p></article>
-          <article class="vision__row" data-reveal><h3>Farm and Little Palms</h3><p>Animals, growing, making and open-air play give children a world of their own.</p></article>
+          <article class="vision__row" data-reveal><h3>Farm and the Barn</h3><p>Animals, growing, making and open-air play give children a world of their own.</p></article>
           <article class="vision__row" data-reveal><h3>Quiet Cabins</h3><p>Future rooms sit lightly among the palms, close to family life but private when needed.</p></article>
         </div>
       </div>
@@ -501,12 +496,20 @@
             </button>
             <span class="current-label">Concept imagery</span>
           </figure>
-          <figure class="opening__photo opening__photo--small" data-reveal>
-            <button class="zoomable" type="button" data-lightbox-src="assets/dome-pool.jpg" data-lightbox-caption="The Dome pavilion as it stands today" data-lightbox-group="dome" aria-label="Open dome photo">
-              <img src="assets/dome-pool.jpg" alt="The existing tall domed pavilion" loading="lazy">
-            </button>
-            <span class="current-label">The estate today</span>
-          </figure>
+          <div class="dome-stack">
+            <figure class="opening__photo" data-reveal>
+              <button class="zoomable" type="button" data-lightbox-src="assets/dome-pool.jpg" data-lightbox-caption="The Dome pavilion as it stands today" data-lightbox-group="dome" aria-label="Open dome photo">
+                <img src="assets/dome-pool.jpg" alt="The existing tall domed pavilion" loading="lazy">
+              </button>
+              <span class="current-label">The estate today</span>
+            </figure>
+            <figure class="opening__photo" data-reveal>
+              <button class="zoomable" type="button" data-lightbox-src="assets/dome-courtyard.jpg" data-lightbox-caption="The existing pool inside the Dome from the gallery side" data-lightbox-group="dome" aria-label="Open dome pool photo">
+                <img src="assets/dome-courtyard.jpg" alt="The existing tiled pool inside the Dome pavilion, seen from the gallery side" loading="lazy">
+              </button>
+              <span class="current-label">The estate today</span>
+            </figure>
+          </div>
         </div>
       </div>
     </section>
@@ -561,7 +564,7 @@
 
     <section class="section kids" id="little-palms">
       <div class="shell">
-        <p class="eyebrow">Little Palms</p>
+        <p class="eyebrow">The Barn</p>
         <h2 class="title title--medium" data-reveal>A children's world <em>with dirt under its nails.</em></h2>
         <p class="lede">A farm programme built around care, curiosity and the freedom to stay outdoors.</p>
         <div class="kids__hero">
@@ -652,7 +655,7 @@
       <div class="shell day-track" id="day-gallery" tabindex="0" aria-label="Swipe through a family's day">
         <article class="day-card" style="--day-image: url('assets/verandah.jpg'); --day-position: center;"><div class="day-card__top"><time>7:30 am</time><span class="day-card__source">Current estate</span></div><div><h3>Barefoot breakfast</h3><p>Fresh fruit, warm bread and the first animal calls.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/concepts/concept-cattle-care-expat-v2.png'); --day-position: 58% center;"><div class="day-card__top"><time>9:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>Morning feeds</h3><p>Join the farm team and care for the animals.</p></div></article>
-        <article class="day-card" style="--day-image: url('assets/concepts/concept-garden-planting-expat-v2.png'); --day-position: 62% center;"><div class="day-card__top"><time>11:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>Little Palms</h3><p>Plant, make, climb and forget about screens.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/concepts/concept-garden-planting-expat-v2.png'); --day-position: 62% center;"><div class="day-card__top"><time>11:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>The Barn</h3><p>Plant, make, climb and forget about screens.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/mansion-dining.jpg'); --day-position: center;"><div class="day-card__top"><time>1:00 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Long lunch</h3><p>Parents linger while children stay close and occupied.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/concepts/concept-outdoor-pool.jpg'); --day-position: center;"><div class="day-card__top"><time>4:00 pm</time><span class="day-card__source">Concept imagery</span></div><div><h3>Pool hour</h3><p>Cool off in the garden pool among the palms.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/rooftop-view.jpg'); --day-position: center;"><div class="day-card__top"><time>6:15 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Rooftop dusk</h3><p>The whole estate turns gold before dinner.</p></div></article>
@@ -665,15 +668,11 @@
         <div>
           <p class="eyebrow">Room to grow</p>
           <h2 class="title title--medium" data-reveal>Keep the first chapter <em>intimate.</em></h2>
-          <p class="lede">The annotated plan shows the existing estate and the zones that can support future family experiences.</p>
-          <div class="plan-info" aria-live="polite"><strong id="plan-info-title">Mansion</strong><p id="plan-info-copy">The existing ten-bedroom house anchors rooms and family living.</p></div>
+          <p class="lede">The annotated plan shows the existing estate and the zones that can support future family experiences. Tap the plan to zoom in.</p>
         </div>
         <figure class="plan" data-reveal>
-          <button class="zoomable" type="button" data-lightbox-src="assets/site-plan.jpg" data-lightbox-caption="Concept site plan showing the estate zones" data-lightbox-group="site-plan" aria-label="Open concept site plan"><img src="assets/site-plan.jpg" alt="Annotated concept site plan showing the mansion, animal areas, greenhouses, playground and palm zones" loading="lazy"></button>
+          <button class="zoomable" type="button" data-lightbox-src="assets/site-plan-final.jpg" data-lightbox-caption="Concept site plan showing the estate zones" data-lightbox-group="site-plan" aria-label="Open concept site plan"><img src="assets/site-plan-final.jpg" alt="Annotated concept site plan showing the mansion, animal areas, greenhouses, playground and palm zones" loading="lazy"></button>
           <span class="current-label">Concept site plan</span>
-          <button class="plan-hotspot plan-hotspot--mansion" type="button" aria-label="Show mansion information" aria-pressed="true" data-plan-title="Mansion" data-plan-copy="The existing ten-bedroom house anchors rooms and family living.">1</button>
-          <button class="plan-hotspot plan-hotspot--farm" type="button" aria-label="Show farm and Little Palms information" aria-pressed="false" data-plan-title="Farm and Little Palms" data-plan-copy="Animals, greenhouses and the playground create the active children's heart.">2</button>
-          <button class="plan-hotspot plan-hotspot--future" type="button" aria-label="Show future growth information" aria-pressed="false" data-plan-title="Future growth" data-plan-copy="Palm areas and adjacent land leave room for more cabins and large stables.">3</button>
         </figure>
       </div>
       <div class="shell">
@@ -810,7 +809,7 @@
       if (window.L && document.getElementById('map')) {
         const farm = [25.6236, 55.9122];
         const airport = [25.6135, 55.9388];
-        const wynn = [25.6741, 55.7193];
+        const wynn = [25.6785, 55.7335];
         const map = L.map('map', { scrollWheelZoom: false, dragging: !L.Browser.mobile, tap: false, zoomSnap: 0.25 });
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', maxZoom: 19 }).addTo(map);
         const pin = (label, accent) => L.divIcon({ className: '', html: `<div class="map-pin${accent ? ' map-pin--accent' : ''}"><span class="map-pin__dot"></span><span class="map-pin__label">${label}</span></div>`, iconSize: [0, 0], iconAnchor: [0, 0] });
@@ -831,14 +830,6 @@
         drawRoute(routes.wynn, '#2457a8', 'route-label--wynn', farm, wynn);
         map.fitBounds(L.latLngBounds([farm, airport, wynn]), { padding: [130, 70] });
       }
-
-      document.querySelectorAll('.plan-hotspot').forEach((hotspot) => {
-        hotspot.addEventListener('click', () => {
-          document.querySelectorAll('.plan-hotspot').forEach((item) => item.setAttribute('aria-pressed', String(item === hotspot)));
-          document.getElementById('plan-info-title').textContent = hotspot.dataset.planTitle;
-          document.getElementById('plan-info-copy').textContent = hotspot.dataset.planCopy;
-        });
-      });
 
       const videos = document.querySelectorAll('[data-autoplay-video]');
       const videoObserver = new IntersectionObserver((entries) => {
