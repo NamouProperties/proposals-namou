@@ -4,6 +4,17 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-23 - Family Farm: William edit round (fonts, Barn, map, galleries, videos)
+
+- Satoshi fonts now preloaded + a `size-adjust` Segoe fallback (`"Satoshi Fallback"`) so the hero never blows up if the font race is lost.
+- "Little Palms" renamed to "The Barn" everywhere user-visible; anchor id stays `#little-palms` so shared links keep working.
+- Wynn pin at exact casino coordinates from Jad: `25.6879, 55.7555`. Route polyline still traced to the old destination - last stretch draws straight to the pin (offer re-fetch if it bothers anyone).
+- Opening statement says "UAE residents" (was "families").
+- Mansion gallery now uses the same shell-based scroller pattern as the day track, slides locked to the photos' native 16:9 (`aspect-ratio` + width capped to `58dvh * 1.7778`) so nothing crops on small laptops.
+- Dome section: two real pool angles stacked (`.dome-stack`) matching the concept render height; plan hotspots + info card deleted; site plan is `assets/site-plan-final.jpg` (595 KB) in an exact 3:2 box.
+- Estate statement section is now a sand-light band with hairline top border - closes the white-on-white dead gap after the map.
+- Video replacements ship under NEW filenames (egg-collecting v3, hero arrival v3-hero); hero source compressed 37 MB -> 4.6 MB (ffmpeg CRF 26, faststart, audio stripped). Heavy originals go to `_tmp-renders/`.
+
 ## 2026-07-23 - Family Farm: Jad feedback round shipped
 
 - Deployed commit `8d2d990` addressing Jad's nine feedback points plus the verbal treehouse note.
