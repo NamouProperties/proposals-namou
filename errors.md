@@ -12,9 +12,17 @@ If Satoshi fails to load, keep the fix in place: preload links for weights 300/4
 
 Both Git Bash curl and Windows curl.exe fail TLS to external upload hosts. Use PowerShell `Invoke-WebRequest` / `Invoke-RestMethod` or Python `urllib` instead - both trust the proxy certificate here.
 
-## Local python http.server drops image connections
+## Local preview 404s on every asset
 
-`python -m http.server` intermittently resets connections when a page loads many images at once (ERR_CONNECTION_RESET on random assets). Not a page bug - reload, or verify the specific file with a direct fetch before debugging the HTML.
+Serve from `proposals/`, not from inside the slug folder, and open
+`http://127.0.0.1:PORT/<slug>/`. Each proposal sets `<base href="/<slug>/">`, so
+serving from the slug folder makes every relative asset resolve to
+`/<slug>/assets/...` and 404 - which silently takes out GSAP, ScrollTrigger and
+Lenis, so motion appears "broken" for a reason that does not exist in production.
+
+This was previously recorded here as `http.server` "dropping connections". It is
+not a connection problem; the requests are plain 404s. Check the console for the
+request path before blaming the server.
 
 ## Vercel MCP cannot access namou-workspace
 
@@ -25,6 +33,44 @@ The claude.ai Vercel connector token is not scoped to the `namou-workspace` team
 Do not depend on unpkg or jsDelivr at runtime for core presentation behavior. Keep pinned copies of Lenis, GSAP, ScrollTrigger, and required styles inside the proposal's `assets/vendor/` folder.
 
 For the Family Farm proposal, confirm the page adds the `lenis` class to `<html>`, GSAP applies inline animation styles, and vertical scrolling advances a pinned gallery's `scrollLeft`.
+
+## A scroll animation is stuck at its start or end value
+
+A pinned section adds its scroll distance to the page, so every trigger created
+*before* the pin measures a document that is short by exactly that distance. The
+later animation then plays out one pin-distance too early - it has already
+finished by the time you reach the section, so it reads as frozen.
+
+Give every pinned ScrollTrigger `refreshPriority: 1` so pins measure first. To
+confirm the diagnosis, compare a trigger's `start` against reality:
+
+```js
+const st = ScrollTrigger.getAll().filter(t => t.trigger === el)[0];
+Math.round(st.start) - Math.round(el.getBoundingClientRect().top + scrollY - innerHeight);
+```
+
+A non-zero result is the drift, and it will match a pinned track's
+`scrollWidth - clientWidth`. `ScrollTrigger.refresh()` does not fix it - refresh
+order is the bug.
+
+## A scrubbed animation lags or smears
+
+A CSS `transition` on the same property GSAP scrubs makes the browser ease toward
+each new per-frame value. Scope hover transitions away from any element under a
+scrub, as `.rooftop > .zoomable img { transition: none; }` does.
+
+## Pinned section is cut off by the bottom of the window
+
+While pinned, the section's top is locked to the viewport top, so anything past
+`100dvh` is unreachable. Do not size the media inside it with a fixed guess like
+`58dvh` - a heading that wraps to one more line silently pushes the media under
+the window edge, and it only shows up on short screens.
+
+Cap the section with `height: 100dvh` and let the track absorb the remainder
+(`flex: 1 1 auto; min-height: 0`), sizing slides from that leftover height with
+`aspect-ratio` plus a `max-width` cap for tall screens. Verify with
+`section.getBoundingClientRect().height - innerHeight === 0` at 1536x730, which
+is the size that catches it.
 
 ## Proposal returns 404
 

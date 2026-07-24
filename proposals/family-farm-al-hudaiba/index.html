@@ -141,6 +141,9 @@
     .gallery-slide figcaption { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 9px 12px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.78rem; }
 
     .rooftop { position: relative; min-height: 88dvh; overflow: hidden; display: grid; align-items: end; color: var(--white); background: var(--forest-deep); }
+    /* the 0.8s hover-zoom transition fights the scrubbed parallax - GSAP retargets transform every
+       frame and the transition eases toward each new value, smearing the drift. Scrub owns this one. */
+    .rooftop > .zoomable img { transition: none; }
     .rooftop::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.18 0.03 158 / 0.05), oklch(0.16 0.03 158 / 0.76)); pointer-events: none; }
     .rooftop__copy { position: relative; z-index: 3; padding-bottom: clamp(58px, 9vw, 118px); }
     .rooftop h2 { max-width: 900px; font-size: clamp(3.4rem, 7vw, 7.5rem); font-weight: 400; letter-spacing: -0.065em; line-height: 0.9; }
@@ -304,12 +307,17 @@
     }
 
     @media (min-width: 981px) {
-      .horizontal-scroll { min-height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
-      .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; }
-      /* ponytail: slides keep the photos' native 16:9 so nothing crops; width capped so full height fits the pinned viewport */
-      .horizontal-scroll .gallery-track { grid-auto-columns: min(58vw, calc(58dvh * 1.7778)); }
-      .horizontal-scroll .gallery-slide { min-height: 0; aspect-ratio: 16 / 9; }
-      .horizontal-scroll .day-card { min-height: min(440px, 52dvh); }
+      /* the section is pinned, so anything past the viewport is unreachable. Cap it to the viewport
+         and let the track absorb whatever height the heading block leaves - a taller heading now
+         shrinks the slides instead of pushing them under the window edge. */
+      .horizontal-scroll { height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
+      .horizontal-scroll .gallery-head { flex: 0 0 auto; }
+      .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; flex: 1 1 auto; min-height: 0; }
+      /* slides keep the photos' native 16:9 so nothing crops: height comes from the space left over,
+         width follows the aspect ratio, and 58vw caps it again on tall screens */
+      .horizontal-scroll .gallery-track { display: flex; }
+      .horizontal-scroll .gallery-slide { min-height: 0; height: 100%; width: auto; max-width: 58vw; aspect-ratio: 16 / 9; flex: 0 0 auto; }
+      .horizontal-scroll .day-card { min-height: 0; max-height: min(440px, 52dvh); }
     }
 
     @media (max-width: 640px) {
@@ -770,7 +778,11 @@
                 pin: true,
                 scrub: 1,
                 anticipatePin: 1,
-                invalidateOnRefresh: true
+                invalidateOnRefresh: true,
+                /* pins must measure before every later trigger. Without this the rooftop parallax
+                   refreshes first, misses this section's pin spacer, and lands its whole scrub
+                   one pin-distance too early - so it finishes off-screen and looks frozen. */
+                refreshPriority: 1
               }
             });
           });

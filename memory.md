@@ -4,6 +4,31 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-25 - Family Farm: rooftop parallax + pinned gallery overflow fixed
+
+- The rooftop ("Upstairs, the day ends slowly") parallax had been dead: its
+  ScrollTriggers were created before the pinned mansion gallery, so they measured
+  the page without that pin's 4,061 px spacer and ran their whole scrub 4,061 px
+  too early. Measured drift matched the pin distance exactly. Fixed with
+  `refreshPriority: 1` on both pinned triggers. `ScrollTrigger.refresh()` never
+  helped because refresh *order* was the fault.
+- Any tween added before a pin has the same latent bug. New pinned triggers get
+  `refreshPriority: 1` from the start.
+- `.zoomable img` carried a 0.8 s hover transition that also applied under the
+  rooftop scrub, easing toward each per-frame transform and smearing the drift.
+  Now `transition: none` for that one image.
+- The mansion gallery ran 872 px tall in a 730 px window while pinned, hiding the
+  bottom 142 px. Cause was the fixed `58dvh` slide cap ignoring a heading block
+  that is 281 px on the mansion and 191 px on the day track. Section is now
+  `height: 100dvh` with the track on `flex: 1 1 auto; min-height: 0`, slides sized
+  from leftover height via `aspect-ratio` and capped at `max-width: 58vw`.
+- Only bit screens under roughly 880 px tall, which is why it survived review on a
+  tall monitor. Check 1536x730 - it is the size that catches this class of bug.
+- `errors.md` corrected: local preview failures were never `http.server` dropping
+  connections. Proposals set `<base href="/<slug>/">`, so you must serve from
+  `proposals/` and open `/<slug>/`, or every asset 404s and the motion libraries
+  silently never load.
+
 ## 2026-07-23 - Orphan asset sweep + parent CLAUDE.md now points here
 
 - Deleted 4 tracked-but-unreferenced assets (~17 MB): the superseded 16 MB hero encode `concept-family-arrival-expat-v2-kling-6s.mp4`, `site-plan.jpg` (replaced by `site-plan-final.jpg`), and `dome-terrace.jpg` + `dome-wide.jpg` (left over from the dome gallery removed in the Jad round).
