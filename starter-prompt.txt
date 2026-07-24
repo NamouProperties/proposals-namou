@@ -1,0 +1,46 @@
+namou-proposals-repo
+
+Read `README.md`, `context.md`, `memory.md`, and `errors.md` in this folder
+before acting. They are the source of truth. Do not follow
+`14_Proposals/CLAUDE.md` folder conventions for work inside this repo - that
+file describes the older per-proposal system.
+
+Current state:
+
+- Repo `NamouProperties/proposals-namou`, Git-linked Vercel project
+  `proposal-namou` (team `namou-workspace`), root directory `proposals`,
+  production branch `main`. Push to `main` and the deploy happens itself.
+- Canonical URL: `https://proposal-namou.vercel.app/<slug>/`.
+- One proposal so far: `proposals/family-farm-al-hudaiba/` - a family boutique
+  hotel vision, live and shared with Jad.
+- Each proposal is one self-contained `index.html` with inline CSS and JS.
+  GSAP, ScrollTrigger, Lenis, and Leaflet are vendored in `assets/vendor/`.
+- `_tmp-renders/` at repo root is gitignored staging for AI renders awaiting
+  approval and for heavy video originals.
+- The sibling `proposal-claude-<slug>/` folders in the parent directory are the
+  older CLI-deployed system, are not in git, and hold confidential PDFs and
+  `.env.local` secrets. Never copy one in without stripping to `index.html` +
+  `assets/` first.
+
+Rules:
+
+- No emojis. Never invent a commission figure. Never write "off-market". No
+  literal plot codes in copy. AED figures exactly as the source shows them.
+- Confidential never deploys - everything under a slug folder is public.
+- Label AI visuals "Concept imagery" and real photos "The estate today".
+- Never add a runtime CDN dependency; vendor it. Keep the Satoshi preloads and
+  the `Satoshi Fallback` @font-face.
+- Compress media before committing (video to roughly 5 MB via ffmpeg CRF 23-26,
+  `+faststart`, `-an`). Give a changed asset a new filename AND delete the
+  superseded file in the same commit, then re-run the orphan check in
+  `errors.md`.
+- Map data stays local: route geometry lives in `assets/route-data.js`, never
+  call a routing API at page load.
+- Verify before pushing: serve with `python -m http.server`, check no
+  horizontal overflow at 1280 and 375 px. After pushing, confirm live by
+  polling the public URL with Python `urllib` - the Vercel MCP 403s on this
+  team and PowerShell will not follow Vercel's 308.
+- Show the intended change and get approval before anything outward-facing:
+  sending to a third party, deleting, or repointing a shared link.
+
+Start by stating the current state and the next concrete action briefly.
