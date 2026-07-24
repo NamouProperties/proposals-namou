@@ -46,6 +46,15 @@ Use relative paths such as `assets/image.jpg`. Check filename casing because Ver
 
 Assets may be cached aggressively. Prefer a new filename for changed images or videos instead of replacing an existing immutable asset URL.
 
+**Delete the superseded file in the same commit.** Renaming for a cache bust leaves the old asset tracked and deploying forever. Four orphans (17 MB, including a 16 MB replaced hero video) accumulated this way before the 2026-07-23 sweep. After any rename or section removal, check for assets no longer referenced:
+
+```bash
+cd proposals/<slug>
+for f in $(git ls-files assets/ | grep -Ev 'vendor/|fonts/'); do
+  grep -q "$(basename "$f")" index.html || echo "ORPHAN: $f"
+done
+```
+
 ## Git authentication fails
 
 The stored GitHub PAT may be rejected in a Bearer header by Git. Use GitHub's `x-access-token:<PAT>` Basic authentication form without printing or saving the token.

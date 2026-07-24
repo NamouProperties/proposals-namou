@@ -4,6 +4,13 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-23 - Orphan asset sweep + parent CLAUDE.md now points here
+
+- Deleted 4 tracked-but-unreferenced assets (~17 MB): the superseded 16 MB hero encode `concept-family-arrival-expat-v2-kling-6s.mp4`, `site-plan.jpg` (replaced by `site-plan-final.jpg`), and `dome-terrace.jpg` + `dome-wide.jpg` (left over from the dome gallery removed in the Jad round).
+- Cause: the cache-bust rename rule in `errors.md` never said to delete the old file. Rule updated with an orphan-check one-liner - run it after any rename or section removal.
+- `14_Proposals/CLAUDE.md` previously described only the older `proposal-claude-<slug>/` Vercel-CLI system and never mentioned this repo. It now leads with the two-system split and points here for new work.
+- Bulk-migrating the old `proposal-claude-*` folders into this repo is blocked on confidentiality: purchase-offer and title PDFs plus `.env.local` files sit loose beside `index.html`, and only 5 of 14 folders have a `.vercelignore`. Any migration must copy `index.html` + `assets/` only, per folder.
+
 ## 2026-07-23 - Family Farm: William edit round (fonts, Barn, map, galleries, videos)
 
 - Satoshi fonts now preloaded + a `size-adjust` Segoe fallback (`"Satoshi Fallback"`) so the hero never blows up if the font race is lost.
