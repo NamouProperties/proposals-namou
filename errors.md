@@ -55,6 +55,23 @@ for f in $(git ls-files assets/ | grep -Ev 'vendor/|fonts/'); do
 done
 ```
 
+## Git push hangs for minutes, then times out
+
+Git Credential Manager pops a GUI "Select an account" picker when more than one
+GitHub account is stored (here: `NamouProperties` and `will-rads`) and no default
+is configured. An agent shell is non-interactive, so the dialog blocks until the
+command is killed - the push itself is fine and completes the moment someone
+clicks. `git ls-remote` stays fast because it uses a cached credential, which
+makes this look like a slow-network problem when it is not.
+
+Fix - name the account for the remote (already set locally in this repo):
+
+```bash
+git config --local credential.https://github.com.username will-rads
+```
+
+Add `--global` instead to stop the picker in every repo on this machine.
+
 ## Git authentication fails
 
 The stored GitHub PAT may be rejected in a Bearer header by Git. Use GitHub's `x-access-token:<PAT>` Basic authentication form without printing or saving the token.
