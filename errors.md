@@ -1,5 +1,18 @@
 # Errors and fixes
 
+## An image edit ignores a layout or depth instruction
+
+Never combine "preserve the camera angle, horizon and framing" with a request to
+change depth, spacing or spatial layout. Depth in a photograph *is* camera position,
+so the two instructions contradict and the model keeps the camera, shuffling only
+the furniture inside the same perspective. Three attempts on the terrace render
+failed this way before the cause was spotted.
+
+Each API call is stateless, so this is never a case of the model "getting confused"
+across attempts - re-read the prompt for a contradiction first. To change
+composition, generate fresh with a described camera and use the previous image as a
+mood and materials reference only.
+
 ## Invoke-WebRequest fails with 308 on Vercel URLs
 
 Windows PowerShell 5.1 does not follow Vercel's 308 redirects (trailing-slash normalization). Use Python `urllib` for deploy checks instead.

@@ -4,6 +4,37 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-25 - Family Farm: Jad revision round, 7 renders approved and staged
+
+- Working from Jad's email "Family Farmhouse - Revisions" (Fri 2026-07-24, Gmail
+  thread `19f93040b655e26b`, 8 points, no attachments) plus the 2026-07-22 Meet
+  transcript (Drive `1i_K1zMnkc_HyJXvRPZXXT1GP4CbyOxCkp0CLoW78yBU`). See
+  `HANDOFF.md` for the full state of this round.
+- The "rooftop" is really a covered first-floor terrace. All 16 "rooftop"
+  occurrences become "the terrace" and "under the stars" is dropped - the space is
+  roofed and the phrase cannot survive. Evening dining stays, per Jad.
+- Seven renders approved and staged in `_tmp-renders/`, not yet committed: terrace
+  v9, cabin exterior v3, cabin interior v3, suite hall, suite majlis, suite
+  bedrooms A v2 and B v2. Garden pool has two candidates, neither approved.
+- Renderer: Gemini `gemini-3.1-flash-image` at 2K 16:9, driven from the real estate
+  photos. Scripts kept beside the outputs in `_tmp-renders/`.
+- **Prompting trap worth remembering:** "preserve the camera angle, horizon and
+  framing" contradicts any request to change depth or spatial layout, because depth
+  *is* camera position. Three attempts silently kept the camera. Fixed by generating
+  fresh and using the old image for mood only.
+- The 74 estate photos are not in this repo - they sit duplicated in the two
+  sibling `proposal-family-farm-al-hudaiba*` folders, and
+  `catalogue.md` there groups them by area. There are no 360 panoramas in the set,
+  so Jad's request for 360s in the closing gallery needs new assets.
+- **`Family_Farmhouse_Feasibility_OnePager`** (Drive
+  `1pNJprDexez_pJiDK7BxespUugt_7qA3UNRKWQpIZf6w`, Jad, edited 2026-07-25) is marked
+  Private & Confidential and carries the owner's name, AED 5.77M capex, a five-year
+  P&L and the JV waterfall. William wants it reflected at the end of the page;
+  everything under a slug folder is public, so this needs an explicit decision on
+  what may be shown. It also contradicts the email on the partnership routes (two
+  structures vs three) and lists the Majlis as a shared lounge and bar rather than a
+  suite living hall. Both unresolved.
+
 ## 2026-07-25 - Family Farm: rooftop parallax + pinned gallery overflow fixed
 
 - The rooftop ("Upstairs, the day ends slowly") parallax had been dead: its
