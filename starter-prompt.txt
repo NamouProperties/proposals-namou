@@ -1,7 +1,8 @@
 namou-proposals-repo
 
-Read `README.md`, `context.md`, `memory.md`, and `errors.md` in this folder
-before acting. They are the source of truth. Do not follow
+Read `HANDOFF.md` first - it is the current state of play and points at the
+live briefs. Then read `README.md`, `context.md`, `memory.md`, and `errors.md`
+in this folder before acting. They are the source of truth. Do not follow
 `14_Proposals/CLAUDE.md` folder conventions for work inside this repo - that
 file describes the older per-proposal system.
 
