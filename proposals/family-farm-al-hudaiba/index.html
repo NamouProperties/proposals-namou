@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Family Farmhouse: a family boutique hotel vision for an existing private farm estate in Al Hudaiba, Ras Al Khaimah.">
   <meta name="theme-color" content="#f6f8f6">
+  <!-- shareable by link but kept out of search: the page carries the venture's economics -->
+  <meta name="robots" content="noindex, nofollow">
   <title>Family Farmhouse | A Namou Properties Vision</title>
   <base href="/family-farm-al-hudaiba/">
   <link rel="preload" href="assets/fonts/satoshi-300.woff2" as="font" type="font/woff2" crossorigin>
@@ -12,6 +14,7 @@
   <link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/vendor/lenis-1.3.25.css">
   <link rel="stylesheet" href="assets/vendor/leaflet-1.9.4.css">
+  <link rel="stylesheet" href="assets/vendor/pannellum-2.5.6.css">
   <style>
     @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-300.woff2") format("woff2"); font-style: normal; font-weight: 300; font-display: swap; }
     @font-face { font-family: "Satoshi"; src: url("assets/fonts/satoshi-400.woff2") format("woff2"); font-style: normal; font-weight: 400; font-display: swap; }
@@ -70,13 +73,12 @@
     .button--primary { color: var(--white); background: var(--forest); }
     .button--primary:hover { background: var(--forest-deep); }
 
-    .nav { position: fixed; z-index: 60; inset: 18px 0 auto; pointer-events: none; }
-    .nav__inner { width: min(1080px, calc(100vw - 30px)); min-height: 62px; margin-inline: auto; padding: 9px 10px 9px 18px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid oklch(1 0 0 / 0.24); border-radius: 999px; color: var(--white); background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.18), 0 18px 48px oklch(0.18 0.03 158 / 0.18); backdrop-filter: blur(18px) saturate(135%); pointer-events: auto; }
-    .nav__brand img { width: auto; height: 25px; filter: brightness(0) invert(1); }
-    .nav__links { display: flex; align-items: center; gap: 26px; }
-    .nav__links a { color: oklch(0.96 0.01 155); font-size: 0.82rem; text-decoration: none; }
-    .nav__links a:hover { color: var(--white); }
-    .nav__cta { padding: 10px 16px; border-radius: 999px; color: var(--forest-deep) !important; background: var(--white); font-weight: 700; }
+    /* Jad's brief: no nav bar, logo only, floating, with the Hospitality Joint Ventures lockup */
+    /* right side, not left: every media label sits top-left and the fixed mark would
+       scroll straight through them */
+    .brandmark { position: fixed; z-index: 60; right: clamp(16px, 3vw, 30px); top: clamp(16px, 3vw, 26px); display: grid; gap: 6px; padding: 12px 17px; border: 1px solid oklch(1 0 0 / 0.2); border-radius: 16px; background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.16), 0 16px 42px oklch(0.18 0.03 158 / 0.18); backdrop-filter: blur(18px) saturate(135%); pointer-events: none; }
+    .brandmark img { width: auto; height: 22px; filter: brightness(0) invert(1); }
+    .brandmark span { color: oklch(0.9 0.02 155); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
 
     .hero { min-height: 100dvh; padding: 104px 24px 28px; display: grid; align-items: stretch; background: linear-gradient(135deg, var(--paper), var(--sand-light)); }
     .hero__grid { width: min(1500px, 100%); margin-inline: auto; display: grid; grid-template-columns: minmax(360px, 0.82fr) minmax(520px, 1.18fr); gap: clamp(32px, 5vw, 76px); align-items: center; }
@@ -140,15 +142,15 @@
     .gallery-slide { position: relative; min-height: min(720px, 72dvh); overflow: hidden; border-radius: var(--radius); scroll-snap-align: center; background: var(--sage); }
     .gallery-slide figcaption { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 9px 12px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.78rem; }
 
-    .rooftop { position: relative; min-height: 88dvh; overflow: hidden; display: grid; align-items: end; color: var(--white); background: var(--forest-deep); }
+    .terrace { position: relative; min-height: 88dvh; overflow: hidden; display: grid; align-items: end; color: var(--white); background: var(--forest-deep); }
     /* the 0.8s hover-zoom transition fights the scrubbed parallax - GSAP retargets transform every
        frame and the transition eases toward each new value, smearing the drift. Scrub owns this one. */
-    .rooftop > .zoomable img { transition: none; }
-    .rooftop::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.18 0.03 158 / 0.05), oklch(0.16 0.03 158 / 0.76)); pointer-events: none; }
-    .rooftop__copy { position: relative; z-index: 3; padding-bottom: clamp(58px, 9vw, 118px); }
-    .rooftop h2 { max-width: 900px; font-size: clamp(3.4rem, 7vw, 7.5rem); font-weight: 400; letter-spacing: -0.065em; line-height: 0.9; }
-    .rooftop h2 span { font-weight: 300; }
-    .rooftop p { max-width: 520px; margin-top: 20px; color: oklch(0.94 0.01 155); }
+    .terrace > .zoomable img { transition: none; }
+    .terrace::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.18 0.03 158 / 0.05), oklch(0.16 0.03 158 / 0.76)); pointer-events: none; }
+    .terrace__copy { position: relative; z-index: 3; padding-bottom: clamp(58px, 9vw, 118px); }
+    .terrace h2 { max-width: 900px; font-size: clamp(3.4rem, 7vw, 7.5rem); font-weight: 400; letter-spacing: -0.065em; line-height: 0.9; }
+    .terrace h2 span { font-weight: 300; }
+    .terrace p { max-width: 520px; margin-top: 20px; color: oklch(0.94 0.01 155); }
 
     .cabins-bridge { padding: 76px 0; background: var(--paper); }
     .cabins-bridge__inner { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 60px; align-items: center; }
@@ -249,15 +251,14 @@
     .programme-card--photo p { color: oklch(0.94 0.01 155); }
     .programme-card--small.programme-card--photo { min-height: 400px; }
 
-    .expansion { position: relative; margin-top: 14px; min-height: 540px; overflow: hidden; border-radius: var(--radius); background: var(--sage); }
-
     .invitation { min-height: 100dvh; padding: clamp(110px, 12vw, 170px) 24px 38px; display: flex; flex-direction: column; justify-content: space-between; color: var(--white); background: var(--forest-deep); text-align: center; }
     .invitation__inner { width: min(1060px, 100%); margin-inline: auto; }
     .invitation .eyebrow { margin-bottom: 24px; color: oklch(0.82 0.05 95); }
     .invitation h2 { max-width: 920px; margin: 0 auto; font-size: clamp(4rem, 9vw, 9rem); font-weight: 400; letter-spacing: -0.075em; line-height: 0.86; text-wrap: balance; }
     .invitation h2 span { font-weight: 300; }
     .invitation p { max-width: 540px; margin: 26px auto 0; color: oklch(0.92 0.01 155); font-size: 1.08rem; }
-    .investment-paths { margin-top: 46px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; text-align: left; }
+    .investment-paths { margin-top: 46px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; text-align: left; }
+    .invitation__structure { max-width: 620px; margin: 22px auto 0; color: oklch(0.84 0.012 155); font-size: 0.94rem; }
     .investment-path { min-height: 190px; padding: clamp(26px, 3vw, 38px); border: 1px solid oklch(1 0 0 / 0.16); border-radius: var(--radius); background: oklch(1 0 0 / 0.07); backdrop-filter: blur(14px); }
     .investment-path__number { color: oklch(0.82 0.05 95); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; }
     .investment-path h3 { margin-top: 34px; font-size: clamp(2rem, 3.5vw, 3.6rem); font-weight: 400; letter-spacing: -0.05em; line-height: 0.95; }
@@ -281,9 +282,89 @@
     .lightbox__meta { position: fixed; left: 50%; bottom: 20px; width: min(760px, calc(100vw - 40px)); padding: 11px 15px; display: flex; justify-content: space-between; gap: 18px; border: 1px solid oklch(1 0 0 / 0.2); border-radius: 14px; background: var(--glass-dark); backdrop-filter: blur(14px); transform: translateX(-50%); font-size: 0.78rem; }
     .lightbox__counter { white-space: nowrap; }
 
+    /* hairline seam only: the mansion section above is also paper, and the Dome below
+       is sand-light, so the tone change lands after the suites rather than before */
+    .suites { background: var(--paper); border-top: 1px solid var(--line); }
+    .suites__pair { margin-top: 14px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .suites__pair .opening__photo { min-height: 430px; }
+
+    .pool { background: var(--paper); }
+    .pool__figure { position: relative; margin-top: clamp(36px, 5vw, 58px); aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--sage); }
+
+    /* two pixel-aligned plans crossfaded by the toggle; each layer keeps its own
+       lightbox trigger so the visible phase is the one that opens */
+    .plan__layer { transition: opacity 0.55s var(--ease); }
+    .plan__layer--off { opacity: 0; pointer-events: none; }
+    .plan__toggle { position: absolute; z-index: 5; left: 50%; bottom: 16px; display: flex; gap: 4px; padding: 4px; border: 1px solid oklch(1 0 0 / 0.24); border-radius: 999px; background: var(--glass-dark); backdrop-filter: blur(14px); transform: translateX(-50%); }
+    .plan__toggle button { padding: 8px 17px; border: 0; border-radius: 999px; color: oklch(0.94 0.01 155); background: transparent; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: color 0.25s ease, background 0.25s ease; }
+    .plan__toggle button[aria-current="true"] { color: var(--forest-deep); background: var(--white); }
+
+    .feasibility { background: var(--paper); }
+    .feas__grid { margin-top: 52px; display: grid; gap: 14px; }
+    /* min-width: 0 or the grid item takes its min-content width from the table's
+       560px min-width and pushes the whole page wider than the phone viewport */
+    .feas__card { min-width: 0; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
+    .feas__card h3 { color: var(--forest); font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-weight: 500; letter-spacing: -0.025em; }
+    .feas__scroll { margin-top: 18px; overflow-x: auto; }
+    .feas__table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+    .feas__table th, .feas__table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; }
+    .feas__table th:first-child, .feas__table td:first-child { text-align: left; }
+    .feas__table thead th { color: var(--forest); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .feas__table tbody tr:last-child td { border-bottom: 0; }
+    .feas__table .is-total td { color: var(--forest); font-weight: 700; background: var(--sand-light); }
+    .feas__payback { margin-top: 18px; padding: 16px 18px; border-radius: 16px; color: var(--white); background: var(--forest); }
+    .feas__note { margin-top: 14px; color: var(--muted); font-size: 0.88rem; }
+    .feas__disclaimer { margin-top: 24px; color: var(--muted); font-size: 0.76rem; }
+
+    .album { background: var(--paper); }
+    .album__tabs { margin-top: 42px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .album__tab { padding: 11px 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--sand-light); font-size: 0.84rem; font-weight: 500; cursor: pointer; transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
+    .album__tab:hover { border-color: var(--palm); }
+    .album__tab[aria-selected="true"] { color: var(--white); border-color: var(--forest); background: var(--forest); }
+    .album__grid { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    /* the grid's own display would otherwise beat the UA rule for [hidden] and show every panel */
+    .album__panel[hidden] { display: none; }
+    .album__item { position: relative; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 18px; background: var(--sage); }
+    .album__item figcaption { position: absolute; z-index: 4; left: 12px; bottom: 12px; padding: 7px 10px; border-radius: 10px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(10px); font-size: 0.72rem; }
+
+    .explore { background: var(--sand-light); border-top: 1px solid var(--line); }
+    .explore__grid { margin-top: 56px; display: grid; grid-template-columns: 1.4fr 0.6fr; gap: clamp(20px, 2.6vw, 40px); align-items: start; }
+    .explore__plan { position: relative; aspect-ratio: 3 / 2; overflow: hidden; border-radius: var(--radius); background: var(--sage); box-shadow: 0 26px 70px oklch(0.26 0.035 158 / 0.14); }
+    .explore__plan > img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+    /* pins are placed in per-cent of the plan image, so they hold at every width */
+    .explore__pin { position: absolute; z-index: 3; width: 30px; height: 30px; padding: 0; display: grid; place-items: center; border: 2px solid oklch(1 0 0 / 0.92); border-radius: 999px; color: var(--white); background: var(--forest); box-shadow: 0 5px 16px oklch(0.16 0.03 158 / 0.5); font-size: 0.76rem; font-weight: 700; cursor: pointer; transform: translate(-50%, -50%); transition: transform 0.28s var(--ease), background 0.28s ease; }
+    .explore__pin:hover, .explore__pin:focus-visible { transform: translate(-50%, -50%) scale(1.2); background: var(--palm); }
+    .explore__pin[aria-current="true"] { background: oklch(0.55 0.14 45); }
+    .explore__pin span { position: absolute; left: 50%; bottom: calc(100% + 9px); padding: 5px 9px; border-radius: 999px; background: var(--glass-dark); font-size: 0.66rem; font-weight: 700; letter-spacing: 0.04em; white-space: nowrap; opacity: 0; transform: translateX(-50%); backdrop-filter: blur(8px); pointer-events: none; transition: opacity 0.22s ease; }
+    .explore__pin:hover span, .explore__pin:focus-visible span, .explore__pin[aria-current="true"] span { opacity: 1; }
+    .explore__list { margin: 0; padding: 0; display: grid; gap: 6px; list-style: none; }
+    .explore__item { width: 100%; padding: 11px 13px; display: flex; align-items: center; gap: 12px; border: 1px solid var(--line); border-radius: 14px; background: var(--sand-light); text-align: left; cursor: pointer; transition: transform 0.25s var(--ease), border-color 0.25s ease, background 0.25s ease; }
+    .explore__item:hover { transform: translateX(3px); border-color: var(--palm); background: var(--white); }
+    .explore__item[aria-current="true"] { border-color: var(--forest); background: var(--white); }
+    .explore__item-number { flex: 0 0 auto; width: 24px; height: 24px; display: grid; place-items: center; border-radius: 999px; color: var(--white); background: var(--forest); font-size: 0.68rem; font-weight: 700; }
+    .explore__item[aria-current="true"] .explore__item-number { background: oklch(0.55 0.14 45); }
+    .explore__item-name { font-size: 0.92rem; }
+    .explore__item-note { display: block; color: var(--muted); font-size: 0.74rem; }
+    .explore__viewer { position: relative; margin-top: 16px; aspect-ratio: 16 / 9; overflow: hidden; border-radius: var(--radius); background: var(--forest-deep); box-shadow: 0 26px 70px oklch(0.26 0.035 158 / 0.16); }
+    .explore__stage { position: absolute; inset: 0; }
+    .explore__poster { position: absolute; z-index: 2; inset: 0; }
+    .explore__poster > img { position: absolute; inset: 0; height: 100%; object-fit: cover; }
+    .explore__poster::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.16 0.03 158 / 0.15) 30%, oklch(0.15 0.03 158 / 0.78)); }
+    .explore__poster-copy { position: relative; z-index: 3; height: 100%; padding: clamp(20px, 3vw, 40px); display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; gap: 16px; color: var(--white); }
+    .explore__poster-copy p { max-width: 460px; color: oklch(0.94 0.01 155); font-size: 0.95rem; }
+    .explore__poster-copy .button { color: var(--forest-deep); background: var(--white); }
+    .explore__viewer-label { position: absolute; z-index: 4; left: 14px; top: 14px; padding: 8px 11px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .explore__viewer-name { font-weight: 400; text-transform: none; letter-spacing: 0.02em; }
+    .explore__viewer-hint { position: absolute; z-index: 4; right: 14px; bottom: 14px; padding: 8px 11px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.72rem; }
+    /* ponytail: Pannellum's own white zoom/fullscreen chrome is switched off in the
+       config rather than restyled, so only the container and loader need house styling */
+    .pnlm-container { background: var(--forest-deep); font: inherit; }
+    .pnlm-load-box { color: var(--white); background: var(--glass-dark); border-radius: 14px; }
+    .pnlm-lbar { border-color: oklch(1 0 0 / 0.6); }
+    .pnlm-lbar-fill { background: oklch(0.99 0 0); }
+
     @media (max-width: 980px) {
       :root { --shell: min(760px, calc(100vw - 34px)); }
-      .nav__links a:not(.nav__cta) { display: none; }
       .hero { padding-inline: 16px; }
       .hero__grid { grid-template-columns: 1fr; }
       .hero__copy { padding: 38px 8px 8px; }
@@ -304,6 +385,9 @@
       .day-track { grid-auto-columns: minmax(280px, 72vw); }
       .location__grid, .clientele__grid { grid-template-columns: 1fr; }
       .location__map { min-height: 58dvh; }
+      .explore__grid { grid-template-columns: 1fr; }
+      .album__grid { grid-template-columns: repeat(2, 1fr); }
+      .suites__pair .opening__photo { min-height: 360px; }
     }
 
     @media (min-width: 981px) {
@@ -323,12 +407,10 @@
     @media (max-width: 640px) {
       :root { --shell: calc(100vw - 24px); --radius: 18px; }
       .section { padding-block: 88px; }
-      .nav { top: 9px; }
-      .nav__inner { width: calc(100vw - 16px); min-height: 54px; padding-left: 14px; }
-      .nav__brand img { height: 21px; }
-      .nav__inner { justify-content: center; }
-      .nav__cta { display: none; }
-      .hero { padding-top: 78px; }
+      .brandmark { padding: 9px 13px; gap: 4px; border-radius: 13px; }
+      .brandmark img { height: 18px; }
+      .brandmark span { font-size: 0.56rem; }
+      .hero { padding-top: 88px; }
       .hero h1 { width: 100%; max-width: 100%; font-size: clamp(3rem, 13vw, 3.7rem); line-height: 0.92; text-wrap: auto; overflow-wrap: normal; }
       .hero__sub { margin-top: 22px; }
       .hero__media { min-height: 58dvh; }
@@ -341,7 +423,7 @@
       .gallery-head { align-items: start; flex-direction: column; }
       .gallery-track { margin-top: 40px; grid-auto-columns: 88vw; }
       .gallery-slide { min-height: 58dvh; }
-      .rooftop { min-height: 78dvh; }
+      .terrace { min-height: 78dvh; }
       .kids__video { min-height: 60dvh; }
       .kids__pillars { grid-template-columns: 1fr; }
       .kids__pillar { min-height: 220px; }
@@ -351,9 +433,13 @@
       .location__map { min-height: 52dvh; }
       .clientele__photo { min-height: 56dvh; }
       .programme-card--photo { min-height: 54dvh; }
-      .expansion { min-height: 46dvh; }
       .why__grid { grid-template-columns: 1fr; }
       .why__item:nth-child(n) { min-height: 0; padding: 32px 0; border-right: 0; }
+      .explore__pin { width: 25px; height: 25px; font-size: 0.66rem; }
+      .explore__viewer { aspect-ratio: 4 / 3; }
+      .suites__pair { grid-template-columns: 1fr; }
+      .suites__pair .opening__photo { min-height: 46dvh; }
+      .album__grid { grid-template-columns: 1fr; }
       .investment-paths { grid-template-columns: 1fr; }
       .footer { align-items: start; flex-direction: column; }
       .footer__meta { text-align: left; }
@@ -365,8 +451,8 @@
     }
 
     @media (prefers-reduced-transparency: reduce) {
-      .nav__inner, .media-caption, .current-label, .gallery-control, .lightbox__close, .lightbox__nav, .lightbox__meta { backdrop-filter: none; }
-      .nav__inner, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta { background: var(--forest-deep); }
+      .brandmark, .media-caption, .current-label, .gallery-control, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption { backdrop-filter: none; }
+      .brandmark, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption { background: var(--forest-deep); }
       .gallery-control { background: var(--paper); }
     }
 
@@ -378,18 +464,10 @@
 <body>
   <a class="skip-link" href="#content">Skip to content</a>
 
-  <header class="nav" aria-label="Main navigation">
-    <div class="nav__inner">
-      <a class="nav__brand" href="#top" aria-label="Back to top"><img src="assets/namou-logo.png" alt="Namou Properties"></a>
-      <nav class="nav__links" aria-label="Page sections">
-        <a href="#location">Location</a>
-        <a href="#estate">The estate</a>
-        <a href="#little-palms">The Barn</a>
-        <a href="#plan">Site plan</a>
-        <a class="nav__cta" href="#visit">Visit the farm</a>
-      </nav>
-    </div>
-  </header>
+  <div class="brandmark">
+    <img src="assets/namou-logo.png" alt="Namou Properties">
+    <span>Hospitality Joint Ventures</span>
+  </div>
 
   <main id="content">
     <section class="hero" id="top">
@@ -465,7 +543,7 @@
         <div class="vision__list">
           <article class="vision__row" data-reveal><h3>Mansion and Dome</h3><p>Family rooms and shared living spaces in the mansion, with the arched pavilion becoming the estate's dining heart.</p></article>
           <article class="vision__row" data-reveal><h3>Farm and the Barn</h3><p>Animals, growing, making and open-air play give children a world of their own.</p></article>
-          <article class="vision__row" data-reveal><h3>Quiet Cabins</h3><p>Future rooms sit lightly among the palms, close to family life but private when needed.</p></article>
+          <article class="vision__row" data-reveal><h3>Quiet Cabins</h3><p>Five two-bedroom cabins among the palms, close to family life but private when needed.</p></article>
         </div>
       </div>
     </section>
@@ -491,6 +569,42 @@
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-dining.jpg" data-lightbox-caption="Dining and gathering space" data-lightbox-group="mansion" aria-label="Open dining room photo"><img src="assets/mansion-dining.jpg" alt="Existing dining and gathering room" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Dining and gathering</figcaption></figure>
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/bedroom.jpg" data-lightbox-caption="One of the existing bedrooms" data-lightbox-group="mansion" aria-label="Open bedroom photo"><img src="assets/bedroom.jpg" alt="Existing bedroom in the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Existing bedroom</figcaption></figure>
         <figure class="gallery-slide"><button class="zoomable" type="button" data-lightbox-src="assets/mansion-kitchen.jpg" data-lightbox-caption="The existing family kitchen" data-lightbox-group="mansion" aria-label="Open kitchen photo"><img src="assets/mansion-kitchen.jpg" alt="Existing family kitchen in the mansion" loading="lazy"></button><span class="current-label">The estate today</span><figcaption>Family kitchen</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section suites" id="suites">
+      <div class="shell">
+        <p class="eyebrow">Signature Suites</p>
+        <h2 class="title title--medium" data-reveal>An entire hall <em>as your living room.</em></h2>
+        <p class="lede">Two grand three-bedroom suites, each taking a whole hall of the mansion as the family's own living room. It is the most generous family accommodation in the Emirates outside a private villa.</p>
+        <div class="opening__media">
+          <figure class="opening__photo" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-hall.jpg" data-lightbox-caption="Concept for a Signature Suite: the hall as the family's private living room" data-lightbox-group="suites" aria-label="Open Signature Suite hall concept">
+              <img src="assets/concepts/concept-suite-hall.jpg" alt="Concept render of a grand mansion hall furnished as a family's private living room" loading="lazy">
+            </button>
+            <span class="current-label">Concept imagery</span>
+          </figure>
+          <figure class="opening__photo opening__photo--small" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-majlis.jpg" data-lightbox-caption="Concept for the second Signature Suite's living hall" data-lightbox-group="suites" aria-label="Open second suite living hall concept">
+              <img src="assets/concepts/concept-suite-majlis.jpg" alt="Concept render of the second suite's long living hall with seating along the walls" loading="lazy">
+            </button>
+            <span class="current-label">Concept imagery</span>
+          </figure>
+        </div>
+        <div class="suites__pair">
+          <figure class="opening__photo" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-bedroom-a.jpg" data-lightbox-caption="Concept for a Signature Suite bedroom" data-lightbox-group="suites" aria-label="Open suite bedroom concept">
+              <img src="assets/concepts/concept-suite-bedroom-a.jpg" alt="Concept render of a Signature Suite bedroom with garden views" loading="lazy">
+            </button>
+            <span class="current-label">Concept imagery</span>
+          </figure>
+          <figure class="opening__photo" data-reveal>
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-bedroom-b.jpg" data-lightbox-caption="Concept for a second bedroom within the suite" data-lightbox-group="suites" aria-label="Open second suite bedroom concept">
+              <img src="assets/concepts/concept-suite-bedroom-b.jpg" alt="Concept render of a second bedroom within a Signature Suite" loading="lazy">
+            </button>
+            <span class="current-label">Concept imagery</span>
+          </figure>
+        </div>
       </div>
     </section>
 
@@ -524,10 +638,24 @@
       </div>
     </section>
 
-    <section class="rooftop">
-      <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-rooftop-night.jpg" data-lightbox-caption="Concept for the rooftop at night: tables under the stars with the barbecue on the lower terrace" data-lightbox-group="rooftop" aria-label="Open rooftop night concept"><img src="assets/concepts/concept-rooftop-night.jpg" alt="Concept render of the mansion rooftop at night with dinner tables under the stars and a barbecue on the lower terrace" loading="lazy"></button>
+    <section class="section pool" id="pool">
+      <div class="shell">
+        <p class="eyebrow">The garden pool</p>
+        <h2 class="title title--medium" data-reveal>The swimming moves <em>into the garden.</em></h2>
+        <p class="lede">With the Dome given over to dining, a new pool sits beside the mansion: ten metres by five, sunbeds all the way round, palms for shade and the garden in every direction.</p>
+        <figure class="pool__figure" data-reveal>
+          <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-garden-pool.jpg" data-lightbox-caption="Concept for the garden pool beside the mansion" data-lightbox-group="pool" aria-label="Open garden pool concept">
+            <img src="assets/concepts/concept-garden-pool.jpg" alt="Concept render of a rectangular garden pool beside the mansion with sunbeds along both sides" loading="lazy">
+          </button>
+          <span class="current-label">Concept imagery</span>
+        </figure>
+      </div>
+    </section>
+
+    <section class="terrace">
+      <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-terrace-evening.jpg" data-lightbox-caption="Concept for the terrace in the evening: dinner tables outside the first-floor rooms" data-lightbox-group="terrace" aria-label="Open terrace evening concept"><img src="assets/concepts/concept-terrace-evening.jpg" alt="Concept render of the first-floor terrace in the evening with dinner tables set outside the bedrooms" loading="lazy"></button>
       <span class="current-label">Concept imagery</span>
-      <div class="shell rooftop__copy"><h2 data-reveal>Upstairs, the day <span>ends slowly.</span></h2><p>Tables under the stars on the rooftop, a live barbecue one terrace below, and the soft close of a full family day.</p></div>
+      <div class="shell terrace__copy"><h2 data-reveal>Upstairs, the day <span>ends slowly.</span></h2><p>Dinner on the terrace outside the first-floor rooms, a live barbecue one level below, and the soft close of a full family day.</p></div>
     </section>
 
     <section class="section clientele" id="clientele">
@@ -552,19 +680,19 @@
 
     <section class="section cabins" id="cabins">
       <div class="shell">
-        <p class="eyebrow">Quiet cabins</p>
-        <h2 class="title title--medium" data-reveal>Cabins sit lightly <em>among the palms.</em></h2>
-        <p class="lede">Future rooms stay close to family life but private when needed: simple timber cabins in the palm rows, warm inside, with a deck facing the grove.</p>
+        <p class="eyebrow">Premium cabins</p>
+        <h2 class="title title--medium" data-reveal>Cabins with the space <em>of a small house.</em></h2>
+        <p class="lede">Five two-bedroom cabins in the palm rows: two master bedrooms, two and a half bathrooms, a kitchenette, a porch and a private walled garden. Close to family life, and entirely your own when the day is done.</p>
         <div class="opening__media">
           <figure class="opening__photo" data-reveal>
-            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-cabin-exterior.jpg" data-lightbox-caption="Concept: a quiet timber cabin at dusk among the palms" data-lightbox-group="cabins" aria-label="Open cabin exterior concept">
-              <img src="assets/concepts/concept-cabin-exterior.jpg" alt="Concept render of a small timber guest cabin glowing at dusk among date palms" loading="lazy">
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-cabin-exterior-v2.jpg" data-lightbox-caption="Concept: a premium family cabin and its walled garden at dusk" data-lightbox-group="cabins" aria-label="Open cabin exterior concept">
+              <img src="assets/concepts/concept-cabin-exterior-v2.jpg" alt="Concept render of a premium two-bedroom guest cabin with a porch and private walled garden among date palms" loading="lazy">
             </button>
             <span class="current-label">Concept imagery</span>
           </figure>
           <figure class="opening__photo opening__photo--small" data-reveal>
-            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-cabin-interior.jpg" data-lightbox-caption="Concept: a warm, simple family cabin interior" data-lightbox-group="cabins" aria-label="Open cabin interior concept">
-              <img src="assets/concepts/concept-cabin-interior.jpg" alt="Concept render of a warm timber cabin interior with a double bed and children's bunk nook" loading="lazy">
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-cabin-interior-v2.jpg" data-lightbox-caption="Concept: inside a two-bedroom family cabin" data-lightbox-group="cabins" aria-label="Open cabin interior concept">
+              <img src="assets/concepts/concept-cabin-interior-v2.jpg" alt="Concept render of a two-bedroom cabin interior with a living area and kitchenette" loading="lazy">
             </button>
             <span class="current-label">Concept imagery</span>
           </figure>
@@ -668,7 +796,7 @@
         <article class="day-card" style="--day-image: url('assets/concepts/concept-garden-planting-expat-v2.png'); --day-position: 62% center;"><div class="day-card__top"><time>11:00 am</time><span class="day-card__source">Concept imagery</span></div><div><h3>The Barn</h3><p>Plant, make, climb and forget about screens.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/mansion-dining.jpg'); --day-position: center;"><div class="day-card__top"><time>1:00 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Long lunch</h3><p>Parents linger while children stay close and occupied.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/concepts/concept-outdoor-pool.jpg'); --day-position: center;"><div class="day-card__top"><time>4:00 pm</time><span class="day-card__source">Concept imagery</span></div><div><h3>Pool hour</h3><p>Cool off in the garden pool among the palms.</p></div></article>
-        <article class="day-card" style="--day-image: url('assets/rooftop-view.jpg'); --day-position: center;"><div class="day-card__top"><time>6:15 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Rooftop dusk</h3><p>The whole estate turns gold before dinner.</p></div></article>
+        <article class="day-card" style="--day-image: url('assets/rooftop-view.jpg'); --day-position: center;"><div class="day-card__top"><time>6:15 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Dusk on the terrace</h3><p>The whole estate turns gold before dinner.</p></div></article>
         <article class="day-card" style="--day-image: url('assets/bedroom.jpg'); --day-position: center;"><div class="day-card__top"><time>8:30 pm</time><span class="day-card__source">Current estate</span></div><div><h3>Story, then stillness</h3><p>Children sleep. The farm goes quiet.</p></div></article>
       </div>
     </section>
@@ -678,20 +806,16 @@
         <div>
           <p class="eyebrow">Room to grow</p>
           <h2 class="title title--medium" data-reveal>Keep the first chapter <em>intimate.</em></h2>
-          <p class="lede">The annotated plan shows the existing estate and the zones that can support future family experiences. Tap the plan to zoom in.</p>
+          <p class="lede">Phase 1 completes the estate as it stands: the mansion, the Dome, the garden pool, the Barn and five cabins. Phase 2 opens the land next door for stables and a spa. Switch between the two, or tap a plan to zoom in.</p>
         </div>
         <figure class="plan" data-reveal>
-          <button class="zoomable" type="button" data-lightbox-src="assets/site-plan-final.jpg" data-lightbox-caption="Concept site plan showing the estate zones" data-lightbox-group="site-plan" aria-label="Open concept site plan"><img src="assets/site-plan-final.jpg" alt="Annotated concept site plan showing the mansion, animal areas, greenhouses, playground and palm zones" loading="lazy"></button>
+          <button class="zoomable plan__layer" type="button" data-phase="1" data-lightbox-src="assets/site-plan-phase-1.jpg" data-lightbox-caption="Phase 1: the estate completed as it stands, with the Phase 2 land held back" data-lightbox-group="site-plan" aria-label="Open the Phase 1 plan"><img src="assets/site-plan-phase-1.jpg" alt="Phase 1 site plan: mansion, garden pool, Barn, Kids Club, animal areas, greenhouses and five cabins in full colour" loading="lazy"></button>
+          <button class="zoomable plan__layer plan__layer--off" type="button" data-phase="2" data-lightbox-src="assets/site-plan-phase-2.jpg" data-lightbox-caption="Phase 2: stables and a spa on the expansion land" data-lightbox-group="site-plan" aria-label="Open the Phase 2 plan"><img src="assets/site-plan-phase-2.jpg" alt="Phase 2 site plan: the expansion land brought forward with horse stables and a spa section" loading="lazy"></button>
+          <div class="plan__toggle" role="group" aria-label="Choose a phase">
+            <button type="button" data-phase-btn="1" aria-current="true">Phase 1</button>
+            <button type="button" data-phase-btn="2" aria-current="false">Phase 2</button>
+          </div>
           <span class="current-label">Concept site plan</span>
-        </figure>
-      </div>
-      <div class="shell">
-        <figure class="expansion" data-reveal>
-          <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-expansion-aerial.jpg" data-lightbox-caption="Concept aerial of the expanded estate with additional cabins and large stables" data-lightbox-group="site-plan" aria-label="Open expansion aerial concept">
-            <img src="assets/concepts/concept-expansion-aerial.jpg" alt="Concept aerial render of the estate's expansion zone with additional timber cabins and a large stable with paddock among the palms" loading="lazy">
-          </button>
-          <span class="current-label">Concept imagery</span>
-          <figcaption class="media-caption"><strong>The second chapter.</strong> More cabins and large stables in the expansion zone.</figcaption>
         </figure>
       </div>
     </section>
@@ -708,15 +832,174 @@
       </div>
     </section>
 
+    <section class="section feasibility" id="feasibility">
+      <div class="shell">
+        <p class="eyebrow">Phase 1 feasibility</p>
+        <h2 class="title title--medium" data-reveal>Seven keys. <em>Payback in the third year.</em></h2>
+        <p class="lede">Phase 1 completes the estate as a seven-key hotel: two Signature Suites and five premium cabins, opening in the fourth quarter of 2027 under an operator. Fewer, better keys rather than volume.</p>
+        <div class="feas__grid">
+          <div class="feas__card" data-reveal>
+            <h3>Phase 1 investment</h3>
+            <div class="feas__scroll">
+              <table class="feas__table">
+                <thead><tr><th scope="col">Component</th><th scope="col">AED '000</th></tr></thead>
+                <tbody>
+                  <tr><td>Core estate works: water and sewage treatment, mansion and Dome conversion, reception, roof, electricity upgrade, staff setup, signage</td><td>870</td></tr>
+                  <tr><td>Five premium two-bedroom cabins</td><td>1,500</td></tr>
+                  <tr><td>Garden pool and sun terrace beside the mansion</td><td>350</td></tr>
+                  <tr><td>Mansion and Dome interiors, furniture and equipment</td><td>800</td></tr>
+                  <tr><td>Commercial kitchen and food and beverage fit-out</td><td>450</td></tr>
+                  <tr><td>Kids' World: Barn club, adventure playground, shaded kids' pool, animal welfare upgrades</td><td>500</td></tr>
+                  <tr><td>Landscape, shaded pathways, lighting</td><td>300</td></tr>
+                  <tr><td>Pre-opening: licensing, systems, hiring, linen, launch marketing</td><td>450</td></tr>
+                  <tr><td>Contingency, around 12 per cent</td><td>550</td></tr>
+                  <tr class="is-total"><td>Total Phase 1 investment</td><td>5,770</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="feas__note">Around AED 2.1M of the original works budget, covering thirty imported cabins and their infrastructure, moves to Phase 2 where it funds the expansion land alongside the stables and spa.</p>
+          </div>
+          <div class="feas__card" data-reveal>
+            <h3>Five-year forecast</h3>
+            <div class="feas__scroll">
+              <table class="feas__table">
+                <thead><tr><th scope="col">AED millions</th><th scope="col">2028</th><th scope="col">2029</th><th scope="col">2030</th><th scope="col">2031</th><th scope="col">2032</th></tr></thead>
+                <tbody>
+                  <tr><td>Occupancy</td><td>45%</td><td>55%</td><td>62%</td><td>65%</td><td>65%</td></tr>
+                  <tr><td>Room revenue</td><td>4.88</td><td>6.14</td><td>7.13</td><td>7.70</td><td>7.93</td></tr>
+                  <tr><td>Food and beverage</td><td>2.44</td><td>3.07</td><td>3.57</td><td>3.85</td><td>3.97</td></tr>
+                  <tr><td>Day programme and activities</td><td>0.50</td><td>0.80</td><td>1.00</td><td>1.10</td><td>1.15</td></tr>
+                  <tr><td>Events and venue hire</td><td>0.40</td><td>0.70</td><td>1.00</td><td>1.10</td><td>1.15</td></tr>
+                  <tr class="is-total"><td>Total revenue</td><td>8.2</td><td>10.7</td><td>12.7</td><td>13.8</td><td>14.2</td></tr>
+                  <tr><td>Payroll and staff housing, around 25 staff</td><td>(1.95)</td><td>(2.05)</td><td>(2.10)</td><td>(2.15)</td><td>(2.20)</td></tr>
+                  <tr><td>Food and beverage cost of sales</td><td>(0.80)</td><td>(1.00)</td><td>(1.15)</td><td>(1.25)</td><td>(1.30)</td></tr>
+                  <tr><td>Utilities, maintenance and farm care</td><td>(1.20)</td><td>(1.40)</td><td>(1.45)</td><td>(1.50)</td><td>(1.55)</td></tr>
+                  <tr><td>Sales, marketing and booking commissions</td><td>(0.90)</td><td>(1.00)</td><td>(1.00)</td><td>(1.05)</td><td>(1.05)</td></tr>
+                  <tr><td>Admin, insurance and licences</td><td>(0.60)</td><td>(0.75)</td><td>(0.75)</td><td>(0.75)</td><td>(0.75)</td></tr>
+                  <tr><td>Operator fees, base and incentive</td><td>(0.55)</td><td>(0.80)</td><td>(1.05)</td><td>(1.20)</td><td>(1.25)</td></tr>
+                  <tr class="is-total"><td>Total operating expenses</td><td>(6.0)</td><td>(7.0)</td><td>(7.5)</td><td>(7.9)</td><td>(8.1)</td></tr>
+                  <tr class="is-total"><td>Operating profit</td><td>2.2</td><td>3.7</td><td>5.2</td><td>5.9</td><td>6.1</td></tr>
+                  <tr><td>Profit margin</td><td>27%</td><td>35%</td><td>41%</td><td>43%</td><td>43%</td></tr>
+                  <tr><td>Cumulative profit</td><td>2.2</td><td>6.0</td><td>11.2</td><td>17.1</td><td>23.2</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p class="feas__payback">Cumulative earnings pass the AED 5.8M investment during 2030, the third operating year.</p>
+          </div>
+          <div class="feas__card" data-reveal>
+            <h3>Assumptions and sensitivity</h3>
+            <p class="feas__note">Rates: Signature Suite AED 8,000 at weekends and 6,000 midweek; cabin AED 4,000 and 2,000. Blended for weekend-weighted family demand, rising 3 per cent a year from 2029. Activities are bundled into the rate, with premium sessions, day visitors, destination dining at the Dome and off-peak events charged separately. Food and beverage is modelled at half of room revenue. Profit is operating profit before depreciation, and no rent is payable under the joint-venture structure.</p>
+            <p class="feas__note">If achieved rates settle 30 per cent below plan, stabilised revenue is around AED 8.9M with operating profit around AED 2.9M, and payback extends to the fifth operating year. The Dome's food and beverage, the day programme and events carry revenue that does not depend on room rates.</p>
+            <p class="feas__note">Common to every route: the estate enters the venture through a fifty-year registered musataha, the existing hotel licence enables nightly letting and licensed food and beverage, and no rent is paid to any shareholder. All returns flow through the venture.</p>
+          </div>
+        </div>
+        <p class="feas__disclaimer">Indicative pre-feasibility prepared for discussion. Not an offer, a valuation, or investment advice. July 2026.</p>
+      </div>
+    </section>
+
+    <section class="section explore" id="explore">
+      <div class="shell">
+        <p class="eyebrow">The estate in 360</p>
+        <h2 class="title title--medium" data-reveal>Stand in it <em>before you visit.</em></h2>
+        <p class="lede">Nine points across the house and the land, captured on site. Choose a point on the plan and look around from exactly where the camera stood.</p>
+        <div class="explore__grid">
+          <figure class="explore__plan" data-reveal>
+            <img src="assets/site-plan-phase-1.jpg" alt="Phase 1 site plan of the estate with nine numbered 360 viewpoints" loading="lazy">
+            <button class="explore__pin" type="button" style="left: 72%; top: 64.5%;" data-pano-id="terrace" data-pano="assets/panoramas/pano-01-terrace.jpg" data-pano-name="The terrace" data-pano-yaw="122" data-pano-pitch="2" aria-label="Look around from the terrace">1<span>The terrace</span></button>
+            <button class="explore__pin" type="button" style="left: 78.5%; top: 69.5%;" data-pano-id="majlis" data-pano="assets/panoramas/pano-02-majlis.jpg" data-pano-name="The majlis" data-pano-yaw="0" data-pano-pitch="0" aria-label="Look around inside the majlis">2<span>The majlis</span></button>
+            <button class="explore__pin" type="button" style="left: 75%; top: 76.5%;" data-pano-id="entrance-hall" data-pano="assets/panoramas/pano-03-mansion-entrance.jpg" data-pano-name="Mansion entrance hall" data-pano-yaw="0" data-pano-pitch="0" aria-label="Look around the mansion entrance hall">3<span>Entrance hall</span></button>
+            <button class="explore__pin" type="button" style="left: 68.5%; top: 80.5%;" data-pano-id="forecourt" data-pano="assets/panoramas/pano-05-mansion-forecourt.jpg" data-pano-name="The forecourt" data-pano-yaw="125" data-pano-pitch="0" aria-label="Look around the mansion forecourt">4<span>The forecourt</span></button>
+            <button class="explore__pin" type="button" style="left: 72.5%; top: 54.5%;" data-pano-id="outdoor-majlis" data-pano="assets/panoramas/pano-06-outdoor-majlis.jpg" data-pano-name="The outdoor majlis" data-pano-yaw="-110" data-pano-pitch="0" aria-label="Look around the outdoor majlis">5<span>Outdoor majlis</span></button>
+            <button class="explore__pin" type="button" style="left: 46.5%; top: 29%;" data-pano-id="greenhouses" data-pano="assets/panoramas/pano-07-greenhouses.jpg" data-pano-name="By the greenhouses" data-pano-yaw="35" data-pano-pitch="0" aria-label="Look around by the greenhouses">6<span>Greenhouses</span></button>
+            <button class="explore__pin" type="button" style="left: 74%; top: 34.5%;" data-pano-id="watchtower" data-pano="assets/panoramas/pano-08-tower.jpg" data-pano-name="The watchtower" data-pano-yaw="25" data-pano-pitch="2" aria-label="Look around at the watchtower">7<span>The watchtower</span></button>
+            <button class="explore__pin" type="button" style="left: 39%; top: 34.5%;" data-pano-id="pasture" data-pano="assets/panoramas/pano-09-cattle-yard.jpg" data-pano-name="The cattle pasture" data-pano-yaw="0" data-pano-pitch="0" aria-label="Look around the cattle pasture">8<span>Cattle pasture</span></button>
+            <button class="explore__pin" type="button" style="left: 33%; top: 27%;" data-pano-id="cattle-shed" data-pano="assets/panoramas/pano-10-cattle-shed.jpg" data-pano-name="Inside the cattle shed" data-pano-yaw="25" data-pano-pitch="0" aria-label="Look around inside the cattle shed">9<span>Cattle shed</span></button>
+            <span class="current-label">Concept site plan</span>
+          </figure>
+          <ol class="explore__list" data-reveal>
+            <li><button class="explore__item" type="button" data-pano-target="terrace"><span class="explore__item-number">1</span><span><span class="explore__item-name">The terrace</span><span class="explore__item-note">Outside the first-floor bedrooms</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="majlis"><span class="explore__item-number">2</span><span><span class="explore__item-name">The majlis</span><span class="explore__item-note">The long seated hall</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="entrance-hall"><span class="explore__item-number">3</span><span><span class="explore__item-name">Mansion entrance hall</span><span class="explore__item-note">Majlis to your right as you enter</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="forecourt"><span class="explore__item-number">4</span><span><span class="explore__item-name">The forecourt</span><span class="explore__item-note">Under the arches at the front door</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="outdoor-majlis"><span class="explore__item-number">5</span><span><span class="explore__item-name">The outdoor majlis</span><span class="explore__item-note">The round pavilion under the old tree</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="greenhouses"><span class="explore__item-number">6</span><span><span class="explore__item-name">By the greenhouses</span><span class="explore__item-note">Growing rows and the service track</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="watchtower"><span class="explore__item-number">7</span><span><span class="explore__item-name">The watchtower</span><span class="explore__item-note">Stone tower among young planting</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="pasture"><span class="explore__item-number">8</span><span><span class="explore__item-name">The cattle pasture</span><span class="explore__item-note">Open green land inside the palm rows</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="cattle-shed"><span class="explore__item-number">9</span><span><span class="explore__item-name">Inside the cattle shed</span><span class="explore__item-note">Shaded stalls with the herd in place</span></span></button></li>
+          </ol>
+        </div>
+        <figure class="explore__viewer" id="explore-viewer" data-lenis-prevent>
+          <div class="explore__stage" id="pano-stage"></div>
+          <div class="explore__poster">
+            <img src="assets/panoramas/poster-terrace.jpg" alt="The terrace outside the first-floor bedrooms, looking towards the arched pavilion" loading="lazy">
+            <div class="explore__poster-copy">
+              <p>Nine 360 views, shot on the estate. Each one loads only when you open it.</p>
+              <button class="button explore__poster-button" type="button">Look around from the terrace <span aria-hidden="true">&#8599;</span></button>
+            </div>
+          </div>
+          <span class="explore__viewer-label">The estate today <span class="explore__viewer-name"></span></span>
+          <span class="explore__viewer-hint" hidden>Drag to look around</span>
+        </figure>
+      </div>
+    </section>
+
+    <section class="section album" id="album">
+      <div class="shell">
+        <p class="eyebrow">The estate today</p>
+        <h2 class="title title--medium" data-reveal>Everything above, <em>as it stands.</em></h2>
+        <p class="lede">Unedited photographs of the house and the land, grouped by area.</p>
+        <div class="album__tabs" role="tablist" aria-label="Gallery areas">
+          <button class="album__tab" type="button" role="tab" id="tab-halls" aria-controls="panel-halls" aria-selected="true">Majlis and halls</button>
+          <button class="album__tab" type="button" role="tab" id="tab-rooms" aria-controls="panel-rooms" aria-selected="false">Bedrooms</button>
+          <button class="album__tab" type="button" role="tab" id="tab-terrace" aria-controls="panel-terrace" aria-selected="false">Terrace and Dome</button>
+          <button class="album__tab" type="button" role="tab" id="tab-grounds" aria-controls="panel-grounds" aria-selected="false">Gardens and palms</button>
+          <button class="album__tab" type="button" role="tab" id="tab-farm" aria-controls="panel-farm" aria-selected="false">The working farm</button>
+        </div>
+
+        <div class="album__grid album__panel" role="tabpanel" id="panel-halls" aria-labelledby="tab-halls">
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/majlis-main.jpg" data-lightbox-caption="The majlis" data-lightbox-group="album-halls" aria-label="Open majlis photo"><img src="assets/gallery/majlis-main.jpg" alt="The long green majlis with seating along both walls" loading="lazy"></button><figcaption>The majlis</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/majlis-second.jpg" data-lightbox-caption="The second majlis" data-lightbox-group="album-halls" aria-label="Open second majlis photo"><img src="assets/gallery/majlis-second.jpg" alt="The second majlis, white walled with chandeliers" loading="lazy"></button><figcaption>The second majlis</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/hall-stairs.jpg" data-lightbox-caption="Entrance hall and stair" data-lightbox-group="album-halls" aria-label="Open entrance hall photo"><img src="assets/gallery/hall-stairs.jpg" alt="Entrance hall with polished floor and the main stair" loading="lazy"></button><figcaption>Entrance hall</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/hall-arched-doors.jpg" data-lightbox-caption="Inner hall with arched doors" data-lightbox-group="album-halls" aria-label="Open inner hall photo"><img src="assets/gallery/hall-arched-doors.jpg" alt="Inner hall with tall arched doors onto the garden" loading="lazy"></button><figcaption>Inner hall</figcaption></figure>
+        </div>
+
+        <div class="album__grid album__panel" role="tabpanel" id="panel-rooms" aria-labelledby="tab-rooms" hidden>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/bedroom-second.jpg" data-lightbox-caption="A mansion bedroom" data-lightbox-group="album-rooms" aria-label="Open bedroom photo"><img src="assets/gallery/bedroom-second.jpg" alt="A mansion bedroom with dark wood furniture" loading="lazy"></button><figcaption>Bedroom</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/bedroom-third.jpg" data-lightbox-caption="A corner bedroom" data-lightbox-group="album-rooms" aria-label="Open corner bedroom photo"><img src="assets/gallery/bedroom-third.jpg" alt="A corner bedroom with a dresser and mirror" loading="lazy"></button><figcaption>Corner bedroom</figcaption></figure>
+        </div>
+
+        <div class="album__grid album__panel" role="tabpanel" id="panel-terrace" aria-labelledby="tab-terrace" hidden>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/terrace-arches.jpg" data-lightbox-caption="The terrace arcade" data-lightbox-group="album-terrace" aria-label="Open terrace arcade photo"><img src="assets/gallery/terrace-arches.jpg" alt="The terrace arcade with hanging lanterns looking out over the palms" loading="lazy"></button><figcaption>The terrace arcade</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/terrace-wide.jpg" data-lightbox-caption="The terrace" data-lightbox-group="album-terrace" aria-label="Open terrace photo"><img src="assets/gallery/terrace-wide.jpg" alt="The open first-floor terrace with its balustrade" loading="lazy"></button><figcaption>The terrace</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/dome-gallery.jpg" data-lightbox-caption="Inside the Dome" data-lightbox-group="album-terrace" aria-label="Open Dome interior photo"><img src="assets/gallery/dome-gallery.jpg" alt="The Dome pavilion interior seen from the gallery level" loading="lazy"></button><figcaption>Inside the Dome</figcaption></figure>
+        </div>
+
+        <div class="album__grid album__panel" role="tabpanel" id="panel-grounds" aria-labelledby="tab-grounds" hidden>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/palm-avenue-paved.jpg" data-lightbox-caption="The main avenue" data-lightbox-group="album-grounds" aria-label="Open main avenue photo"><img src="assets/gallery/palm-avenue-paved.jpg" alt="The paved main avenue lined with date palms and lawn" loading="lazy"></button><figcaption>The main avenue</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/palm-avenue-long.jpg" data-lightbox-caption="Palm avenue" data-lightbox-group="album-grounds" aria-label="Open palm avenue photo"><img src="assets/gallery/palm-avenue-long.jpg" alt="A long path running between rows of mature date palms" loading="lazy"></button><figcaption>Palm avenue</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/garden-path.jpg" data-lightbox-caption="Garden path" data-lightbox-group="album-grounds" aria-label="Open garden path photo"><img src="assets/gallery/garden-path.jpg" alt="A garden path through planted beds and palms" loading="lazy"></button><figcaption>Garden path</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/garden-arch.jpg" data-lightbox-caption="Through the arch" data-lightbox-group="album-grounds" aria-label="Open garden arch photo"><img src="assets/gallery/garden-arch.jpg" alt="The gardens seen through a stone arch" loading="lazy"></button><figcaption>Through the arch</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/watchtower.jpg" data-lightbox-caption="The watchtower" data-lightbox-group="album-grounds" aria-label="Open watchtower photo"><img src="assets/gallery/watchtower.jpg" alt="The estate's round stone watchtower among the palms" loading="lazy"></button><figcaption>The watchtower</figcaption></figure>
+        </div>
+
+        <div class="album__grid album__panel" role="tabpanel" id="panel-farm" aria-labelledby="tab-farm" hidden>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/duck-pond.jpg" data-lightbox-caption="The duck pond" data-lightbox-group="album-farm" aria-label="Open duck pond photo"><img src="assets/gallery/duck-pond.jpg" alt="Ducks on the estate's walled pond beneath the palms" loading="lazy"></button><figcaption>The duck pond</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/cattle-shed.jpg" data-lightbox-caption="The cattle shed" data-lightbox-group="album-farm" aria-label="Open cattle shed photo"><img src="assets/gallery/cattle-shed.jpg" alt="Cattle in the long shaded shed" loading="lazy"></button><figcaption>The cattle shed</figcaption></figure>
+        </div>
+      </div>
+    </section>
+
     <section class="invitation" id="visit">
       <div class="invitation__inner">
-        <p class="eyebrow">Two ways forward</p>
-        <h2>Invest. <span>Or invest and operate.</span></h2>
-        <p>Two routes into the same family-hospitality vision.</p>
+        <p class="eyebrow">Three ways forward</p>
+        <h2>Invest. Operate. <span>Or both.</span></h2>
+        <p>Three routes into the same family-hospitality vision.</p>
         <div class="investment-paths">
-          <article class="investment-path"><span class="investment-path__number">01</span><h3>Invest</h3><p>Help bring the concept to life as an investment partner.</p></article>
-          <article class="investment-path"><span class="investment-path__number">02</span><h3>Invest &amp; operate</h3><p>Take an active role in shaping and running the family farm hotel.</p></article>
+          <article class="investment-path"><span class="investment-path__number">01</span><h3>Invest only</h3><p>Fund Phase 1 and hold equity in the venture, with no role in running the hotel.</p></article>
+          <article class="investment-path"><span class="investment-path__number">02</span><h3>Invest &amp; operate</h3><p>Fund Phase 1 and run the hotel, with your own capital and your own standards inside the venture.</p></article>
+          <article class="investment-path"><span class="investment-path__number">03</span><h3>Operate only</h3><p>Take on the finished hotel and run it, with the works completed by the owners.</p></article>
         </div>
+        <p class="invitation__structure">Each partnership is structured as a joint venture with long-term registered land rights.</p>
         <a class="button" href="https://wa.me/971569636360?text=Hi%20Namou%2C%20I%20would%20like%20to%20discuss%20the%20Family%20Farmhouse%20opportunity." target="_blank" rel="noopener noreferrer">Discuss the opportunity <span aria-hidden="true">&#8599;</span></a>
       </div>
       <footer class="footer"><img src="assets/namou-logo.png" alt="Namou Properties"><div class="footer__meta"><a href="mailto:reachus@namou.ae">reachus@namou.ae</a><br>Ras Al Khaimah, United Arab Emirates</div></footer>
@@ -737,6 +1020,7 @@
   <script src="assets/vendor/scrolltrigger-3.13.0.min.js"></script>
   <script src="assets/vendor/lenis-1.3.25.min.js"></script>
   <script src="assets/vendor/leaflet-1.9.4.min.js"></script>
+  <script src="assets/vendor/pannellum-2.5.6.min.js"></script>
   <script src="assets/route-data.js"></script>
   <script>
     (() => {
@@ -755,10 +1039,10 @@
         document.querySelectorAll('[data-reveal]').forEach((element) => {
           gsap.from(element, { y: 42, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 87%', once: true } });
         });
-        gsap.utils.toArray('.rooftop > .zoomable img').forEach((image) => {
-          gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.rooftop', start: 'top bottom', end: 'bottom top', scrub: true } });
+        gsap.utils.toArray('.terrace > .zoomable img').forEach((image) => {
+          gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
         });
-        gsap.fromTo('.rooftop__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.rooftop', start: 'top bottom', end: 'bottom top', scrub: true } });
+        gsap.fromTo('.terrace__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
 
         gsap.matchMedia().add('(min-width: 981px)', () => {
           document.querySelectorAll('.horizontal-scroll').forEach((section) => {
@@ -779,7 +1063,7 @@
                 scrub: 1,
                 anticipatePin: 1,
                 invalidateOnRefresh: true,
-                /* pins must measure before every later trigger. Without this the rooftop parallax
+                /* pins must measure before every later trigger. Without this the terrace parallax
                    refreshes first, misses this section's pin spacer, and lands its whole scrub
                    one pin-distance too early - so it finishes off-screen and looks frozen. */
                 refreshPriority: 1
@@ -912,6 +1196,68 @@
         const delta = event.clientX - swipeStart;
         if (Math.abs(delta) > 55 && activeItems.length > 1) stepLightbox(delta > 0 ? -1 : 1);
       });
+
+      // Phase 1 / Phase 2 plans: the two drawings are pixel-aligned, so switching is a
+      // straight crossfade. The hidden layer loses pointer events, so the lightbox always
+      // opens whichever phase is on screen.
+      document.querySelectorAll('[data-phase-btn]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const phase = button.dataset.phaseBtn;
+          document.querySelectorAll('[data-phase-btn]').forEach((other) => other.setAttribute('aria-current', String(other === button)));
+          document.querySelectorAll('.plan__layer').forEach((layer) => layer.classList.toggle('plan__layer--off', layer.dataset.phase !== phase));
+        });
+      });
+
+      const albumTabs = Array.from(document.querySelectorAll('.album__tab'));
+      albumTabs.forEach((tab) => {
+        tab.addEventListener('click', () => {
+          albumTabs.forEach((other) => {
+            const selected = other === tab;
+            other.setAttribute('aria-selected', String(selected));
+            document.getElementById(other.getAttribute('aria-controls')).hidden = !selected;
+          });
+          if (window.ScrollTrigger) ScrollTrigger.refresh();
+        });
+      });
+
+      // 360 viewpoints. Scenes are read straight off the pins, and the viewer is only
+      // constructed on the first click, so no panorama downloads until one is asked for.
+      const panoPins = Array.from(document.querySelectorAll('.explore__pin'));
+      if (panoPins.length && window.pannellum) {
+        const scenes = {};
+        panoPins.forEach((pin) => {
+          scenes[pin.dataset.panoId] = { type: 'equirectangular', panorama: pin.dataset.pano, yaw: +pin.dataset.panoYaw, pitch: +pin.dataset.panoPitch, hfov: 100 };
+        });
+        const panoItems = Array.from(document.querySelectorAll('.explore__item'));
+        const viewerBox = document.getElementById('explore-viewer');
+        const panoName = viewerBox.querySelector('.explore__viewer-name');
+        let viewer = null;
+
+        const showPano = (id) => {
+          const pin = panoPins.find((item) => item.dataset.panoId === id);
+          if (!pin) return;
+          panoPins.forEach((item) => item.setAttribute('aria-current', String(item === pin)));
+          panoItems.forEach((item) => item.setAttribute('aria-current', String(item.dataset.panoTarget === id)));
+          panoName.textContent = `· ${pin.dataset.panoName}`;
+          viewerBox.querySelector('.explore__poster').hidden = true;
+          viewerBox.querySelector('.explore__viewer-hint').hidden = false;
+          if (viewer) viewer.loadScene(id);
+          /* mouseZoom off on purpose: the page is smooth-scrolled, and a wheel-zoom here
+             traps the scroll. Pinch and the +/- controls still zoom. */
+          else viewer = pannellum.viewer('pano-stage', {
+            default: { firstScene: id, autoLoad: true, sceneFadeDuration: 500, minHfov: 55, maxHfov: 118, minPitch: -68, maxPitch: 80, mouseZoom: false, showControls: false, compass: false, friction: 0.22 },
+            scenes
+          });
+          if (window.matchMedia('(max-width: 980px)').matches) {
+            if (lenis) lenis.scrollTo(viewerBox, { offset: -70 });
+            else viewerBox.scrollIntoView({ block: 'center' });
+          }
+        };
+
+        panoPins.forEach((pin) => pin.addEventListener('click', () => showPano(pin.dataset.panoId)));
+        panoItems.forEach((item) => item.addEventListener('click', () => showPano(item.dataset.panoTarget)));
+        viewerBox.querySelector('.explore__poster-button').addEventListener('click', () => showPano('terrace'));
+      }
 
       window.addEventListener('load', () => { if (window.ScrollTrigger) ScrollTrigger.refresh(); }, { once: true });
     })();

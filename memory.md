@@ -4,6 +4,36 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-25 - Family Farm: all eight of Jad's points built, awaiting review
+
+- Built locally and verified at 1280 / 1536x730 / 375, **not committed**: terrace copy
+  and render, garden pool section, premium cabin spec, Signature Suites, two-phase site
+  plan toggle, three partnership routes, floating brandmark in place of the nav bar,
+  tabbed closing gallery, feasibility section, and a nine-point 360 explorer. See
+  `HANDOFF.md` for the point-by-point state.
+- **The feasibility numbers go public** - William's call, 2026-07-25. The landowner's
+  name does not: the one-pager names him five times, the page says "the owners". Page
+  carries `robots: noindex, nofollow`. Worth repeating to him: a Rebrandly password does
+  not protect the canonical Vercel URL, which stays open to anyone with the link.
+- **Where the email and the one-pager disagree, the email wins for the partnership
+  routes and the one-pager for the economics.** The two-structure comparison table is
+  deliberately left off the page so three route cards and two structures cannot
+  contradict each other in the same scroll.
+- 360s are **self-hosted, not embedded**: Insta360 blocks iframes by CSP and its media
+  URLs are signed with about six days of life. Nine equirects at 3840x1920 total 6.9 MB,
+  rendered by vendored Pannellum, each loading only when its pin is clicked. Its own
+  zoom and fullscreen chrome is switched off rather than restyled, and wheel-zoom is off
+  so the viewer cannot trap the page scroll.
+- Set each panorama's opening yaw from the degree ruler in `_tmp-renders/360/`, never by
+  eye - two of nine were over 90 degrees out on the first pass.
+- The `.rooftop` class is now `.terrace` throughout, CSS and JS. The filename
+  `assets/rooftop-view.jpg` is deliberately unchanged; a filename is not copy.
+- Gallery selection: `catalogue.md` index N in the sibling photos folder is the Nth file
+  alphabetically. Verified against eight known pairs, so the mapping is reliable.
+- `phase 2.png` inverts Jad's brief (it dims Phase 1 rather than showing the whole
+  estate sharp). Kept as a focus-shift pair because the two drawings are pixel-aligned;
+  both images are due to be redrawn.
+
 ## 2026-07-25 - Family Farm: Jad revision round, 7 renders approved and staged
 
 - Working from Jad's email "Family Farmhouse - Revisions" (Fri 2026-07-24, Gmail

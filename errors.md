@@ -1,5 +1,50 @@
 # Errors and fixes
 
+## A local verification passes or fails against stale HTML
+
+Navigating to the same local URL twice serves `index.html` from the browser cache, so
+you test edits that never reached the page. Symptom: a value you just changed still
+reads its old number in the DOM. Add a throwaway query string (`?v=2`, `?v=3`) on every
+reload during verification. Two separate bugs were chased for several minutes this way
+on 2026-07-25, one of them a CSS override that had already been fixed.
+
+## A 360 panorama cannot be embedded from its share link
+
+Insta360 share pages send `content-security-policy: frame-ancestors
+https://*.insta360.com`, so an iframe is refused. The equirectangular JPEG inside the
+page is reachable (3840x1920, around 2.4 MB) but its URL is CloudFront-signed with an
+`Expires` about six days out, and the media host also requires a
+`Referer: https://cloud-fra.insta360.com/` header. Hotlinking therefore breaks within
+the week.
+
+Download once and commit the file, then render it locally with the vendored Pannellum in
+`assets/vendor/`. `_tmp-renders/360/fetch-panoramas.py` does the fetch. The share link
+itself is permanent — that is not what expires, and the distinction is worth stating
+plainly when someone asks.
+
+## A panorama opens facing the wrong way
+
+Do not guess the opening yaw from a thumbnail. Equirect x maps linearly to yaw, so
+`_tmp-renders/360/yaw-ruler.py` renders each panorama's horizon band with a degree scale
+printed across it and the angle can be read straight off. Two of nine were more than 90
+degrees out when estimated by eye.
+
+## A [hidden] panel still shows
+
+The `hidden` attribute works through the UA stylesheet's `[hidden] { display: none }`,
+which any author `display` declaration beats. A tab panel that is also a grid
+(`.album__grid { display: grid }`) therefore ignores `hidden` and every panel renders at
+once. Pair the class with an explicit `[hidden] { display: none }` rule.
+
+## A wide table pushes the whole page sideways on a phone
+
+`overflow-x: auto` on a wrapper does not clip if the wrapper is a grid or flex item:
+those default to `min-width: auto`, so the item takes its min-content width from the
+table's `min-width` and the page grows instead. Set `min-width: 0` on the item. Caught
+at 375 px as 236 px of document overflow with `body { overflow-x: hidden }` masking it
+visually — measure `document.documentElement.scrollWidth - window.innerWidth`, do not
+trust the eye.
+
 ## An image edit ignores a layout or depth instruction
 
 Never combine "preserve the camera angle, horizon and framing" with a request to
