@@ -299,23 +299,6 @@
     .plan__toggle button { padding: 8px 17px; border: 0; border-radius: 999px; color: oklch(0.94 0.01 155); background: transparent; font-size: 0.78rem; font-weight: 700; cursor: pointer; transition: color 0.25s ease, background 0.25s ease; }
     .plan__toggle button[aria-current="true"] { color: var(--forest-deep); background: var(--white); }
 
-    .feasibility { background: var(--paper); }
-    .feas__grid { margin-top: 52px; display: grid; gap: 14px; }
-    /* min-width: 0 or the grid item takes its min-content width from the table's
-       560px min-width and pushes the whole page wider than the phone viewport */
-    .feas__card { min-width: 0; padding: clamp(22px, 3vw, 36px); border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); }
-    .feas__card h3 { color: var(--forest); font-size: clamp(1.15rem, 1.8vw, 1.5rem); font-weight: 500; letter-spacing: -0.025em; }
-    .feas__scroll { margin-top: 18px; overflow-x: auto; }
-    .feas__table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.88rem; font-variant-numeric: tabular-nums; }
-    .feas__table th, .feas__table td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: right; }
-    .feas__table th:first-child, .feas__table td:first-child { text-align: left; }
-    .feas__table thead th { color: var(--forest); font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
-    .feas__table tbody tr:last-child td { border-bottom: 0; }
-    .feas__table .is-total td { color: var(--forest); font-weight: 700; background: var(--sand-light); }
-    .feas__payback { margin-top: 18px; padding: 16px 18px; border-radius: 16px; color: var(--white); background: var(--forest); }
-    .feas__note { margin-top: 14px; color: var(--muted); font-size: 0.88rem; }
-    .feas__disclaimer { margin-top: 24px; color: var(--muted); font-size: 0.76rem; }
-
     .album { background: var(--paper); }
     .album__tabs { margin-top: 42px; display: flex; flex-wrap: wrap; gap: 8px; }
     .album__tab { padding: 11px 18px; border: 1px solid var(--line); border-radius: 999px; background: var(--sand-light); font-size: 0.84rem; font-weight: 500; cursor: pointer; transition: color 0.25s ease, background 0.25s ease, border-color 0.25s ease; }
@@ -579,14 +562,14 @@
         <p class="lede">Two grand three-bedroom suites, each taking a whole hall of the mansion as the family's own living room. It is the most generous family accommodation in the Emirates outside a private villa.</p>
         <div class="opening__media">
           <figure class="opening__photo" data-reveal>
-            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-hall.jpg" data-lightbox-caption="Concept for a Signature Suite: the hall as the family's private living room" data-lightbox-group="suites" aria-label="Open Signature Suite hall concept">
-              <img src="assets/concepts/concept-suite-hall.jpg" alt="Concept render of a grand mansion hall furnished as a family's private living room" loading="lazy">
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-hall-v2.jpg" data-lightbox-caption="Concept for a Signature Suite: the hall as the family's private living room" data-lightbox-group="suites" aria-label="Open Signature Suite hall concept">
+              <img src="assets/concepts/concept-suite-hall-v2.jpg" alt="Concept render of a grand mansion hall furnished as a family's private living room" loading="lazy">
             </button>
             <span class="current-label">Concept imagery</span>
           </figure>
           <figure class="opening__photo opening__photo--small" data-reveal>
-            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-majlis.jpg" data-lightbox-caption="Concept for the second Signature Suite's living hall" data-lightbox-group="suites" aria-label="Open second suite living hall concept">
-              <img src="assets/concepts/concept-suite-majlis.jpg" alt="Concept render of the second suite's long living hall with seating along the walls" loading="lazy">
+            <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-suite-majlis-v2.jpg" data-lightbox-caption="Concept for the second Signature Suite's living hall" data-lightbox-group="suites" aria-label="Open second suite living hall concept">
+              <img src="assets/concepts/concept-suite-majlis-v2.jpg" alt="Concept render of the second suite's long living hall with seating along the walls" loading="lazy">
             </button>
             <span class="current-label">Concept imagery</span>
           </figure>
@@ -644,8 +627,8 @@
         <h2 class="title title--medium" data-reveal>The swimming moves <em>into the garden.</em></h2>
         <p class="lede">With the Dome given over to dining, a new pool sits beside the mansion: ten metres by five, sunbeds all the way round, palms for shade and the garden in every direction.</p>
         <figure class="pool__figure" data-reveal>
-          <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-garden-pool.jpg" data-lightbox-caption="Concept for the garden pool beside the mansion" data-lightbox-group="pool" aria-label="Open garden pool concept">
-            <img src="assets/concepts/concept-garden-pool.jpg" alt="Concept render of a rectangular garden pool beside the mansion with sunbeds along both sides" loading="lazy">
+          <button class="zoomable" type="button" data-lightbox-src="assets/concepts/concept-garden-pool-v2.jpg" data-lightbox-caption="Concept for the garden pool beside the mansion" data-lightbox-group="pool" aria-label="Open garden pool concept">
+            <img src="assets/concepts/concept-garden-pool-v2.jpg" alt="Concept render of a rectangular garden pool beside the mansion with sunbeds along both sides" loading="lazy">
           </button>
           <span class="current-label">Concept imagery</span>
         </figure>
@@ -829,71 +812,6 @@
           <article class="why__item" data-reveal><h3>A licensed base</h3><p>An existing hotel licence turns the idea into an actionable hospitality story.</p></article>
           <article class="why__item" data-reveal><h3>A reason to return</h3><p>Animals, harvests and seasons make every family visit different.</p></article>
         </div>
-      </div>
-    </section>
-
-    <section class="section feasibility" id="feasibility">
-      <div class="shell">
-        <p class="eyebrow">Phase 1 feasibility</p>
-        <h2 class="title title--medium" data-reveal>Seven keys. <em>Payback in the third year.</em></h2>
-        <p class="lede">Phase 1 completes the estate as a seven-key hotel: two Signature Suites and five premium cabins, opening in the fourth quarter of 2027 under an operator. Fewer, better keys rather than volume.</p>
-        <div class="feas__grid">
-          <div class="feas__card" data-reveal>
-            <h3>Phase 1 investment</h3>
-            <div class="feas__scroll">
-              <table class="feas__table">
-                <thead><tr><th scope="col">Component</th><th scope="col">AED '000</th></tr></thead>
-                <tbody>
-                  <tr><td>Core estate works: water and sewage treatment, mansion and Dome conversion, reception, roof, electricity upgrade, staff setup, signage</td><td>870</td></tr>
-                  <tr><td>Five premium two-bedroom cabins</td><td>1,500</td></tr>
-                  <tr><td>Garden pool and sun terrace beside the mansion</td><td>350</td></tr>
-                  <tr><td>Mansion and Dome interiors, furniture and equipment</td><td>800</td></tr>
-                  <tr><td>Commercial kitchen and food and beverage fit-out</td><td>450</td></tr>
-                  <tr><td>Kids' World: Barn club, adventure playground, shaded kids' pool, animal welfare upgrades</td><td>500</td></tr>
-                  <tr><td>Landscape, shaded pathways, lighting</td><td>300</td></tr>
-                  <tr><td>Pre-opening: licensing, systems, hiring, linen, launch marketing</td><td>450</td></tr>
-                  <tr><td>Contingency, around 12 per cent</td><td>550</td></tr>
-                  <tr class="is-total"><td>Total Phase 1 investment</td><td>5,770</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="feas__note">Around AED 2.1M of the original works budget, covering thirty imported cabins and their infrastructure, moves to Phase 2 where it funds the expansion land alongside the stables and spa.</p>
-          </div>
-          <div class="feas__card" data-reveal>
-            <h3>Five-year forecast</h3>
-            <div class="feas__scroll">
-              <table class="feas__table">
-                <thead><tr><th scope="col">AED millions</th><th scope="col">2028</th><th scope="col">2029</th><th scope="col">2030</th><th scope="col">2031</th><th scope="col">2032</th></tr></thead>
-                <tbody>
-                  <tr><td>Occupancy</td><td>45%</td><td>55%</td><td>62%</td><td>65%</td><td>65%</td></tr>
-                  <tr><td>Room revenue</td><td>4.88</td><td>6.14</td><td>7.13</td><td>7.70</td><td>7.93</td></tr>
-                  <tr><td>Food and beverage</td><td>2.44</td><td>3.07</td><td>3.57</td><td>3.85</td><td>3.97</td></tr>
-                  <tr><td>Day programme and activities</td><td>0.50</td><td>0.80</td><td>1.00</td><td>1.10</td><td>1.15</td></tr>
-                  <tr><td>Events and venue hire</td><td>0.40</td><td>0.70</td><td>1.00</td><td>1.10</td><td>1.15</td></tr>
-                  <tr class="is-total"><td>Total revenue</td><td>8.2</td><td>10.7</td><td>12.7</td><td>13.8</td><td>14.2</td></tr>
-                  <tr><td>Payroll and staff housing, around 25 staff</td><td>(1.95)</td><td>(2.05)</td><td>(2.10)</td><td>(2.15)</td><td>(2.20)</td></tr>
-                  <tr><td>Food and beverage cost of sales</td><td>(0.80)</td><td>(1.00)</td><td>(1.15)</td><td>(1.25)</td><td>(1.30)</td></tr>
-                  <tr><td>Utilities, maintenance and farm care</td><td>(1.20)</td><td>(1.40)</td><td>(1.45)</td><td>(1.50)</td><td>(1.55)</td></tr>
-                  <tr><td>Sales, marketing and booking commissions</td><td>(0.90)</td><td>(1.00)</td><td>(1.00)</td><td>(1.05)</td><td>(1.05)</td></tr>
-                  <tr><td>Admin, insurance and licences</td><td>(0.60)</td><td>(0.75)</td><td>(0.75)</td><td>(0.75)</td><td>(0.75)</td></tr>
-                  <tr><td>Operator fees, base and incentive</td><td>(0.55)</td><td>(0.80)</td><td>(1.05)</td><td>(1.20)</td><td>(1.25)</td></tr>
-                  <tr class="is-total"><td>Total operating expenses</td><td>(6.0)</td><td>(7.0)</td><td>(7.5)</td><td>(7.9)</td><td>(8.1)</td></tr>
-                  <tr class="is-total"><td>Operating profit</td><td>2.2</td><td>3.7</td><td>5.2</td><td>5.9</td><td>6.1</td></tr>
-                  <tr><td>Profit margin</td><td>27%</td><td>35%</td><td>41%</td><td>43%</td><td>43%</td></tr>
-                  <tr><td>Cumulative profit</td><td>2.2</td><td>6.0</td><td>11.2</td><td>17.1</td><td>23.2</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p class="feas__payback">Cumulative earnings pass the AED 5.8M investment during 2030, the third operating year.</p>
-          </div>
-          <div class="feas__card" data-reveal>
-            <h3>Assumptions and sensitivity</h3>
-            <p class="feas__note">Rates: Signature Suite AED 8,000 at weekends and 6,000 midweek; cabin AED 4,000 and 2,000. Blended for weekend-weighted family demand, rising 3 per cent a year from 2029. Activities are bundled into the rate, with premium sessions, day visitors, destination dining at the Dome and off-peak events charged separately. Food and beverage is modelled at half of room revenue. Profit is operating profit before depreciation, and no rent is payable under the joint-venture structure.</p>
-            <p class="feas__note">If achieved rates settle 30 per cent below plan, stabilised revenue is around AED 8.9M with operating profit around AED 2.9M, and payback extends to the fifth operating year. The Dome's food and beverage, the day programme and events carry revenue that does not depend on room rates.</p>
-            <p class="feas__note">Common to every route: the estate enters the venture through a fifty-year registered musataha, the existing hotel licence enables nightly letting and licensed food and beverage, and no rent is paid to any shareholder. All returns flow through the venture.</p>
-          </div>
-        </div>
-        <p class="feas__disclaimer">Indicative pre-feasibility prepared for discussion. Not an offer, a valuation, or investment advice. July 2026.</p>
       </div>
     </section>
 

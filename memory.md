@@ -4,6 +4,26 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-07-27 - Family Farm: Jad's image round + feasibility moved off the page
+
+- Jad's email of 2026-07-25 (Gmail `19f99baceb2df761`) is four annotated screenshots.
+  The Gmail connector returns the body but **not** attachments, so the screenshots have
+  to be read another way - that is what cost the time, not the connector.
+- Three renders replaced, each under a new filename with the old file deleted in the
+  same commit: suite hall (door frames and the tall wall clad in the cabins' pale honey
+  oak), suite majlis (mint green gone, same oak, adults only - kids and toys removed),
+  garden pool (parasols and sunbed cushions Bordeaux **#7B1B38**, wood frames left
+  natural). Renderer: **`gemini-3-pro-image`** - "Nano Banana 2" - thinking high, 2K 16:9.
+- The majlis was not asked to match the hall; William chose the oak so the pair reads as
+  one hotel. Jad's brief was only "more farm like luxury adult living room".
+- **The `#feasibility` section is off the website entirely** - markup, CSS, no links
+  pointed at it. It now lives as a standalone 3-page A4 document at
+  `report/family-farm-al-hudaiba-phase-1-feasibility.html`, styled on the RAKBD/Maireed
+  developer report and marked Private & Confidential. `report/` sits outside the Vercel
+  root (`proposals`), so it is committed but never deployed.
+- Jad's fourth point - a bare block wall that should look painted and renovated - is
+  **not done**: the source image was never identified.
+
 ## 2026-07-25 - Family Farm: all eight of Jad's points built, awaiting review
 
 - Built locally and verified at 1280 / 1536x730 / 375, **not committed**: terrace copy
