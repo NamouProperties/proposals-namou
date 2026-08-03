@@ -4,6 +4,37 @@ New entries go at the top. Date format: YYYY-MM-DD.
 
 ---
 
+## 2026-08-03 - Postcard Hotels personalized version at proposals/postcard-hotels/
+
+- Jad met The Postcard Hotel (video call, 2026-08-03); they liked the family-boutique
+  concept, so the Saturday "recreate as wellness resort" brief is DEAD - superseded by
+  Jad's 4:04pm email (Gmail `19fc7b9e9a33e37d`, 8 points): duplicate the page to a
+  dedicated unlisted URL and personalize it for Postcard. William chose the slug
+  `/postcard-hotels`.
+- The page is a full copy of `family-farm-al-hudaiba` with: dedication band (Postcard
+  diamond logo, `assets/postcard-logo.jpg`), Dubai added to the map as a dashed grey
+  route + label (route-data renamed `route-data-v2.js` - cache-bust rule), concept
+  reframed to their criteria (21.5 acres combined, 30-35 keys, >800 sq ft, concept open,
+  Postcard leads design), album grown 16 -> 40 photos in 7 tabs (new tabs: The mansion,
+  Open land; includes 7 photos Jad sent by WhatsApp 2026-08-03), a "What we understood
+  from The Postcard" section (their six commercial terms), and the closing replaced by
+  one owner-funded-structure line + a 4-step next-steps timeline. No JV language
+  anywhere; brandmark lockup now "Hospitality Partnerships" on this page only.
+- **The tenth 360 existed all along**: `_tmp-renders/360/pano-04-majlis-2-raw.jpg` was
+  downloaded but deliberately skipped by `yaw-ruler.py` as a near-duplicate. It now
+  ships on the Postcard page as pin 10 "The second majlis" (yaw 10, read off the
+  ruler). The family-farm page still has nine.
+- Cabin exterior regenerated in the Durrung plantation-cottage style Jad asked for:
+  refs were the previous exterior (scale), the Durrung banner (architecture only) and
+  a real garden photo (setting); William picked dusk variant v2, then a second pass
+  made the lawn fully green. Shipped as `concept-cabin-exterior-postcard.jpg`; the
+  copied `concept-cabin-exterior-v2.jpg` was deleted from THIS page only.
+- Postcard's commercial terms (AED 770k/key, 25-year term, revenue share) are ON the
+  page by Jad's explicit instruction - which is why the page must stay unlisted and
+  why the repo went private before this commit.
+- Rebrandly slashtag `postcard-hotels` on properties.namou.ae -> the Vercel URL
+  (pending after deploy).
+
 ## 2026-07-27 - Family Farm: Jad's image round + feasibility moved off the page
 
 - Jad's email of 2026-07-25 (Gmail `19f99baceb2df761`) is four annotated screenshots.
@@ -13,7 +44,9 @@ New entries go at the top. Date format: YYYY-MM-DD.
   same commit: suite hall (door frames and the tall wall clad in the cabins' pale honey
   oak), suite majlis (mint green gone, same oak, adults only - kids and toys removed),
   garden pool (parasols and sunbed cushions Bordeaux **#7B1B38**, wood frames left
-  natural). Renderer: **`gemini-3-pro-image`** - "Nano Banana 2" - thinking high, 2K 16:9.
+  natural). Renderer: **`gemini-3.1-flash-image`** - this is "Nano Banana 2" - thinking
+  high, 2K 16:9. (Corrected 2026-08-03: this entry first recorded the model id as
+  `gemini-3-pro-image`, which is wrong. Nano Banana 2 is the flash id.)
 - The majlis was not asked to match the hall; William chose the oak so the pair reads as
   one hotel. Jad's brief was only "more farm like luxury adult living room".
 - **The `#feasibility` section is off the website entirely** - markup, CSS, no links
