@@ -434,10 +434,15 @@
       .lightbox__meta { bottom: 14px; }
     }
 
-    @media (prefers-reduced-transparency: reduce) {
-      .brandmark, .media-caption, .current-label, .gallery-control, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption { backdrop-filter: none; }
-      .brandmark, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption { background: var(--forest-deep); }
+    @media (prefers-reduced-transparency: reduce), (pointer: coarse) {
+      /* backdrop blur is repainted on every scroll frame - too costly on phones */
+      .brandmark, .media-caption, .current-label, .gallery-control, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption, .gallery-slide figcaption, .day-card__source, .map-pin__label, .investment-path { backdrop-filter: none; }
+      .brandmark, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption, .gallery-slide figcaption, .map-pin__label { background: var(--forest-deep); }
       .gallery-control { background: var(--paper); }
+    }
+    @media (pointer: coarse) {
+      /* native scroll on touch (no Lenis) - keep anchor jumps smooth */
+      html { scroll-behavior: smooth; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -1053,24 +1058,33 @@
   <script>
     (() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      /* Touch devices scroll natively: Lenis's rAF loop plus the scrubbed parallax
+         transforms are what made phone scrolling stutter. Desktop (fine pointer)
+         keeps the smooth scroll and the terrace parallax. */
+      const finePointer = window.matchMedia('(pointer: fine)').matches;
       let lenis = null;
 
-      if (!reduceMotion && window.Lenis && window.gsap && window.ScrollTrigger) {
+      if (!reduceMotion && window.gsap && window.ScrollTrigger) {
         gsap.registerPlugin(ScrollTrigger);
-        lenis = new Lenis({ anchors: true, smoothWheel: true, lerp: 0.085, orientation: 'vertical', gestureOrientation: 'vertical' });
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => lenis.raf(time * 1000));
-        gsap.ticker.lagSmoothing(0);
+
+        if (finePointer && window.Lenis) {
+          lenis = new Lenis({ anchors: true, smoothWheel: true, lerp: 0.085, orientation: 'vertical', gestureOrientation: 'vertical' });
+          lenis.on('scroll', ScrollTrigger.update);
+          gsap.ticker.add((time) => lenis.raf(time * 1000));
+          gsap.ticker.lagSmoothing(0);
+        }
 
         gsap.from('.hero__copy > *', { y: 30, opacity: 0, duration: 0.95, stagger: 0.09, ease: 'power3.out' });
         gsap.from('.hero__media', { scale: 0.96, opacity: 0, duration: 1.2, ease: 'power3.out' });
         document.querySelectorAll('[data-reveal]').forEach((element) => {
           gsap.from(element, { y: 42, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 87%', once: true } });
         });
-        gsap.utils.toArray('.terrace > .zoomable img').forEach((image) => {
-          gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
-        });
-        gsap.fromTo('.terrace__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
+        if (finePointer) {
+          gsap.utils.toArray('.terrace > .zoomable img').forEach((image) => {
+            gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
+          });
+          gsap.fromTo('.terrace__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
+        }
 
         gsap.matchMedia().add('(min-width: 981px)', () => {
           document.querySelectorAll('.horizontal-scroll').forEach((section) => {
