@@ -72,10 +72,11 @@ The Vercel root directory is `proposals`, so anything outside it is never deploy
 
 ## Still to do
 
-1. **Deploy + Rebrandly for the Postcard page** — commit `proposals/postcard-hotels/`
-   (repo must be private first — William's decision, confirmed), let Vercel deploy,
-   then create slashtag `postcard-hotels` on `properties.namou.ae`. Deadline: Jad
-   emails Postcard the morning of 2026-08-04.
+1. **Make the repo private** — William approved pushing regardless (2026-08-04, Jad's
+   deadline morning) and will flip visibility himself. The Postcard page deployed
+   2026-08-04 with Jad's final corrections (Al Hamraniyah, 395k core + 600k expansion,
+   one- to two-bedroom cabins); `properties.namou.ae/postcard-hotels` resolves and is
+   confirmed live.
 2. **Jad's fourth screenshot point** — a bare block wall that should look painted and
    renovated. Not done: the source image was never identified.
 3. **360 pin positions** — William reviewed them 2026-08-03: fine as they are. Pin 10
