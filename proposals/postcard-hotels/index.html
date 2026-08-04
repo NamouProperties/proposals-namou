@@ -117,7 +117,9 @@
     .current-label { position: absolute; z-index: 4; left: 14px; top: 14px; padding: 8px 11px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
     .zoomable { position: absolute; inset: 0; width: 100%; padding: 0; overflow: hidden; border: 0; background: none; cursor: zoom-in; }
     .zoomable img { transition: transform 0.8s var(--ease); }
-    .zoomable:hover img { transform: scale(1.025); }
+    @media (hover: hover) and (pointer: fine) {
+      .zoomable:hover img { transform: scale(1.025); }
+    }
 
     .vision { background: var(--sand-light); }
     .vision__head { max-width: 880px; }
