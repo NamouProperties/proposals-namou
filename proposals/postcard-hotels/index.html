@@ -75,9 +75,12 @@
     /* Jad's brief: no nav bar, logo only, floating, with the Hospitality Joint Ventures lockup */
     /* right side, not left: every media label sits top-left and the fixed mark would
        scroll straight through them */
-    .brandmark { position: fixed; z-index: 60; right: clamp(16px, 3vw, 30px); top: clamp(16px, 3vw, 26px); display: grid; gap: 6px; padding: 12px 17px; border: 1px solid oklch(1 0 0 / 0.2); border-radius: 16px; background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.16), 0 16px 42px oklch(0.18 0.03 158 / 0.18); backdrop-filter: blur(18px) saturate(135%); pointer-events: none; }
-    .brandmark img { width: auto; height: 22px; filter: brightness(0) invert(1); }
-    .brandmark span { color: oklch(0.9 0.02 155); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    .brandmark { position: fixed; z-index: 60; right: clamp(16px, 3vw, 30px); top: clamp(16px, 3vw, 26px); display: grid; gap: 7px; padding: 11px 14px; border: 1px solid oklch(1 0 0 / 0.2); border-radius: 16px; background: var(--glass-dark); box-shadow: inset 0 1px 0 oklch(1 0 0 / 0.16), 0 16px 42px oklch(0.18 0.03 158 / 0.18); backdrop-filter: blur(18px) saturate(135%); pointer-events: none; }
+    .brandmark__logos { display: flex; align-items: center; gap: 9px; }
+    .brandmark__namou { width: auto; height: 22px; filter: brightness(0) invert(1); }
+    .brandmark__postcard { width: auto; height: 28px; border-radius: 3px; }
+    .brandmark__x { color: oklch(0.9 0.02 155); font-size: 0.78rem; line-height: 1; }
+    .brandmark__label { color: oklch(0.9 0.02 155); font-size: 0.58rem; font-weight: 500; letter-spacing: 0.1em; text-align: center; text-transform: uppercase; }
 
     .hero { min-height: 100dvh; padding: 104px 24px 28px; display: grid; align-items: stretch; background: linear-gradient(135deg, var(--paper), var(--sand-light)); }
     .hero__grid { width: min(1500px, 100%); margin-inline: auto; display: grid; grid-template-columns: minmax(360px, 0.82fr) minmax(520px, 1.18fr); gap: clamp(32px, 5vw, 76px); align-items: center; }
@@ -375,9 +378,11 @@
     @media (max-width: 640px) {
       :root { --shell: calc(100vw - 24px); --radius: 18px; }
       .section { padding-block: 88px; }
-      .brandmark { padding: 9px 13px; gap: 4px; border-radius: 13px; }
-      .brandmark img { height: 18px; }
-      .brandmark span { font-size: 0.56rem; }
+      .brandmark { padding: 8px 10px; gap: 5px; border-radius: 13px; }
+      .brandmark__logos { gap: 7px; }
+      .brandmark__namou { height: 18px; }
+      .brandmark__postcard { height: 24px; }
+      .brandmark__label { font-size: 0.52rem; }
       .hero { padding-top: 88px; }
       .hero h1 { width: 100%; max-width: 100%; font-size: clamp(3rem, 13vw, 3.7rem); line-height: 0.92; text-wrap: auto; overflow-wrap: normal; }
       .hero__sub { margin-top: 22px; }
@@ -507,8 +512,12 @@
   <a class="skip-link" href="#content">Skip to content</a>
 
   <div class="brandmark">
-    <img src="assets/namou-logo.png" alt="Namou Properties">
-    <span>Hospitality Partnerships</span>
+    <div class="brandmark__logos">
+      <img class="brandmark__namou" src="assets/namou-logo.png" alt="Namou Properties">
+      <span class="brandmark__x" aria-hidden="true">&times;</span>
+      <img class="brandmark__postcard" src="assets/postcard-logo.jpg" alt="The Postcard Hotel">
+    </div>
+    <span class="brandmark__label">Hospitality Partnerships</span>
   </div>
 
   <main id="content">
