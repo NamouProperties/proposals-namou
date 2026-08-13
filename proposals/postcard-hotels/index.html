@@ -12,7 +12,6 @@
   <link rel="preload" href="assets/fonts/satoshi-300.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/satoshi-400.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="assets/fonts/satoshi-500.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/vendor/lenis-1.3.25.css">
   <link rel="stylesheet" href="assets/vendor/leaflet-1.9.4.css">
   <link rel="stylesheet" href="assets/vendor/pannellum-2.5.6.css">
   <style>
@@ -145,9 +144,6 @@
     .gallery-slide figcaption { position: absolute; z-index: 4; left: 16px; right: 16px; bottom: 16px; width: fit-content; max-width: calc(100% - 32px); padding: 9px 12px; border-radius: 12px; color: var(--white); background: var(--glass-dark); backdrop-filter: blur(12px); font-size: 0.78rem; }
 
     .terrace { position: relative; min-height: 88dvh; overflow: hidden; display: grid; align-items: end; color: var(--white); background: var(--forest-deep); }
-    /* the 0.8s hover-zoom transition fights the scrubbed parallax - GSAP retargets transform every
-       frame and the transition eases toward each new value, smearing the drift. Scrub owns this one. */
-    .terrace > .zoomable img { transition: none; }
     .terrace::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, oklch(0.18 0.03 158 / 0.05), oklch(0.16 0.03 158 / 0.76)); pointer-events: none; }
     .terrace__copy { position: relative; z-index: 3; padding-bottom: clamp(58px, 9vw, 118px); }
     .terrace h2 { max-width: 900px; font-size: clamp(3.4rem, 7vw, 7.5rem); font-weight: 400; letter-spacing: -0.065em; line-height: 0.9; }
@@ -376,20 +372,6 @@
       .suites__pair .opening__photo { min-height: 360px; }
     }
 
-    @media (min-width: 981px) {
-      /* the section is pinned, so anything past the viewport is unreachable. Cap it to the viewport
-         and let the track absorb whatever height the heading block leaves - a taller heading now
-         shrinks the slides instead of pushing them under the window edge. */
-      .horizontal-scroll { height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
-      .horizontal-scroll .gallery-head { flex: 0 0 auto; }
-      .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; flex: 1 1 auto; min-height: 0; }
-      /* slides keep the photos' native 16:9 so nothing crops: height comes from the space left over,
-         width follows the aspect ratio, and 58vw caps it again on tall screens */
-      .horizontal-scroll .gallery-track { display: flex; }
-      .horizontal-scroll .gallery-slide { min-height: 0; height: 100%; width: auto; max-width: 58vw; aspect-ratio: 16 / 9; flex: 0 0 auto; }
-      .horizontal-scroll .day-card { min-height: 0; max-height: min(440px, 52dvh); }
-    }
-
     @media (max-width: 640px) {
       :root { --shell: calc(100vw - 24px); --radius: 18px; }
       .section { padding-block: 88px; }
@@ -442,11 +424,6 @@
       .brandmark, .media-caption, .current-label, .lightbox__close, .lightbox__nav, .lightbox__meta, .plan__toggle, .explore__pin span, .explore__viewer-label, .explore__viewer-hint, .album__item figcaption, .gallery-slide figcaption, .map-pin__label { background: var(--forest-deep); }
       .gallery-control { background: var(--paper); }
     }
-    @media (pointer: coarse) {
-      /* native scroll on touch (no Lenis) - keep anchor jumps smooth */
-      html { scroll-behavior: smooth; }
-    }
-
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
     }
@@ -900,9 +877,9 @@
             <button class="explore__pin" type="button" style="left: 75%; top: 76.5%;" data-pano-id="entrance-hall" data-pano="assets/panoramas/pano-03-mansion-entrance.jpg" data-pano-name="Mansion entrance hall" data-pano-yaw="0" data-pano-pitch="0" aria-label="Look around the mansion entrance hall">3<span>Entrance hall</span></button>
             <button class="explore__pin" type="button" style="left: 72.5%; top: 54.5%;" data-pano-id="outdoor-majlis" data-pano="assets/panoramas/pano-06-outdoor-majlis.jpg" data-pano-name="The outdoor majlis" data-pano-yaw="-110" data-pano-pitch="0" aria-label="Look around the outdoor majlis">4<span>Outdoor majlis</span></button>
             <button class="explore__pin" type="button" style="left: 46.5%; top: 29%;" data-pano-id="greenhouses" data-pano="assets/panoramas/pano-07-greenhouses.jpg" data-pano-name="By the greenhouses" data-pano-yaw="35" data-pano-pitch="0" aria-label="Look around by the greenhouses">5<span>Greenhouses</span></button>
-            <button class="explore__pin" type="button" style="left: 74%; top: 34.5%;" data-pano-id="water-tower" data-pano="assets/panoramas/pano-08-tower.jpg" data-pano-name="The water tower" data-pano-yaw="25" data-pano-pitch="2" aria-label="Look around at the water tower">6<span>The water tower</span></button>
+            <button class="explore__pin" type="button" style="left: 53.5%; top: 59%;" data-pano-id="water-tower" data-pano="assets/panoramas/pano-08-tower.jpg" data-pano-name="The water tower" data-pano-yaw="25" data-pano-pitch="2" aria-label="Look around at the water tower">6<span>The water tower</span></button>
             <button class="explore__pin" type="button" style="left: 33%; top: 27%;" data-pano-id="cattle-shed" data-pano="assets/panoramas/pano-10-cattle-shed.jpg" data-pano-name="Inside the cattle shed" data-pano-yaw="25" data-pano-pitch="0" aria-label="Look around inside the cattle shed">7<span>Cattle shed</span></button>
-            <button class="explore__pin" type="button" style="left: 82.5%; top: 72.5%;" data-pano-id="majlis-second" data-pano="assets/panoramas/pano-04-majlis-2.jpg" data-pano-name="The second majlis" data-pano-yaw="10" data-pano-pitch="0" aria-label="Look around inside the second majlis">8<span>Second majlis</span></button>
+            <button class="explore__pin" type="button" style="left: 82.5%; top: 72.5%;" data-pano-id="white-hall" data-pano="assets/panoramas/pano-04-majlis-2.jpg" data-pano-name="The white hall" data-pano-yaw="10" data-pano-pitch="0" aria-label="Look around inside the white hall">8<span>White hall</span></button>
             <span class="current-label">Concept site plan</span>
           </figure>
           <ol class="explore__list" data-reveal>
@@ -911,12 +888,12 @@
             <li><button class="explore__item" type="button" data-pano-target="entrance-hall"><span class="explore__item-number">3</span><span><span class="explore__item-name">Mansion entrance hall</span><span class="explore__item-note">Majlis to your right as you enter</span></span></button></li>
             <li><button class="explore__item" type="button" data-pano-target="outdoor-majlis"><span class="explore__item-number">4</span><span><span class="explore__item-name">The outdoor majlis</span><span class="explore__item-note">The round pavilion under the old tree</span></span></button></li>
             <li><button class="explore__item" type="button" data-pano-target="greenhouses"><span class="explore__item-number">5</span><span><span class="explore__item-name">By the greenhouses</span><span class="explore__item-note">Growing rows and the service track</span></span></button></li>
-            <li><button class="explore__item" type="button" data-pano-target="water-tower"><span class="explore__item-number">6</span><span><span class="explore__item-name">The water tower</span><span class="explore__item-note">The round tower among the palms</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="water-tower"><span class="explore__item-number">6</span><span><span class="explore__item-name">The water tower</span><span class="explore__item-note">Beside the ducks</span></span></button></li>
             <li><button class="explore__item" type="button" data-pano-target="cattle-shed"><span class="explore__item-number">7</span><span><span class="explore__item-name">Inside the cattle shed</span><span class="explore__item-note">Shaded stalls with the herd in place</span></span></button></li>
-            <li><button class="explore__item" type="button" data-pano-target="majlis-second"><span class="explore__item-number">8</span><span><span class="explore__item-name">The second majlis</span><span class="explore__item-note">The white hall with the garden windows</span></span></button></li>
+            <li><button class="explore__item" type="button" data-pano-target="white-hall"><span class="explore__item-number">8</span><span><span class="explore__item-name">The white hall</span><span class="explore__item-note">A bright hall with garden windows</span></span></button></li>
           </ol>
         </div>
-        <figure class="explore__viewer" id="explore-viewer" data-lenis-prevent>
+        <figure class="explore__viewer" id="explore-viewer">
           <div class="explore__stage" id="pano-stage"></div>
           <div class="explore__poster">
             <img src="assets/panoramas/poster-terrace.jpg" alt="The terrace outside the first-floor bedrooms, looking towards the arched pavilion" loading="lazy">
@@ -955,7 +932,7 @@
 
         <div class="album__grid album__panel" role="tabpanel" id="panel-halls" aria-labelledby="tab-halls" hidden>
           <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/majlis-main.jpg" data-lightbox-caption="The majlis" data-lightbox-group="album-halls" aria-label="Open majlis photo"><img src="assets/gallery/majlis-main.jpg" alt="The long green majlis with seating along both walls" loading="lazy"></button><figcaption>The majlis</figcaption></figure>
-          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/majlis-second.jpg" data-lightbox-caption="The second majlis" data-lightbox-group="album-halls" aria-label="Open second majlis photo"><img src="assets/gallery/majlis-second.jpg" alt="The second majlis, white walled with chandeliers" loading="lazy"></button><figcaption>The second majlis</figcaption></figure>
+          <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/majlis-second.jpg" data-lightbox-caption="The white hall" data-lightbox-group="album-halls" aria-label="Open white hall photo"><img src="assets/gallery/majlis-second.jpg" alt="The white hall with chandeliers and garden windows" loading="lazy"></button><figcaption>The white hall</figcaption></figure>
           <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/hall-stairs.jpg" data-lightbox-caption="Entrance hall and stair" data-lightbox-group="album-halls" aria-label="Open entrance hall photo"><img src="assets/gallery/hall-stairs.jpg" alt="Entrance hall with polished floor and the main stair" loading="lazy"></button><figcaption>Entrance hall</figcaption></figure>
           <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/hall-arched-doors.jpg" data-lightbox-caption="Inner hall with arched doors" data-lightbox-group="album-halls" aria-label="Open inner hall photo"><img src="assets/gallery/hall-arched-doors.jpg" alt="Inner hall with tall arched doors onto the garden" loading="lazy"></button><figcaption>Inner hall</figcaption></figure>
           <figure class="album__item"><button class="zoomable" type="button" data-lightbox-src="assets/gallery/living-room.jpg" data-lightbox-caption="The living room" data-lightbox-group="album-halls" aria-label="Open living room photo"><img src="assets/gallery/living-room.jpg" alt="The green living hall with garden views on two sides" loading="lazy"></button><figcaption>The living room</figcaption></figure>
@@ -1044,79 +1021,19 @@
   <dialog class="lightbox" id="lightbox" aria-label="Image preview">
     <button class="lightbox__close" type="button" aria-label="Close image preview">&#10005;</button>
     <button class="lightbox__nav lightbox__prev" type="button" aria-label="Previous image">&#8592;</button>
-    <div class="lightbox__inner" data-lenis-prevent>
+    <div class="lightbox__inner">
       <div class="lightbox__stage"><img class="lightbox__image" src="" alt=""></div>
     </div>
     <button class="lightbox__nav lightbox__next" type="button" aria-label="Next image">&#8594;</button>
     <div class="lightbox__meta"><span class="lightbox__caption"></span><span class="lightbox__counter"></span></div>
   </dialog>
 
-  <script src="assets/vendor/gsap-3.13.0.min.js"></script>
-  <script src="assets/vendor/scrolltrigger-3.13.0.min.js"></script>
-  <script src="assets/vendor/lenis-1.3.25.min.js"></script>
   <script src="assets/vendor/leaflet-1.9.4.min.js"></script>
   <script src="assets/vendor/pannellum-2.5.6.min.js"></script>
   <script src="assets/route-data-v2.js"></script>
   <script>
     (() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      /* Touch devices scroll natively: Lenis's rAF loop plus the scrubbed parallax
-         transforms are what made phone scrolling stutter. Desktop (fine pointer)
-         keeps the smooth scroll and the terrace parallax. */
-      const finePointer = window.matchMedia('(pointer: fine)').matches;
-      let lenis = null;
-
-      if (!reduceMotion && window.gsap && window.ScrollTrigger) {
-        gsap.registerPlugin(ScrollTrigger);
-
-        if (finePointer && window.Lenis) {
-          lenis = new Lenis({ anchors: true, smoothWheel: true, lerp: 0.085, orientation: 'vertical', gestureOrientation: 'vertical' });
-          lenis.on('scroll', ScrollTrigger.update);
-          gsap.ticker.add((time) => lenis.raf(time * 1000));
-          gsap.ticker.lagSmoothing(0);
-        }
-
-        gsap.from('.hero__copy > *', { y: 30, opacity: 0, duration: 0.95, stagger: 0.09, ease: 'power3.out' });
-        gsap.from('.hero__media', { scale: 0.96, opacity: 0, duration: 1.2, ease: 'power3.out' });
-        document.querySelectorAll('[data-reveal]').forEach((element) => {
-          gsap.from(element, { y: 42, opacity: 0, duration: 0.9, ease: 'power3.out', scrollTrigger: { trigger: element, start: 'top 87%', once: true } });
-        });
-        if (finePointer) {
-          gsap.utils.toArray('.terrace > .zoomable img').forEach((image) => {
-            gsap.fromTo(image, { yPercent: -4, scale: 1.06 }, { yPercent: 4, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
-          });
-          gsap.fromTo('.terrace__copy', { yPercent: 8 }, { yPercent: -10, ease: 'none', scrollTrigger: { trigger: '.terrace', start: 'top bottom', end: 'bottom top', scrub: true } });
-        }
-
-        gsap.matchMedia().add('(min-width: 981px)', () => {
-          document.querySelectorAll('.horizontal-scroll').forEach((section) => {
-            const track = section.querySelector('.gallery-track, .day-track');
-            if (!track) return;
-
-            const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
-            track.scrollLeft = 0;
-
-            gsap.to(track, {
-              scrollLeft: () => distance(),
-              ease: 'none',
-              scrollTrigger: {
-                trigger: section,
-                start: 'top top',
-                end: () => `+=${distance()}`,
-                pin: true,
-                scrub: 1,
-                anticipatePin: 1,
-                invalidateOnRefresh: true,
-                /* pins must measure before every later trigger. Without this the terrace parallax
-                   refreshes first, misses this section's pin spacer, and lands its whole scrub
-                   one pin-distance too early - so it finishes off-screen and looks frozen. */
-                refreshPriority: 1
-              }
-            });
-          });
-        });
-      }
-
       const setupScroller = (id) => {
         const track = document.getElementById(id);
         if (!track) return;
@@ -1219,13 +1136,11 @@
         renderLightbox();
         dialog.showModal();
         document.body.classList.add('is-locked');
-        lenis?.stop();
         dialog.querySelector('.lightbox__close').focus();
       };
       const closeLightbox = () => {
         if (dialog.open) dialog.close();
         document.body.classList.remove('is-locked');
-        lenis?.start();
         returnFocus?.focus();
       };
       const stepLightbox = (direction) => { activeIndex = (activeIndex + direction + activeItems.length) % activeItems.length; renderLightbox(); };
@@ -1259,7 +1174,6 @@
             other.setAttribute('aria-selected', String(selected));
             document.getElementById(other.getAttribute('aria-controls')).hidden = !selected;
           });
-          if (window.ScrollTrigger) ScrollTrigger.refresh();
         });
       });
 
@@ -1285,16 +1199,12 @@
           viewerBox.querySelector('.explore__poster').hidden = true;
           viewerBox.querySelector('.explore__viewer-hint').hidden = false;
           if (viewer) viewer.loadScene(id);
-          /* mouseZoom off on purpose: the page is smooth-scrolled, and a wheel-zoom here
-             traps the scroll. Pinch and the +/- controls still zoom. */
+          /* Wheel zoom traps page scrolling. Pinch and the +/- controls still zoom. */
           else viewer = pannellum.viewer('pano-stage', {
             default: { firstScene: id, autoLoad: true, sceneFadeDuration: 500, minHfov: 55, maxHfov: 118, minPitch: -68, maxPitch: 80, mouseZoom: false, showControls: false, compass: false, friction: 0.22 },
             scenes
           });
-          if (window.matchMedia('(max-width: 980px)').matches) {
-            if (lenis) lenis.scrollTo(viewerBox, { offset: -70 });
-            else viewerBox.scrollIntoView({ block: 'center' });
-          }
+          if (window.matchMedia('(max-width: 980px)').matches) viewerBox.scrollIntoView({ block: 'center' });
         };
 
         panoPins.forEach((pin) => pin.addEventListener('click', () => showPano(pin.dataset.panoId)));
@@ -1302,7 +1212,6 @@
         viewerBox.querySelector('.explore__poster-button').addEventListener('click', () => showPano('terrace'));
       }
 
-      window.addEventListener('load', () => { if (window.ScrollTrigger) ScrollTrigger.refresh(); }, { once: true });
     })();
   </script>
 </body>
