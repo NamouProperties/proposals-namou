@@ -375,6 +375,15 @@
       .suites__pair .opening__photo { min-height: 360px; }
     }
 
+    @media (min-width: 981px) and (hover: hover) and (pointer: fine) {
+      .horizontal-scroll { height: 100dvh; padding-top: 104px; padding-bottom: 26px; display: flex; flex-direction: column; justify-content: center; }
+      .horizontal-scroll .gallery-head { flex: 0 0 auto; }
+      .horizontal-scroll .gallery-track, .horizontal-scroll .day-track { margin-top: 38px; scroll-snap-type: none; flex: 1 1 auto; min-height: 0; }
+      .horizontal-scroll .gallery-track { display: flex; }
+      .horizontal-scroll .gallery-slide { min-height: 0; height: 100%; width: auto; max-width: 58vw; aspect-ratio: 16 / 9; flex: 0 0 auto; }
+      .horizontal-scroll .day-card { min-height: 0; max-height: min(440px, 52dvh); }
+    }
+
     @media (max-width: 640px) {
       :root { --shell: calc(100vw - 24px); --radius: 18px; }
       .section { padding-block: 88px; }
@@ -1037,12 +1046,41 @@
     <div class="lightbox__meta"><span class="lightbox__caption"></span><span class="lightbox__counter"></span></div>
   </dialog>
 
+  <script src="assets/vendor/gsap-3.13.0.min.js"></script>
+  <script src="assets/vendor/scrolltrigger-3.13.0.min.js"></script>
   <script src="assets/vendor/leaflet-1.9.4.min.js"></script>
   <script src="assets/vendor/pannellum-2.5.6.min.js"></script>
   <script src="assets/route-data-v2.js"></script>
   <script>
     (() => {
       const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ponytail: desktop gets only the requested pinned side-scroll; phones stay native. */
+      if (!reduceMotion && window.gsap && window.ScrollTrigger) {
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.matchMedia().add('(min-width: 981px) and (hover: hover) and (pointer: fine)', () => {
+          document.querySelectorAll('.horizontal-scroll').forEach((section) => {
+            const track = section.querySelector('.gallery-track, .day-track');
+            if (!track) return;
+            const distance = () => Math.max(0, track.scrollWidth - track.clientWidth);
+            track.scrollLeft = 0;
+            gsap.to(track, {
+              scrollLeft: () => distance(),
+              ease: 'none',
+              scrollTrigger: {
+                trigger: section,
+                start: 'top top',
+                end: () => `+=${distance()}`,
+                pin: true,
+                scrub: 1,
+                anticipatePin: 1,
+                invalidateOnRefresh: true
+              }
+            });
+          });
+        });
+      }
+
       const setupScroller = (id) => {
         const track = document.getElementById(id);
         if (!track) return;
@@ -1220,6 +1258,8 @@
         panoItems.forEach((item) => item.addEventListener('click', () => showPano(item.dataset.panoTarget)));
         viewerBox.querySelector('.explore__poster-button').addEventListener('click', () => showPano('terrace'));
       }
+
+      window.addEventListener('load', () => window.ScrollTrigger?.refresh(), { once: true });
 
     })();
   </script>
