@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="/maireed-residential-111k/">
+  <title>Al Maireed Plot — 111,337 sq ft | Namou Properties</title>
+  <meta name="description" content="A premium 111,337 sq ft freehold residential plot in Al Maireed, Ras Al Khaimah, with B+G+2 height allowance and flexible plot-merging options.">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="assets/vendor/leaflet-1.9.4.css">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg-alt: #F5F5F5;
+      --bg-soft: #FAFAFA;
+      --ink: #121212;
+      --ink-muted: #555555;
+      --ink-soft: #888888;
+      --line: rgba(0, 0, 0, 0.08);
+      --line-strong: rgba(0, 0, 0, 0.16);
+      --accent: #00B073;
+      --accent-deep: #00C980;
+      --accent-dark: #003D2E;
+      --accent-subtle: rgba(0, 176, 115, 0.10);
+      --ease: cubic-bezier(0.16, 1, 0.3, 1);
+      --font-sans: "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      --font-serif: "Instrument Serif", Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    main, section { overflow-x: clip; position: relative; }
+    img { max-width: 100%; height: auto; display: block; }
+
+    .serif { font-family: var(--font-serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+
+    /* Section shell */
+    .section { padding: 120px 24px; }
+    @media (min-width: 1024px) { .section { padding: 150px 48px; } }
+    .section--tight { padding: 88px 24px; }
+    @media (min-width: 1024px) { .section--tight { padding: 104px 48px; } }
+    .section__inner { max-width: 1200px; margin: 0 auto; }
+    .section__inner--center { text-align: center; }
+
+    .eyebrow {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex; align-items: center; gap: 10px;
+      margin-bottom: 20px;
+    }
+    .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--accent); }
+
+    .section__title {
+      font-weight: 500;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--ink);
+      max-width: 880px;
+      text-wrap: balance;
+      margin-bottom: 24px;
+    }
+    .section__lede {
+      font-size: clamp(15px, 1.2vw, 18px);
+      color: var(--ink-muted);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .section__inner--center .section__title,
+    .section__inner--center .section__lede { margin-left: auto; margin-right: auto; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      min-height: 100svh;
+      display: flex;
+      align-items: flex-end;
+      padding: 80px 24px;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .hero__bg {
+      position: absolute; inset: 0; z-index: -1;
+      background-size: cover;
+      background-position: center 55%;
+    }
+    .hero__bg::after {
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.10) 35%, rgba(0,0,0,0.88) 100%),
+        linear-gradient(90deg, rgba(0,61,46,0.42) 0%, transparent 60%);
+    }
+    .hero__inner { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; width: 100%; color: #fff; }
+    .hero__logo img {
+      height: clamp(46px, 5vw, 60px); width: auto;
+      filter: brightness(0) invert(1);
+      margin-bottom: 24px;
+    }
+    .hero__eyebrow {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      display: inline-flex; align-items: center; gap: 12px;
+      margin-bottom: 18px;
+    }
+    .hero__eyebrow::before { content: ""; width: 28px; height: 1px; background: var(--accent); }
+    .hero__title {
+      font-weight: 500;
+      font-size: clamp(2.6rem, 6vw, 5rem);
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+      color: #fff;
+      max-width: 1000px;
+      text-wrap: balance;
+    }
+    .hero__title .serif { color: #fff; }
+    .hero__sub {
+      font-size: clamp(15px, 1.25vw, 18px);
+      color: rgba(255,255,255,0.78);
+      max-width: 560px;
+      line-height: 1.65;
+      margin-top: 20px;
+    }
+    .hero__meta {
+      display: flex; flex-wrap: wrap;
+      margin-top: 36px;
+      padding-top: 28px;
+      border-top: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero__meta-item {
+      padding-right: 40px;
+      margin-right: 40px;
+      border-right: 1px solid rgba(255,255,255,0.18);
+    }
+    .hero__meta-item:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+    .hero__meta-value {
+      font-size: clamp(1.3rem, 2vw, 1.8rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: #fff;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .hero__meta-label {
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.62);
+    }
+    @media (max-width: 560px) {
+      .hero__meta-item {
+        padding-right: 0; margin-right: 0; border-right: 0;
+        width: 100%;
+        padding-bottom: 16px; margin-bottom: 16px;
+        border-bottom: 1px solid rgba(255,255,255,0.14);
+      }
+      .hero__meta-item:last-child { border-bottom: 0; padding-bottom: 0; margin-bottom: 0; }
+    }
+
+    /* Overview cards */
+    .overview__head { margin-bottom: 56px; }
+    .overview__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 900px) { .overview__grid { grid-template-columns: 1fr; } }
+    .spec-card {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 44px 40px;
+      background: var(--bg-soft);
+    }
+    .spec-card__title {
+      font-weight: 500;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--line);
+    }
+    .spec-card__title .serif { color: var(--accent); }
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 20px;
+      padding: 14px 0;
+      border-bottom: 1px dashed var(--line);
+    }
+    .spec-row:last-child { border-bottom: 0; padding-bottom: 0; }
+    .spec-row__label {
+      font-size: 13px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+    }
+    .spec-row__value {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: right;
+      letter-spacing: -0.01em;
+    }
+
+    /* Plot photo section */
+    .onsite__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .onsite__copy .section__title { margin-top: 8px; }
+    .onsite__copy .section__lede { margin-top: 16px; margin-bottom: 0; }
+    .onsite__media img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 6px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+    }
+    @media (max-width: 900px) {
+      .onsite__grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Static map block */
+    .map { background: var(--bg-alt); padding: 56px 24px; }
+    @media (min-width: 1024px) { .map { padding: 72px 48px; } }
+    .map__inner { max-width: 1200px; margin: 0 auto; }
+    .map__caption {
+      text-align: center;
+      margin-bottom: 28px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .map__caption h2 {
+      font-weight: 500;
+      font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .map__caption h2 .serif { color: var(--accent); }
+    .map__caption p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      margin-bottom: 18px;
+    }
+    .map__media {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #0d1714;
+      box-shadow: 0 18px 50px rgba(0, 61, 46, 0.10);
+    }
+    .map__media img {
+      width: 100%;
+      height: auto;
+      max-height: 540px;
+      object-fit: cover;
+      display: block;
+    }
+    .map__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 22px;
+      margin-top: 24px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-family: var(--font-sans);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      transition: background 0.3s var(--ease);
+    }
+    .map__cta:hover { background: var(--accent-deep); }
+
+    /* ROI emerald-dark band */
+    .roi { background: var(--accent-dark); color: #fff; }
+    .roi .section__title { color: #fff; }
+    .roi .section__title .serif { color: var(--accent-deep); }
+    .roi .section__lede { color: rgba(255,255,255,0.65); }
+    .roi .eyebrow { color: var(--accent-deep); }
+    .roi .eyebrow::before { background: var(--accent-deep); }
+    .roi__head { text-align: center; max-width: 760px; margin: 0 auto 56px; }
+    .roi__head .section__title { margin: 0 auto 20px; }
+    .roi__head .section__lede { margin: 0 auto; }
+    .roi__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    @media (max-width: 900px) { .roi__grid { grid-template-columns: 1fr; } }
+    .roi-card {
+      padding: 40px 34px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      border-radius: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    .roi-card__tag {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent-deep);
+      margin-bottom: 14px;
+      display: block;
+    }
+    .roi-card__title {
+      font-weight: 500;
+      font-size: 1.4rem;
+      letter-spacing: -0.02em;
+      color: #fff;
+      margin-bottom: 14px;
+    }
+    .roi-card__body {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+    .roi-card__metric {
+      margin-top: auto;
+      padding-top: 22px;
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+    }
+    .roi-card__metric-value {
+      font-size: 1.5rem;
+      font-weight: 500;
+      letter-spacing: -0.025em;
+      color: var(--accent-deep);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+    .roi-card__metric-label {
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .roi__disclaimer {
+      margin-top: 40px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.48);
+      line-height: 1.7;
+      text-align: center;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Payment table */
+    .payment__head { margin-bottom: 48px; }
+    .payment__table-wrap {
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      overflow: hidden;
+    }
+    .payment__table-wrap + .payment__table-wrap { margin-top: 24px; }
+    .payment-table { width: 100%; border-collapse: collapse; }
+    .payment-table thead th {
+      background: var(--bg-alt);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: var(--ink-soft);
+      text-align: left;
+      padding: 18px 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    .payment-table thead th:last-child { text-align: right; }
+    .payment-table tbody td {
+      padding: 22px 28px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+    .payment-table tbody tr:last-child td { border-bottom: 0; }
+    .payment-table__milestone {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+    }
+    .payment-table__note {
+      display: block;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--ink-soft);
+      margin-top: 4px;
+      letter-spacing: 0.01em;
+    }
+    .payment-table__amount {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--ink);
+      text-align: right;
+      white-space: nowrap;
+    }
+    .payment-table tr.payment-table--total td { background: var(--accent-subtle); }
+    .payment-table tr.payment-table--total .payment-table__milestone,
+    .payment-table tr.payment-table--total .payment-table__amount { color: var(--accent-dark); }
+
+    /* Considerations + conditions */
+    .detail__grid {
+      display: grid;
+      grid-template-columns: 1.1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    @media (max-width: 900px) { .detail__grid { grid-template-columns: 1fr; gap: 48px; } }
+    .detail__block-title {
+      font-weight: 500;
+      font-size: 1.5rem;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 24px;
+    }
+    .detail__block-title .serif { color: var(--accent); }
+    .considerations { list-style: none; counter-reset: c; }
+    .considerations li {
+      position: relative;
+      padding: 0 0 20px 44px;
+      margin-bottom: 20px;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+    }
+    .considerations li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+    .considerations li::before {
+      counter-increment: c;
+      content: counter(c, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .conditions { list-style: none; }
+    .conditions li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px dashed var(--line);
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.5;
+    }
+    .conditions li:last-child { border-bottom: 0; }
+    .conditions li::before {
+      content: "";
+      flex-shrink: 0;
+      width: 7px;
+      height: 7px;
+      margin-top: 7px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .conditions__wrap {
+      background: var(--bg-soft);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 36px;
+    }
+
+    /* Site plan */
+    .siteplan { background: var(--bg-alt); padding: 64px 24px; }
+    @media (min-width: 1024px) { .siteplan { padding: 80px 48px; } }
+    .siteplan__inner { max-width: 1100px; margin: 0 auto; }
+    .siteplan__caption {
+      text-align: center;
+      margin-bottom: 28px;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .siteplan__caption h2 {
+      font-weight: 500;
+      font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+      letter-spacing: -0.025em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .siteplan__caption h2 .serif { color: var(--accent); }
+    .siteplan__caption p {
+      font-size: 14px;
+      color: var(--ink-muted);
+      line-height: 1.6;
+    }
+    .siteplan__media {
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: #fff;
+      box-shadow: 0 18px 50px rgba(0, 61, 46, 0.08);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .siteplan__media img { width: 100%; height: auto; display: block; }
+
+    /* Closing */
+    .closing {
+      padding: 130px 24px;
+      background: var(--ink);
+      color: var(--bg);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .closing::before {
+      content: "";
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 50% 100%, rgba(0, 176, 115, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .closing__inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
+    .closing__logo img {
+      height: 38px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      margin: 0 auto 30px;
+      display: block;
+      opacity: 0.9;
+    }
+    .closing__title {
+      font-weight: 500;
+      font-size: clamp(2rem, 4.5vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.035em;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+    .closing__title .serif { color: var(--accent-deep); }
+    .closing__sub {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.66);
+      max-width: 520px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .closing__contact {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 13px 22px;
+      border: 1px solid rgba(255,255,255,0.20);
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      text-decoration: none;
+      transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+    }
+    .closing__contact:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.36);
+    }
+    .closing__contact svg { width: 16px; height: 16px; }
+
+    /* Footer */
+    .footer {
+      position: relative;
+      overflow: hidden;
+      padding: 52px 24px 28px;
+      background: var(--ink);
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .footer::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 95% at 50% 100%, rgba(0, 176, 115, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+    .footer__inner, .footer__bottom { position: relative; z-index: 1; }
+    .footer__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 48px;
+    }
+    .footer__brand img {
+      height: 28px;
+      width: auto;
+      margin-bottom: 14px;
+      filter: brightness(0) invert(1);
+      opacity: 0.9;
+    }
+    .footer__brand p {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.55);
+      max-width: 300px;
+      line-height: 1.6;
+    }
+    .footer__col h5 {
+      font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.45);
+      margin-bottom: 14px;
+    }
+    .footer__col span {
+      display: block;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.85);
+      margin-bottom: 8px;
+    }
+    .footer__bottom {
+      max-width: 1200px;
+      margin: 40px auto 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255, 255, 255, 0.10);
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+      letter-spacing: 0.04em;
+    }
+    @media (max-width: 800px) { .footer__inner { grid-template-columns: 1fr; gap: 32px; } }
+
+    /* ===== Interactive map (Leaflet) ===== */
+    .map__media { background: #0d1714; }
+    .map__canvas { width: 100%; height: clamp(420px, 56svh, 540px); display: block; }
+    .map__canvas .leaflet-control-zoom { border: 1px solid rgba(255,255,255,0.28); border-radius: 12px; overflow: hidden; }
+    .map__canvas .leaflet-control-zoom a { color: var(--accent-dark); border-color: rgba(0,0,0,0.08); }
+    .map__canvas .leaflet-control-attribution { font-size: 10px; background: rgba(255,255,255,0.74); }
+    .plot-pin-wrap { background: transparent; border: 0; }
+    .plot-pin { position: relative; display: block; width: 110px; height: 70px; filter: drop-shadow(0 4px 6px rgba(0,0,0,0.35)); }
+    .plot-pin__label { position: absolute; left: 50%; top: 0; transform: translateX(-50%); z-index: 2; padding: 5px 10px; border-radius: 999px; background: rgba(255,255,255,0.94); color: var(--accent-dark); font-family: var(--font-sans); font-size: 11px; font-weight: 700; letter-spacing: 0.04em; line-height: 1; white-space: nowrap; }
+    .plot-pin__shape { position: absolute; left: 37px; top: 22px; display: block; width: 36px; height: 48px; }
+    .plot-popup .leaflet-popup-content-wrapper { background: rgba(255,255,255,0.96); border-radius: 12px; }
+    .plot-popup .leaflet-popup-content { font-family: var(--font-sans); font-size: 12px; color: var(--accent-dark); }
+
+    /* ===== Photo gallery (swiper) ===== */
+    .gallery { background: var(--bg-alt); padding: 64px 24px; }
+    @media (min-width: 1024px) { .gallery { padding: 80px 48px; } }
+    .gallery__inner { max-width: 1000px; margin: 0 auto; }
+    .gallery__head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
+    .gallery__head h2 { font-weight: 500; font-size: clamp(1.5rem, 2.4vw, 2.1rem); letter-spacing: -0.025em; line-height: 1.1; color: var(--ink); margin-bottom: 10px; }
+    .gallery__head h2 .serif { color: var(--accent); }
+    .gallery__head p { font-size: 14px; color: var(--ink-muted); line-height: 1.6; }
+    .swiper { position: relative; border-radius: 24px; overflow: hidden; border: 1px solid var(--line); background: #0d1714; box-shadow: 0 18px 50px rgba(0,61,46,0.10); }
+    .swiper__track { display: flex; transition: transform 0.6s var(--ease); }
+    .swiper__slide { min-width: 100%; }
+    .swiper__slide img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; display: block; }
+    .swiper__btn { position: absolute; top: 50%; transform: translateY(-50%); z-index: 3; width: 46px; height: 46px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); background: rgba(8,16,14,0.55); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
+    .swiper__btn:hover { background: rgba(0,176,115,0.85); border-color: rgba(255,255,255,0.5); }
+    .swiper__btn svg { width: 18px; height: 18px; }
+    .swiper__btn--prev { left: 16px; }
+    .swiper__btn--next { right: 16px; }
+    .swiper__dots { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 8px; }
+    .swiper__dot { width: 8px; height: 8px; border-radius: 999px; border: 0; padding: 0; cursor: pointer; background: rgba(255,255,255,0.4); transition: background 0.3s var(--ease), width 0.3s var(--ease); }
+    .swiper__dot.is-active { background: #fff; width: 22px; }
+
+    /* ===== Two-up site plans ===== */
+    .siteplan__pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 1000px; margin: 0 auto; }
+    @media (max-width: 760px) { .siteplan__pair { grid-template-columns: 1fr; } }
+    .siteplan__fig { margin: 0; }
+    .siteplan__fig .siteplan__media { max-width: none; margin: 0; }
+    .siteplan__fig figcaption { text-align: center; font-size: 12px; color: var(--ink-soft); margin-top: 10px; letter-spacing: 0.04em; }
+    [data-zoomable] { cursor: zoom-in; }
+
+    /* ===== Lightbox ===== */
+    .lightbox { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; padding: 40px; background: rgba(6,12,10,0.93); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+    .lightbox.is-open { display: flex; }
+    .lightbox__stage { position: relative; max-width: 100%; max-height: 100%; overflow: hidden; display: flex; align-items: center; justify-content: center; touch-action: none; }
+    .lightbox__img { max-width: 92vw; max-height: 86vh; object-fit: contain; display: block; border-radius: 8px; cursor: zoom-in; user-select: none; -webkit-user-drag: none; transition: transform 0.16s ease-out; will-change: transform; box-shadow: 0 30px 80px rgba(0,0,0,0.5); }
+    .lightbox__close { position: fixed; top: 22px; right: 26px; z-index: 2; width: 48px; height: 48px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.3); background: rgba(8,16,14,0.6); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s var(--ease), border-color 0.3s var(--ease); }
+    .lightbox__close:hover { background: rgba(0,176,115,0.85); border-color: rgba(255,255,255,0.5); }
+    .lightbox__close svg { width: 20px; height: 20px; }
+    .lightbox__hint { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); font-family: var(--font-sans); font-size: 12px; letter-spacing: 0.04em; color: rgba(255,255,255,0.6); pointer-events: none; }
+    @media (max-width: 600px) { .lightbox { padding: 16px; } .lightbox__hint { font-size: 11px; } }
+  </style>
+</head>
+<body>
+  <main>
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero__bg" style="background-image:url('assets/hero.jpg')"></div>
+      <div class="hero__inner">
+        <div class="hero__logo">
+          <img src="assets/namou-logo.png" alt="Namou Properties">
+        </div>
+        <span class="hero__eyebrow">Residential Land · Al Maireed, Ras Al Khaimah</span>
+        <h1 class="hero__title">
+          <span>Al Maireed</span> <span class="serif">Residential</span> <span>Plot</span>
+        </h1>
+        <p class="hero__sub">A tranquil coastal residential plot in Ras Al Khaimah, moments from the Corniche and ready for immediate development.</p>
+        <div class="hero__meta">
+          <div class="hero__meta-item">
+            <div class="hero__meta-value">111,337 sq ft</div>
+            <div class="hero__meta-label">Plot area</div>
+          </div>
+          <div class="hero__meta-item">
+            <div class="hero__meta-value">AED 38,968,104</div>
+            <div class="hero__meta-label">Asking price</div>
+          </div>
+          <div class="hero__meta-item">
+            <div class="hero__meta-value">Freehold corner plot</div>
+            <div class="hero__meta-label">Ownership status</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Overview Section -->
+    <section class="section overview">
+      <div class="section__inner">
+        <div class="overview__head">
+          <span class="eyebrow">Overview</span>
+          <h2 class="section__title">Plot <span class="serif">specifications</span></h2>
+          <p class="section__lede">This expansive freehold residential plot in Al Maireed offers a building envelope of B(optional)+G+2, ideal for high-end residential development.</p>
+        </div>
+        <div class="overview__grid">
+          <!-- Card 1: Location & Size -->
+          <div class="spec-card">
+            <h3 class="spec-card__title">Location & <span class="serif">Size</span></h3>
+            <div class="spec-row">
+              <span class="spec-row__label">District</span>
+              <span class="spec-row__value">Al Maireed, Ras Al Khaimah</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Plot area</span>
+              <span class="spec-row__value">111,337 sq ft</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Position</span>
+              <span class="spec-row__value">Corner plot with adjacent merging options</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">RAK Corniche</span>
+              <span class="spec-row__value">Close to the corniche and beaches</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">RAK International Airport</span>
+              <span class="spec-row__value">25 minutes</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Al Marjan Island</span>
+              <span class="spec-row__value">30 minutes</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Build Potential -->
+          <div class="spec-card">
+            <h3 class="spec-card__title">Build <span class="serif">Potential</span></h3>
+            <div class="spec-row">
+              <span class="spec-row__label">Land usage</span>
+              <span class="spec-row__value">Residential</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Maximum building height</span>
+              <span class="spec-row__value">B(optional) +G+2</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Floor Area Ratio (FAR)</span>
+              <span class="spec-row__value">3</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">Maximum GFA</span>
+              <span class="spec-row__value">334,011 sq ft</span>
+            </div>
+            <div class="spec-row">
+              <span class="spec-row__label">BUA coverage</span>
+              <span class="spec-row__value">75%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Plot Photo Section -->
+    <section class="section onsite">
+      <div class="section__inner">
+        <div class="onsite__grid">
+          <div class="onsite__copy">
+            <span class="eyebrow">On the plot today</span>
+            <h2 class="section__title">A coastal setting primed for <span class="serif">development</span></h2>
+            <p class="section__lede">Al Maireed’s freehold residential plot sits in a tranquil coastal district of Ras Al Khaimah, just moments from the Corniche, beaches, and major leisure destinations. The area’s seaside setting and urban proximity make it perfect for bespoke villas or private family residences.</p>
+            <p class="section__lede">All roads and utilities are complete, ensuring immediate development readiness. Adjacent plots can be merged for larger designs; corner plots must include the adjoining one.</p>
+          </div>
+          <div class="onsite__media">
+            <img src="assets/land.jpg" alt="View of the plot">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Photo Gallery (swiper) -->
+    <section class="gallery">
+      <div class="gallery__inner">
+        <div class="gallery__head">
+          <h2>On the <span class="serif">ground</span></h2>
+          <p>Recent photography of the plot and its coastal setting. Swipe through, or tap any image to zoom.</p>
+        </div>
+        <div class="swiper" data-swiper>
+          <div class="swiper__track">
+            <div class="swiper__slide"><img src="assets/onsite-1.jpg" alt="The Al Maireed plot and its surroundings" data-zoomable></div>
+            <div class="swiper__slide"><img src="assets/onsite-2.jpg" alt="The Al Maireed plot and its surroundings" data-zoomable></div>
+            <div class="swiper__slide"><img src="assets/onsite-3.jpg" alt="The Al Maireed plot and its surroundings" data-zoomable></div>
+            <div class="swiper__slide"><img src="assets/onsite-4.jpg" alt="The Al Maireed plot and its surroundings" data-zoomable></div>
+            <div class="swiper__slide"><img src="assets/onsite.jpg" alt="The Al Maireed plot at sunset, the open sea in front and the Hajar mountains behind" data-zoomable></div>
+          </div>
+          <button class="swiper__btn swiper__btn--prev" type="button" aria-label="Previous image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <button class="swiper__btn swiper__btn--next" type="button" aria-label="Next image">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+          <div class="swiper__dots">
+            <button class="swiper__dot is-active" type="button" aria-label="Go to image 1"></button>
+            <button class="swiper__dot" type="button" aria-label="Go to image 2"></button>
+            <button class="swiper__dot" type="button" aria-label="Go to image 3"></button>
+            <button class="swiper__dot" type="button" aria-label="Go to image 4"></button>
+            <button class="swiper__dot" type="button" aria-label="Go to image 5"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map">
+      <div class="map__inner">
+        <div class="map__caption">
+          <h2>The <span class="serif">location</span></h2>
+          <p>The plot's position within Al Maireed and its proximity to the surrounding coastal road network.</p>
+          <a class="map__cta" href="https://maps.app.goo.gl/sM9dApPNbQnR1RtC6" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+        </div>
+        <div class="map__media">
+          <div id="plot-map" class="map__canvas" aria-label="Satellite map showing the Al Maireed plot location"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROI Section -->
+    <section class="section roi">
+      <div class="section__inner">
+        <div class="roi__head">
+          <span class="eyebrow">Financial Potential</span>
+          <h2 class="section__title">Indicative <span class="serif">returns</span></h2>
+          <p class="section__lede">Indicative returns vary depending on the investor's intent — whether to hold, build, or rent.</p>
+        </div>
+        <div class="roi__grid">
+          <!-- Card 1 -->
+          <div class="roi-card">
+            <span class="roi-card__tag">Flipper · Land appreciation</span>
+            <h3 class="roi-card__title">Acquire and resell</h3>
+            <p class="roi-card__body">An expected 12–20% indicative return on capital over a 12–24 month horizon as infrastructure in Al Maireed matures.</p>
+            <div class="roi-card__metric">
+              <div class="roi-card__metric-value">AED 4.68M – 7.79M</div>
+              <div class="roi-card__metric-label">Indicative profit</div>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="roi-card">
+            <span class="roi-card__tag">Developer · Build-to-sell</span>
+            <h3 class="roi-card__title">Build and sell on completion</h3>
+            <p class="roi-card__body">An expected 17–25% indicative profit margin upon developing and selling premium residential units in this coastal district.</p>
+            <div class="roi-card__metric">
+              <div class="roi-card__metric-value">AED 6.62M – 9.74M</div>
+              <div class="roi-card__metric-label">Indicative profit</div>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="roi-card">
+            <span class="roi-card__tag">End-user · Build-to-rent</span>
+            <h3 class="roi-card__title">Develop and lease</h3>
+            <p class="roi-card__body">An expected 7–9% annual rental yield, providing stable recurring cash flow from a high-demand residential area.</p>
+            <div class="roi-card__metric">
+              <div class="roi-card__metric-value">7 – 9% yield</div>
+              <div class="roi-card__metric-label">Expected annual rental</div>
+            </div>
+          </div>
+        </div>
+        <p class="roi__disclaimer">All figures are indicative and based on current market assumptions for a 111,337 sq ft Residential plot in Al Maireed.</p>
+      </div>
+    </section>
+
+    <!-- Payment Plan Section -->
+    <section class="section payment">
+      <div class="section__inner">
+        <div class="payment__head">
+          <span class="eyebrow">Acquisition</span>
+          <h2 class="section__title">Payment <span class="serif">plan</span></h2>
+          <p class="section__lede">A structured payment plan featuring a booking deposit, an SPA milestone, and the balance spread over four years. Choose instalments every three months or every six months.</p>
+        </div>
+        <div class="payment__table-wrap">
+          <table class="payment-table">
+            <thead>
+              <tr>
+                <th>Option A &middot; every 3 months</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">10% Booking</span>
+                <span class="payment-table__note">Due at booking</span>
+              </td>
+              <td class="payment-table__amount">AED 3,896,810</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">10% SPA</span>
+                <span class="payment-table__note">Within 30 days of booking</span>
+              </td>
+              <td class="payment-table__amount">AED 3,896,810</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">80% Instalments</span>
+                <span class="payment-table__note">16 instalments over 4 years &middot; approx. AED 1,948,405 each</span>
+              </td>
+              <td class="payment-table__amount">AED 31,174,483</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">Land Registration Fee &middot; 2%</span>
+                <span class="payment-table__note">Payable on transfer of title</span>
+              </td>
+              <td class="payment-table__amount">AED 779,362</td>
+            </tr>
+            <tr class="payment-table--total">
+              <td>
+                <span class="payment-table__milestone">Commission &middot; 2%</span>
+                <span class="payment-table__note">Payable on transfer of title</span>
+              </td>
+              <td class="payment-table__amount">AED 779,362</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="payment__table-wrap">
+          <table class="payment-table">
+            <thead>
+              <tr>
+                <th>Option B &middot; every 6 months</th>
+                <th style="text-align: right;">Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">10% Booking</span>
+                <span class="payment-table__note">Due at booking</span>
+              </td>
+              <td class="payment-table__amount">AED 3,896,810</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">10% SPA</span>
+                <span class="payment-table__note">Within 30 days of booking</span>
+              </td>
+              <td class="payment-table__amount">AED 3,896,810</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">80% Instalments</span>
+                <span class="payment-table__note">8 instalments over 4 years &middot; AED 3,896,810 each</span>
+              </td>
+              <td class="payment-table__amount">AED 31,174,483</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="payment-table__milestone">Land Registration Fee &middot; 2%</span>
+                <span class="payment-table__note">Payable on transfer of title</span>
+              </td>
+              <td class="payment-table__amount">AED 779,362</td>
+            </tr>
+            <tr class="payment-table--total">
+              <td>
+                <span class="payment-table__milestone">Commission &middot; 2%</span>
+                <span class="payment-table__note">Payable on transfer of title</span>
+              </td>
+              <td class="payment-table__amount">AED 779,362</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Detail Section -->
+    <section class="section section--tight">
+      <div class="section__inner">
+        <div class="detail__grid">
+          <!-- Left: Considerations -->
+          <div>
+            <h3 class="detail__block-title">Key <span class="serif">considerations</span></h3>
+            <ol class="considerations">
+              <li>Construction must be completed within 5 years.</li>
+              <li>A construction delay penalty of AED 0.025 per day per sq ft of GFA applies.</li>
+              <li>A payment delay penalty of 8% p.a. applies for any default period.</li>
+              <li>Buyers have the option to merge plots. If buying a corner plot, the adjoining plot must be purchased together.</li>
+            </ol>
+          </div>
+          <!-- Right: Conditions -->
+          <div class="conditions__wrap">
+            <h3 class="detail__block-title">Site <span class="serif">conditions</span></h3>
+            <ul class="conditions">
+              <li>Road / curb level elevation</li>
+              <li>Protrusions / projections allowed</li>
+              <li>Electricity capacity</li>
+              <li>Water availability & capacity</li>
+              <li>Sewage connection / vacuum station</li>
+              <li>Land productivity / water & incentives</li>
+              <li>Groundwater access</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Site Plan Section -->
+    <section class="siteplan">
+      <div class="siteplan__inner">
+        <div class="siteplan__caption">
+          <h2>The <span class="serif">site plan</span></h2>
+          <p>The plot boundaries and layout within the residential master community. Tap either plan to open a full-size, zoomable view.</p>
+        </div>
+        <div class="siteplan__pair">
+          <figure class="siteplan__fig">
+            <div class="siteplan__media">
+              <img src="assets/site-plan.jpg" alt="Site plan of the Al Maireed plot within the master community" data-zoomable>
+            </div>
+            <figcaption>Master community layout</figcaption>
+          </figure>
+          <figure class="siteplan__fig">
+            <div class="siteplan__media">
+              <img src="assets/site-plan-2.png" alt="Block layout showing the plot grid in the Al Maireed residential area" data-zoomable>
+            </div>
+            <figcaption>Block plot layout</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section class="closing">
+      <div class="closing__inner">
+        <div class="closing__logo">
+          <img src="assets/namou-logo.png" alt="Namou Properties">
+        </div>
+        <h2 class="closing__title">
+          <span>Register your interest in the</span> <span class="serif">Al Maireed</span> <span>plot.</span>
+        </h2>
+        <p class="closing__sub">For a viewing, title documents, or any question on this plot, reach the Namou team directly.</p>
+        <a class="closing__contact" href="https://wa.me/971569636360" target="_blank" rel="noopener noreferrer">
+          <svg class="closing__contact-icon" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M20.52 3.48A11.86 11.86 0 0 0 12 0C5.37 0 .03 5.34.03 11.97a11.92 11.92 0 0 0 1.6 6L0 24l6.18-1.62a11.97 11.97 0 0 0 5.82 1.5h.01c6.62 0 11.97-5.34 11.97-11.97 0-3.2-1.25-6.21-3.46-8.43zM12 21.85h-.01a9.86 9.86 0 0 1-5.03-1.38l-.36-.21-3.66.96.98-3.57-.23-.37a9.85 9.85 0 0 1-1.53-5.31C2.16 6.5 6.5 2.16 12 2.16c2.63 0 5.1 1.03 6.95 2.89A9.79 9.79 0 0 1 21.84 12c0 5.5-4.34 9.85-9.84 9.85z"/>
+          </svg>
+          WhatsApp the Namou team
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__brand">
+        <img src="assets/namou-logo.png" alt="Namou Properties">
+        <p>A premier real estate advisory specializing in high-potential land acquisitions and residential developments across the UAE.</p>
+      </div>
+      <div class="footer__col">
+        <h5>Contact</h5>
+        <span>📞 +971 4 439 7269</span>
+        <span>🌐 namou.ae</span>
+      </div>
+      <div class="footer__col">
+        <h5>Office</h5>
+        <span>Ras Al Khaimah</span>
+        <span>United Arab Emirates</span>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <div>Al Maireed Residential Plot · 111,337 sq ft</div>
+      <div>All figures indicative and subject to final contract.</div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/leaflet-1.9.4.min.js"></script>
+  <script>
+/* Namou brochure — interactive plot map + photo swiper + image lightbox.
+   No external library beyond Leaflet (loaded via CDN in index.html). */
+(function () {
+  "use strict";
+
+  /* ---- Plot satellite map (Esri World Imagery, no API key) ---- */
+  var mapEl = document.getElementById("plot-map");
+  if (mapEl && window.L) {
+    var plotLat = 25.829107;
+    var plotLng = 55.972191;
+    var plotLabel = "111,337 sq ft";
+    var plotPopup = "Al Maireed Plot &middot; 111,337 sq ft";
+
+    var map = L.map(mapEl, {
+      zoomControl: false, scrollWheelZoom: false, touchZoom: true,
+      dragging: true, tap: true, zoomSnap: 0.25
+    }).setView([plotLat, plotLng], 16);
+
+    L.control.zoom({ position: "bottomright" }).addTo(map);
+
+    L.tileLayer(
+      "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+      { maxZoom: 19, attribution: "Tiles &copy; Esri" }
+    ).addTo(map);
+
+    var icon = L.divIcon({
+      className: "plot-pin-wrap",
+      html:
+        '<span class="plot-pin">' +
+          '<span class="plot-pin__label">' + plotLabel + '</span>' +
+          '<svg class="plot-pin__shape" viewBox="0 0 36 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<path d="M18 0 C8.06 0 0 8.06 0 18 C0 30 18 48 18 48 C18 48 36 30 36 18 C36 8.06 27.94 0 18 0 Z" fill="#00B073" stroke="#fff" stroke-width="2"/>' +
+            '<circle cx="18" cy="18" r="6" fill="#fff"/>' +
+          '</svg>' +
+        '</span>',
+      iconSize: [110, 70], iconAnchor: [55, 68], popupAnchor: [0, -52]
+    });
+
+    var marker = L.marker([plotLat, plotLng], { icon: icon, title: plotLabel }).addTo(map);
+    marker.bindPopup(plotPopup, { className: "plot-popup", closeButton: false });
+    marker.on("mouseover", function () { this.openPopup(); });
+  }
+
+  /* ---- Photo swiper (transform-based slider, prev/next + dots + touch) ---- */
+  var swiper = document.querySelector("[data-swiper]");
+  if (swiper) {
+    var track = swiper.querySelector(".swiper__track");
+    var slides = swiper.querySelectorAll(".swiper__slide");
+    var dots = swiper.querySelectorAll(".swiper__dot");
+    var prev = swiper.querySelector(".swiper__btn--prev");
+    var next = swiper.querySelector(".swiper__btn--next");
+    var idx = 0;
+    var count = slides.length;
+
+    function go(n) {
+      idx = (n + count) % count;
+      track.style.transform = "translateX(" + (-idx * 100) + "%)";
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === idx); });
+    }
+    if (prev) prev.addEventListener("click", function () { go(idx - 1); });
+    if (next) next.addEventListener("click", function () { go(idx + 1); });
+    dots.forEach(function (d, i) { d.addEventListener("click", function () { go(i); }); });
+
+    var x0 = null;
+    swiper.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+    swiper.addEventListener("touchend", function (e) {
+      if (x0 === null) return;
+      var dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) { go(dx < 0 ? idx + 1 : idx - 1); }
+      x0 = null;
+    }, { passive: true });
+
+    go(0);
+  }
+
+  /* ---- Lightbox: click any [data-zoomable] image to preview + zoom ---- */
+  var zoomables = document.querySelectorAll("[data-zoomable]");
+  if (zoomables.length) {
+    var lb = document.createElement("div");
+    lb.className = "lightbox";
+    lb.setAttribute("aria-hidden", "true");
+    lb.innerHTML =
+      '<button class="lightbox__close" type="button" aria-label="Close">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>' +
+      '</button>' +
+      '<div class="lightbox__stage"><img class="lightbox__img" alt="" draggable="false" /></div>' +
+      '<div class="lightbox__hint">Scroll or double-click to zoom &middot; drag to pan</div>';
+    document.body.appendChild(lb);
+
+    var lbImg = lb.querySelector(".lightbox__img");
+    var stage = lb.querySelector(".lightbox__stage");
+    var scale = 1, tx = 0, ty = 0;
+    var dragging = false, sx = 0, sy = 0;
+
+    function apply() {
+      lbImg.style.transform = "translate(" + tx + "px," + ty + "px) scale(" + scale + ")";
+      lbImg.style.cursor = scale > 1 ? "grab" : "zoom-in";
+    }
+    function reset() { scale = 1; tx = 0; ty = 0; apply(); }
+    function open(src, alt) {
+      lbImg.src = src; lbImg.alt = alt || "";
+      reset();
+      lb.classList.add("is-open");
+      lb.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+    function close() {
+      lb.classList.remove("is-open");
+      lb.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    zoomables.forEach(function (el) {
+      el.style.cursor = "zoom-in";
+      el.addEventListener("click", function () { open(el.currentSrc || el.src, el.alt); });
+    });
+
+    lb.querySelector(".lightbox__close").addEventListener("click", close);
+    lb.addEventListener("click", function (e) { if (e.target === lb || e.target === stage) close(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && lb.classList.contains("is-open")) close();
+    });
+
+    stage.addEventListener("wheel", function (e) {
+      e.preventDefault();
+      scale = Math.min(5, Math.max(1, scale - e.deltaY * 0.0016));
+      if (scale === 1) { tx = 0; ty = 0; }
+      apply();
+    }, { passive: false });
+
+    lbImg.addEventListener("dblclick", function (e) {
+      e.preventDefault();
+      if (scale > 1) { reset(); } else { scale = 2.4; apply(); }
+    });
+
+    lbImg.addEventListener("mousedown", function (e) {
+      if (scale <= 1) return;
+      e.preventDefault();
+      dragging = true; sx = e.clientX - tx; sy = e.clientY - ty;
+      lbImg.style.cursor = "grabbing";
+    });
+    window.addEventListener("mousemove", function (e) {
+      if (!dragging) return;
+      tx = e.clientX - sx; ty = e.clientY - sy; apply();
+    });
+    window.addEventListener("mouseup", function () {
+      if (!dragging) return;
+      dragging = false; lbImg.style.cursor = scale > 1 ? "grab" : "zoom-in";
+    });
+
+    var pinchStart = 0, scaleStart = 1, panSx = 0, panSy = 0;
+    function dist(t) { var dx = t[0].clientX - t[1].clientX, dy = t[0].clientY - t[1].clientY; return Math.hypot(dx, dy); }
+    stage.addEventListener("touchstart", function (e) {
+      if (e.touches.length === 2) { pinchStart = dist(e.touches); scaleStart = scale; }
+      else if (e.touches.length === 1 && scale > 1) { panSx = e.touches[0].clientX - tx; panSy = e.touches[0].clientY - ty; }
+    }, { passive: true });
+    stage.addEventListener("touchmove", function (e) {
+      if (e.touches.length === 2 && pinchStart) {
+        e.preventDefault();
+        scale = Math.min(5, Math.max(1, scaleStart * (dist(e.touches) / pinchStart)));
+        if (scale === 1) { tx = 0; ty = 0; }
+        apply();
+      } else if (e.touches.length === 1 && scale > 1) {
+        e.preventDefault();
+        tx = e.touches[0].clientX - panSx; ty = e.touches[0].clientY - panSy; apply();
+      }
+    }, { passive: false });
+    stage.addEventListener("touchend", function (e) { if (e.touches.length < 2) pinchStart = 0; }, { passive: true });
+  }
+})();
+
+</script>
+</body>
+</html>
